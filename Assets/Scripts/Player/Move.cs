@@ -16,33 +16,98 @@ public class Move : MonoBehaviour
     [SerializeField] float jumpHeight = 5.0f;
 
     Vector2 moveInput;
+    float idleMoveTreshold = 1.5f;
 
     private void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
-        
+        MoveCheck();
     }
 
     private void OnJump()
+    {
+        Jump();
+    }
+
+    private void Update()
+    {
+        FlipSprite();
+        UpdateVelocity();
+        JumpCheck();
+        IdleCheck();
+    }
+
+    /// <summary>
+    /// Flips player sprite based rb's velocity / Direction
+    /// </summary>
+    private void FlipSprite()
+    {
+        if (moveInput.x > 0)
+        {
+            _transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (moveInput.x < 0)
+        {
+            _transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+    }
+    /// <summary>
+    /// Updates velocity based on the moveInput (from OnMove())
+    /// </summary>
+    private void UpdateVelocity()
+    {
+        _rb.velocity = new Vector2(moveSpeed * moveInput.x, _rb.velocity.y);
+    }
+    /// <summary>
+    /// Adds impulse force to the rb's
+    /// </summary>
+    private void Jump()
     {
         if (_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             _rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
         }
     }
-
-    private void Update()
+    /// <summary>
+    /// Check to see if playerstate should be turned to running
+    /// </summary>
+    private void MoveCheck()
     {
-        _rb.velocity = new Vector2(moveSpeed * moveInput.x, _rb.velocity.y);
-        FlipSprite();
-    }
-
-
-    private void FlipSprite()
-    {
-        if (Mathf.Abs(_rb.velocity.x) > Mathf.Epsilon)
+        if (_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            _transform.localScale = new Vector3(Mathf.Sign(moveInput.x), 1, 1);
+            _player.RunningState();
+        }
+    }
+    /// <summary>
+    /// Check to see if playerstate should be turned to jumping
+    /// </summary>
+    private void JumpCheck()
+    {
+        if (!_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            if (_rb.velocity.y > Mathf.Epsilon)
+            {
+                _player.JumpingUpState();
+            }
+            else
+            {
+                _player.JumpingDownState();
+            }
+        }
+        else
+        {
+            _player.RunningState();
+        }
+    }
+    /// <summary>
+    /// Check to see if the playerstate should be turned to Idling
+    /// </summary>
+    private void IdleCheck()
+    {
+        if (Mathf.Abs(_rb.velocity.x) < idleMoveTreshold && _feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        {
+            _player.IdlingState();
         }
     }
 

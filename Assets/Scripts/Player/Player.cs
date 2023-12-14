@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public enum equipped
+    {
+        Spear,
+        Magic
+    }
     public enum state
     {
         Idling,
         Running,
-        Jumping,
+        JumpingUp,
+        JumpingDown,
         Casting,
-        Flying
     }
 
     private state _state = state.Idling;
+    private equipped _equipped = equipped.Spear;
 
     public state ActualState()
     {
         return _state;
+    }
+    public equipped ActualEquipped()
+    {
+        return _equipped;
     }
     public void IdlingState()
     {
@@ -27,16 +37,16 @@ public class Player : MonoBehaviour
     {
         _state = state.Running;
     }
-    public void JumpingState()
+    public void JumpingUpState()
     {
-        _state = state.Jumping;
+        _state = state.JumpingUp;
+    }
+    public void JumpingDownState()
+    {
+        _state = state.JumpingDown;
     }
     public void CastingState()
     {
         _state = state.Casting;
-    }
-    public void FlyingState()
-    {
-        _state = state.Flying;
     }
 }
