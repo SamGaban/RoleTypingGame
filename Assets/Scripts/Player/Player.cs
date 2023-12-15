@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
     }
     private void OnCast()
     {
-        ToggleCasting();
+        //ToggleCasting();
     }
     /// <summary>
     /// Casting state on or off if the actual state is using magic

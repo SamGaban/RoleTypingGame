@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using CastDictionary;
-using SentenceGenerator;
 using TypingComparator;
 
 public class Caster : MonoBehaviour
@@ -11,20 +9,16 @@ public class Caster : MonoBehaviour
     [SerializeField] Player _player;
     [SerializeField] Canvas _canvas;
     [SerializeField] TMP_Text _text;
-
-    Grimoire _grimoire;
+    WordsGenerator _generator;
 
     private void Start()
     {
-        _grimoire = new Grimoire("fireball", 1);
-        _grimoire.AddSpell("by the power of the ancients shields", 2);
+        _generator = new WordsGenerator();
     }
 
     private void Update()
     {
         FlipCanvas();
-
-        UpdateCanvasText();
 
         if (_player.ActualState() == Player.state.Casting)
         {
@@ -37,11 +31,6 @@ public class Caster : MonoBehaviour
                     if (IsRelevantKey(kcode))
                     {
                         char keyChar = (char)kcode;
-                        if (_grimoire.ListenToIncantation(keyChar))
-                        {
-                            _player.ToggleCasting();
-                            Debug.Log($"Casted spell {_grimoire.ReturnIncantation()}");
-                        }
                     }
                 }
             }
@@ -50,11 +39,25 @@ public class Caster : MonoBehaviour
         else
         {
             _canvas.gameObject.SetActive(false);
-            _grimoire.ClearIncantation();
         }
     }
 
+    private void OnSkill1()
+    {
 
+    }
+    private void OnSkill2()
+    {
+
+    }
+    private void OnSkill3()
+    {
+
+    }
+    private void OnSkill4()
+    {
+
+    }
     /// <summary>
     /// Checks if the key pressed needs to be registered by the program
     /// </summary>
@@ -138,11 +141,5 @@ public class Caster : MonoBehaviour
             _canvas.transform.localScale = new Vector3(-0.01f, 0.01f, 0.01f);
         }
     }
-    /// <summary>
-    /// Updates the text inside the canvas to reflect what player has typed into the grimoire
-    /// </summary>
-    private void UpdateCanvasText()
-    {
-        _text.text = _grimoire.incantation.ToString();
-    }
+
 }
