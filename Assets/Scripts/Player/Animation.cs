@@ -30,6 +30,9 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool(animatorBool, false);
         }
     }
+    /// <summary>
+    /// Switches animator to the corresponding one, either if casting or not
+    /// </summary>
     private void PlayerEquippedCheck()
     {
         if (_player.ActualEquipped() == Player.equipped.Spear)
@@ -52,7 +55,7 @@ public class Animation : MonoBehaviour
 
         PlayerStateCheck(Player.state.JumpingDown, "isJumpingDown");
 
-        if (_player.ActualEquipped() != Player.equipped.Magic) { return; }
+        if (_player.ActualEquipped() != Player.equipped.Magic) { return; } // If player is in magic mode only vvv
 
         PlayerStateCheck(Player.state.Casting, "isCasting");
     }

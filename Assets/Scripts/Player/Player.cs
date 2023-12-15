@@ -63,13 +63,17 @@ public class Player : MonoBehaviour
 
     private void OnToggleEquipped()
     {
+        if (_state == state.Casting) { return; } // If actually casting, return
+
         ToggleEquipped();
     }
     private void OnCast()
     {
         ToggleCasting();
     }
-
+    /// <summary>
+    /// Casting state on or off if the actual state is using magic
+    /// </summary>
     public void ToggleCasting()
     {
         if (_equipped != equipped.Magic) { return; }

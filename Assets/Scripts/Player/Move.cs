@@ -119,6 +119,10 @@ public class Move : MonoBehaviour
             _player.IdlingState();
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>Bool to check if player is casting right now</returns>
     private bool PlayerIsCasting()
     {
         return (_player.ActualState() == Player.state.Casting) ? true : false;
