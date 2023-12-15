@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Ground
   - Background
-  - 
+  - Spells
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2274716655
+    locked: 0
+  - name: Spells
+    uniqueID: 34239051
     locked: 0

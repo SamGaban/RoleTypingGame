@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float direction;
+
+    [SerializeField] Transform _transform;
     public enum equipped
     {
         Spear,
@@ -20,6 +23,12 @@ public class Player : MonoBehaviour
 
     private state _state = state.Idling;
     private equipped _equipped = equipped.Spear;
+
+    private void Update()
+    {
+        direction = Mathf.Sign(_transform.localScale.x);
+    }
+
 
     public state ActualState()
     {
