@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using CastDictionary;
+using SentenceGenerator;
+using TypingComparator;
 
 public class Caster : MonoBehaviour
 {
