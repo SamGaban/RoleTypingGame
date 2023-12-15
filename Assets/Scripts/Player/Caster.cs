@@ -44,7 +44,9 @@ public class Caster : MonoBehaviour
 
     private void OnSkill1()
     {
-
+        // Setting an active sentence
+        // Toggling Casting with that active sentence
+        // On correct => Activate skill 1
     }
     private void OnSkill2()
     {
