@@ -20,16 +20,26 @@ public class Move : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (PlayerIsCasting()) { return; }
+
         moveInput = value.Get<Vector2>();
         MoveCheck();
     }
 
     private void OnJump()
     {
+        if (PlayerIsCasting()) { return; }
+
         Jump();
     }
     private void FixedUpdate()
     {
+        if (PlayerIsCasting())
+        {
+            _rb.velocity = new Vector2(0f, _rb.velocity.y);
+            return;
+        }
+
         FlipSprite();
         UpdateVelocity();
         JumpCheck();
@@ -108,6 +118,10 @@ public class Move : MonoBehaviour
         {
             _player.IdlingState();
         }
+    }
+    private bool PlayerIsCasting()
+    {
+        return (_player.ActualState() == Player.state.Casting) ? true : false;
     }
 
 }

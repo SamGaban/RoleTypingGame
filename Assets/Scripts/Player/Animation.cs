@@ -51,6 +51,10 @@ public class Animation : MonoBehaviour
         PlayerStateCheck(Player.state.JumpingUp, "isJumpingUp");
 
         PlayerStateCheck(Player.state.JumpingDown, "isJumpingDown");
+
+        if (_player.ActualEquipped() != Player.equipped.Magic) { return; }
+
+        PlayerStateCheck(Player.state.Casting, "isCasting");
     }
 
 

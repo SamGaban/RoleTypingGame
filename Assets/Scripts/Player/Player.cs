@@ -65,4 +65,22 @@ public class Player : MonoBehaviour
     {
         ToggleEquipped();
     }
+    private void OnCast()
+    {
+        ToggleCasting();
+    }
+
+    public void ToggleCasting()
+    {
+        if (_equipped != equipped.Magic) { return; }
+
+        if (_state != state.Casting)
+        {
+            _state = state.Casting;
+        }
+        else if (_state == state.Casting)
+        {
+            _state = state.Idling;
+        }
+    }
 }
