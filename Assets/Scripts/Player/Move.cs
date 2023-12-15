@@ -28,8 +28,7 @@ public class Move : MonoBehaviour
     {
         Jump();
     }
-
-    private void Update()
+    private void FixedUpdate()
     {
         FlipSprite();
         UpdateVelocity();

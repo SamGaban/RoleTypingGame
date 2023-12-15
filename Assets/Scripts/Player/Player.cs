@@ -49,4 +49,20 @@ public class Player : MonoBehaviour
     {
         _state = state.Casting;
     }
+    public void ToggleEquipped()
+    {
+        if (_equipped == equipped.Spear)
+        {
+            _equipped = equipped.Magic;
+        }
+        else if (_equipped == equipped.Magic)
+        {
+            _equipped = equipped.Spear;
+        }
+    }
+
+    private void OnToggleEquipped()
+    {
+        ToggleEquipped();
+    }
 }

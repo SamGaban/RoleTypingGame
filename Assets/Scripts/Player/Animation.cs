@@ -7,6 +7,7 @@ public class Animation : MonoBehaviour
     [SerializeField] Player _player;
     [SerializeField] Animator _mainAnimator;
     [SerializeField] RuntimeAnimatorController _spearAnimator;
+    [SerializeField] RuntimeAnimatorController _magicAnimator;
 
     private void Start()
     {
@@ -29,9 +30,22 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool(animatorBool, false);
         }
     }
+    private void PlayerEquippedCheck()
+    {
+        if (_player.ActualEquipped() == Player.equipped.Spear)
+        {
+            _mainAnimator.runtimeAnimatorController = _spearAnimator;
+        }
+        else if (_player.ActualEquipped() == Player.equipped.Magic)
+        {
+            _mainAnimator.runtimeAnimatorController = _magicAnimator;
+        }
+    }
 
     private void Update()
     {
+        PlayerEquippedCheck();
+
         PlayerStateCheck(Player.state.Running, "isRunning");
 
         PlayerStateCheck(Player.state.JumpingUp, "isJumpingUp");
