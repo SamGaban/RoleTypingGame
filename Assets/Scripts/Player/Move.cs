@@ -78,15 +78,7 @@ public class Move : MonoBehaviour
     {
         if (_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            if (_player.MegaJump)
-            {
-                _rb.AddForce(new Vector2(500f * _player.direction, jumpHeight * 1.8f), ForceMode2D.Impulse);
-                _player.DeactivateMegaJump();
-            }
-            else
-            {
-                _rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
-            }
+            _rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
         }
     }
     /// <summary>

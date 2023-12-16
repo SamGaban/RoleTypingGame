@@ -31,7 +31,7 @@ public class Caster : MonoBehaviour
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
                     case 1:
-                        _player.ActivateMegaJump();
+                        Debug.Log("Cast Skill 1");
                         break;
                     case 2:
                         Debug.Log("Cast Skill 2");

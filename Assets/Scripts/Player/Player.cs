@@ -25,29 +25,10 @@ public class Player : MonoBehaviour
     private equipped _equipped = equipped.Spear;
 
 
-    private bool _megaJump;
-
-    public bool MegaJump
-    {
-        get { return _megaJump; }
-        private set { _megaJump = value; }
-    }
-
-
 
     private void Update()
     {
         direction = Mathf.Sign(_transform.localScale.x);
-    }
-
-
-    public void ActivateMegaJump()
-    {
-        _megaJump = true;
-    }
-    public void DeactivateMegaJump()
-    {
-        _megaJump = false;
     }
 
     public state ActualState()
