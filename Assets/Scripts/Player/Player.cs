@@ -24,11 +24,31 @@ public class Player : MonoBehaviour
     private state _state = state.Idling;
     private equipped _equipped = equipped.Spear;
 
+
+    private bool _megaJump;
+
+    public bool MegaJump
+    {
+        get { return _megaJump; }
+        private set { _megaJump = value; }
+    }
+
+
+
     private void Update()
     {
         direction = Mathf.Sign(_transform.localScale.x);
     }
 
+
+    public void ActivateMegaJump()
+    {
+        _megaJump = true;
+    }
+    public void DeactivateMegaJump()
+    {
+        _megaJump = false;
+    }
 
     public state ActualState()
     {
@@ -76,10 +96,7 @@ public class Player : MonoBehaviour
 
         ToggleEquipped();
     }
-    private void OnCast()
-    {
-        //ToggleCasting();
-    }
+
     /// <summary>
     /// Casting state on or off if the actual state is using magic
     /// </summary>

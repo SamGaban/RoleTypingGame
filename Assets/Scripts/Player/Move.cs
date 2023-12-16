@@ -18,6 +18,7 @@ public class Move : MonoBehaviour
     Vector2 moveInput;
     float idleMoveTreshold = 1.5f;
 
+
     private void OnMove(InputValue value)
     {
         if (PlayerIsCasting()) { return; }
@@ -45,6 +46,8 @@ public class Move : MonoBehaviour
         JumpCheck();
         IdleCheck();
     }
+
+
 
     /// <summary>
     /// Flips player sprite based rb's velocity / Direction
@@ -75,7 +78,15 @@ public class Move : MonoBehaviour
     {
         if (_feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            _rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
+            if (_player.MegaJump)
+            {
+                _rb.AddForce(new Vector2(500f * _player.direction, jumpHeight * 1.8f), ForceMode2D.Impulse);
+                _player.DeactivateMegaJump();
+            }
+            else
+            {
+                _rb.AddForce(new Vector2(0f, jumpHeight), ForceMode2D.Impulse);
+            }
         }
     }
     /// <summary>
