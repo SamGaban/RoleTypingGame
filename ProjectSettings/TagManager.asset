@@ -15,7 +15,7 @@ TagManager:
   - Ground
   - Background
   - Spells
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -48,9 +48,12 @@ TagManager:
   - name: Ground
     uniqueID: 4215397101
     locked: 0
-  - name: Player
-    uniqueID: 2274716655
+  - name: Enemies
+    uniqueID: 2113036717
     locked: 0
   - name: Spells
     uniqueID: 34239051
+    locked: 0
+  - name: Player
+    uniqueID: 2274716655
     locked: 0

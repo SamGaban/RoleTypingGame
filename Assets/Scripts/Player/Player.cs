@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float direction;
-
     [SerializeField] Transform _transform;
+
+    public float direction;
     public enum equipped
     {
         Spear,
@@ -24,7 +24,12 @@ public class Player : MonoBehaviour
     private state _state = state.Idling;
     private equipped _equipped = equipped.Spear;
 
-
+    private int _healthPoints = 100;
+    public int HealthPoints
+    {
+        get { return _healthPoints; }
+        private set { _healthPoints = value; }
+    }
 
     private void Update()
     {
