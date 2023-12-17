@@ -7,7 +7,7 @@ public class HealthManager : MonoBehaviour
 {
     [SerializeField] Transform _entityTransform;
 
-    [SerializeField] Transform _ownTransform;
+    [SerializeField] Transform _canvasTransform;
 
     [SerializeField] Slider healthSlider;
 
@@ -19,8 +19,8 @@ public class HealthManager : MonoBehaviour
 
     private void Start()
     {
-        defaultScale = _ownTransform.localScale;
-        reversedScale = new Vector3(-_ownTransform.localScale.x, _ownTransform.localScale.y, _ownTransform.localScale.z);
+        defaultScale = _canvasTransform.localScale;
+        reversedScale = new Vector3(-_canvasTransform.localScale.x, _canvasTransform.localScale.y, _canvasTransform.localScale.z);
         _maxHealthPoints = _healthPoints;
     }
 
@@ -36,11 +36,11 @@ public class HealthManager : MonoBehaviour
     {
         if (Mathf.Sign(_entityTransform.localScale.x) > 0)
         {
-            _ownTransform.localScale = defaultScale;
+            _canvasTransform.localScale = defaultScale;
         }
         else
         {
-            _ownTransform.localScale = reversedScale;
+            _canvasTransform.localScale = reversedScale;
         }
     }
     /// <summary>
