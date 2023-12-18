@@ -4,12 +4,16 @@ using TMPro;
 using UnityEngine;
 using TypingComparator;
 using System.Text;
+using UnityEditor.Experimental.GraphView;
 
 public class Caster : MonoBehaviour
 {
     [SerializeField] Player _player;
     [SerializeField] Canvas _canvas;
     [SerializeField] TMP_Text _text;
+
+    [Header("Prefabs")]
+    [SerializeField] GameObject FireBall;
 
     Sentence _sentence;
     int _skillToLaunch = -1;
@@ -32,6 +36,7 @@ public class Caster : MonoBehaviour
                 {
                     case 1:
                         Debug.Log("Cast Skill 1");
+                        SkillOne();
                         break;
                     case 2:
                         Debug.Log("Cast Skill 2");
@@ -205,6 +210,16 @@ public class Caster : MonoBehaviour
         {
             _canvas.transform.localScale = new Vector3(-0.01f, 0.01f, 0.01f);
         }
+    }
+
+    public void SkillOne()
+    {
+        float dir = Mathf.Sign(_player.transform.localScale.x);
+
+
+        GameObject fireball = Instantiate(FireBall, new Vector2(_player.transform.position.x, _player.transform.position.y + 0.22f), Quaternion.Euler(0f, 0f, dir == 1 ? 90f : 270f)); // Rotate 45 degrees around the z-axis
+        Fireball script = fireball.GetComponent<Fireball>();
+        script.Inititalize(_player.direction);
     }
 
 
