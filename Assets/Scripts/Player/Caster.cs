@@ -17,6 +17,7 @@ public class Caster : MonoBehaviour
 
     Sentence _sentence;
     int _skillToLaunch = -1;
+    private int characterCount = 0;
 
 
     private void Start()
@@ -35,7 +36,7 @@ public class Caster : MonoBehaviour
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
                     case 1:
-                        SkillOne();
+                        SkillOne(_sentence.TypePrecision());
                         break;
                     case 2:
                         Debug.Log("Cast Skill 2");
@@ -75,6 +76,7 @@ public class Caster : MonoBehaviour
 
                         if (_sentence.TypeIn(keyChar))
                         {
+                            characterCount++; // +1 Per character correctly typed in
                             _sentence.ClearChars(1);
                         }
                     }
@@ -84,6 +86,7 @@ public class Caster : MonoBehaviour
         }
         else
         {
+            characterCount = 0; // resetting character count after a cast, or annulation
             _canvas.gameObject.SetActive(false);
         }
     }
@@ -211,14 +214,14 @@ public class Caster : MonoBehaviour
         }
     }
 
-    public void SkillOne()
+    public void SkillOne(int precisionMod)
     {
         float dir = Mathf.Sign(_player.transform.localScale.x);
 
 
         GameObject fireball = Instantiate(FireBall, new Vector2(_player.transform.position.x, _player.transform.position.y + 0.22f), Quaternion.Euler(0f, 0f, dir == 1 ? 90f : 270f)); // Rotate 45 degrees around the z-axis
         Fireball script = fireball.GetComponent<Fireball>();
-        script.Inititalize(_player.direction);
+        script.Inititalize(_player.direction, precisionMod);
     }
 
 

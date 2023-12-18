@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class Fireball : MonoBehaviour
     [SerializeField] float ProjectionForce;
     [SerializeField] int Damage;
     private float _direction = 1;
+    private int modifier;
 
     private Vector3 _normalScale;
     private Vector3 _reverserdScale;
@@ -27,9 +29,10 @@ public class Fireball : MonoBehaviour
         _reverserdScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
     }
 
-    public void Inititalize(float direction)
+    public void Inititalize(float direction, int precisionMod)
     {
         _direction = direction;
+        modifier = precisionMod;
     }
 
     private void Update()
@@ -65,7 +68,7 @@ public class Fireball : MonoBehaviour
             }
             
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            _healthManager.DownHp(Damage);
+            _healthManager.DownHp(Convert.ToInt32((Damage / 100f) * modifier));
             Launch(rb);
             Destroy(gameObject);
         }
