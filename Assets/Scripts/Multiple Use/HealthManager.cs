@@ -87,6 +87,10 @@ public class HealthManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// Simple bool returning if the entity linked to this healthManager is dead
+    /// </summary>
+    /// <returns></returns>
     public bool isDead()
     {
         return isDeceased;

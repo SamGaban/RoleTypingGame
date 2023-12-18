@@ -10,7 +10,6 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] Transform _transform;
     [SerializeField] int dmgAmount;
     [SerializeField] SpriteRenderer spriteRenderer;
-    private ParticleSystem particleSystem;
 
     private bool hasDied = false;
 
@@ -21,7 +20,6 @@ public class BaseEnemy : MonoBehaviour
     private void Start()
     {
         _player = FindObjectOfType<Player>();
-        particleSystem = this.gameObject.GetComponent<ParticleSystem>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -41,22 +39,15 @@ public class BaseEnemy : MonoBehaviour
         if (_healthManager.isDead())
         {
             hasDied = true;
-            // Invoke("Disappear", 2.5f);
-            Invoke("OnParticleTrigger", 2.5f);
-            // Invoke("DestroySelf", 4f);
+            Invoke("DestroySelf", 2.5f);
         }
     }
 
-    private void OnParticleTrigger()
-    {
-        particleSystem.Play();
-        Debug.Log("Test");
-    }
 
-    private void Disappear()
-    {
-        spriteRenderer.gameObject.SetActive(false);
-    }
+
+    /// <summary>
+    /// Self destruct
+    /// </summary>
     private void DestroySelf()
     {
         Destroy(this.gameObject);

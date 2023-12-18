@@ -57,6 +57,13 @@ public class Fireball : MonoBehaviour
         _healthManager = collision.gameObject.GetComponent<HealthManager>();
         if (_healthManager != null)
         {
+            EnemyMove enemyMoveScript = _healthManager.gameObject.GetComponent<EnemyMove>();
+
+            if (enemyMoveScript != null)
+            {
+                enemyMoveScript.Detect();
+            }
+            
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             _healthManager.DownHp(Damage);
             Launch(rb);
