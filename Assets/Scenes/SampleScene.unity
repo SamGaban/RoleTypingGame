@@ -8486,6 +8486,7 @@ GameObject:
   - component: {fileID: 1959635665}
   - component: {fileID: 1959635669}
   - component: {fileID: 1959635670}
+  - component: {fileID: 1959635671}
   m_Layer: 9
   m_Name: Boar
   m_TagString: Untagged
@@ -8672,6 +8673,27 @@ MonoBehaviour:
   _canvasTransform: {fileID: 1902412117}
   healthSlider: {fileID: 1960387708}
   _healthPoints: 35
+--- !u!95 &1959635671
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959635664}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1c7a5972562c2854886c64e1b57b6e8b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1960387707
 GameObject:
   m_ObjectHideFlags: 0

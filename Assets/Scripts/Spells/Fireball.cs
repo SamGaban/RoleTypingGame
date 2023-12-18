@@ -11,6 +11,7 @@ public class Fireball : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
     [Header("Settings")]
     [SerializeField] float speed;
+    [SerializeField] float ProjectionForce;
     private float _direction = 1;
 
     private Vector3 _normalScale;
@@ -35,6 +36,12 @@ public class Fireball : MonoBehaviour
         _rb.velocity = _moveInput;
     }
 
+    public void Launch(Rigidbody2D rigid)
+    {
+        Vector2 Projection = new Vector2(ProjectionForce * _direction, ProjectionForce);
+        rigid.AddForce(Projection, ForceMode2D.Impulse);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -42,13 +49,17 @@ public class Fireball : MonoBehaviour
             Destroy(gameObject);  // Destroy the fireball
         }
 
-        Debug.Log("Collision Detected with: " + collision.gameObject.name);
+        //If the collision has a health manager
+
 
         HealthManager _healthManager = null;
         _healthManager = collision.gameObject.GetComponent<HealthManager>();
         if (_healthManager != null)
         {
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             _healthManager.DownHp(30);
+            Launch(rb);
+            Destroy(gameObject);
         }
     }
 }

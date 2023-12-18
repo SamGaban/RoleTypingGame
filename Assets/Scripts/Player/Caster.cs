@@ -35,7 +35,6 @@ public class Caster : MonoBehaviour
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
                     case 1:
-                        Debug.Log("Cast Skill 1");
                         SkillOne();
                         break;
                     case 2:

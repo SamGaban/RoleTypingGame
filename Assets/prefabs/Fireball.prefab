@@ -126,6 +126,7 @@ MonoBehaviour:
   _transform: {fileID: 2543858390535105973}
   _rb: {fileID: 2543858390535105978}
   speed: 10
+  ProjectionForce: 7.5
 --- !u!50 &2543858390535105978
 Rigidbody2D:
   serializedVersion: 4
