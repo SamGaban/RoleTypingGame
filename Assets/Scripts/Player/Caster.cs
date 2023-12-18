@@ -104,7 +104,7 @@ public class Caster : MonoBehaviour
 
     private void OnSkill1()
     {
-        LaunchSkill(5, 1);
+        LaunchSkill(4, 1);
     }
     private void OnSkill2()
     {

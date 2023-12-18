@@ -17,7 +17,7 @@ public class DetectionScript : MonoBehaviour
     {
         if (_healthManager.isDead()) return;
 
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             scriptMove.Detect();
         }
