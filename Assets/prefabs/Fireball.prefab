@@ -127,6 +127,7 @@ MonoBehaviour:
   _rb: {fileID: 2543858390535105978}
   speed: 10
   ProjectionForce: 7.5
+  Damage: 35
 --- !u!50 &2543858390535105978
 Rigidbody2D:
   serializedVersion: 4

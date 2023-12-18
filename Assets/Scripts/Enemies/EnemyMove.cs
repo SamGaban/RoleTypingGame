@@ -7,6 +7,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
     [Header("Settings")]
     [SerializeField] float speed;
+    [SerializeField] HealthManager _healthManager;
 
     private Rigidbody2D _playerRb;
     private Transform _transform;
@@ -35,6 +36,8 @@ public class EnemyMove : MonoBehaviour
 
     private void Move()
     {
+        if (_healthManager.isDead()) return;
+
         if (_playerRb != null)
         {
             _moveInput = new Vector2(Mathf.Sign(_playerRb.position.x - _rb.position.x) * speed, _rb.velocity.y);
@@ -43,6 +46,8 @@ public class EnemyMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_healthManager.isDead()) return;
+
         Move();
         SpriteFlip();
         _rb.velocity = _moveInput;

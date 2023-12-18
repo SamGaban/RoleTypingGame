@@ -17,6 +17,8 @@ public class HealthManager : MonoBehaviour
     private Vector3 defaultScale;
     private Vector3 reversedScale;
 
+    private bool isDeceased = false;
+
     private void Start()
     {
         defaultScale = _canvasTransform.localScale;
@@ -26,6 +28,12 @@ public class HealthManager : MonoBehaviour
 
     private void Update()
     {
+        if (isDeceased) return;
+
+        if (_healthPoints <= 0)
+        {
+            isDeceased = true;
+        }
         healthSlider.value = (float)_healthPoints / (float)_maxHealthPoints;
         KeepOrientation();
     }
@@ -78,6 +86,10 @@ public class HealthManager : MonoBehaviour
                 _healthPoints = _maxHealthPoints;
             }
         }
+    }
+    public bool isDead()
+    {
+        return isDeceased;
     }
 
 }

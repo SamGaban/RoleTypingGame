@@ -8,6 +8,7 @@ public class JumpDetection : MonoBehaviour
     public Rigidbody2D _rb;
     [SerializeField] float jumpHeight;
     private bool readyToJump = true;
+    [SerializeField] HealthManager _healthManager;
 
     public void FeedRb(Rigidbody2D playerRb)
     {
@@ -21,6 +22,8 @@ public class JumpDetection : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (_healthManager.isDead()) return;
+
         if (_playerRb != null && readyToJump)
         {
             float verticalDistance = _playerRb.position.y - _rb.position.y;
@@ -36,6 +39,8 @@ public class JumpDetection : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (_healthManager.isDead()) return;
+
         readyToJump = true;
     }
 }

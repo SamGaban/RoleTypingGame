@@ -12,6 +12,7 @@ public class Fireball : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float speed;
     [SerializeField] float ProjectionForce;
+    [SerializeField] int Damage;
     private float _direction = 1;
 
     private Vector3 _normalScale;
@@ -57,7 +58,7 @@ public class Fireball : MonoBehaviour
         if (_healthManager != null)
         {
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            _healthManager.DownHp(30);
+            _healthManager.DownHp(Damage);
             Launch(rb);
             Destroy(gameObject);
         }
