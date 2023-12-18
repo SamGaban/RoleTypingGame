@@ -12,6 +12,10 @@ public class Caster : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [SerializeField] TMP_Text _text;
 
+    [SerializeField] private Canvas feedBackCanvas;
+    [SerializeField] private TMP_Text precisionText;
+    [SerializeField] private TMP_Text wpmText;
+
     [Header("Prefabs")]
     [SerializeField] GameObject FireBall;
 
@@ -32,6 +36,11 @@ public class Caster : MonoBehaviour
         {
             if (_sentence.IsDone)
             {
+                precisionText.text = $"{_sentence.TypePrecision()}%";
+                wpmText.text = $"{_sentence.WordsPerMinute()}WPM";
+                TurnFeedBackCanvasOn();
+                Invoke("TurnFeedBackCanvasOff", 2f);
+                Debug.Log(_sentence.TypePrecision()); // Final precision counter
                 _player.ToggleCasting();
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
@@ -90,6 +99,18 @@ public class Caster : MonoBehaviour
             _canvas.gameObject.SetActive(false);
         }
     }
+
+    private void TurnFeedBackCanvasOn()
+    {
+        feedBackCanvas.gameObject.SetActive(true);
+    }
+    
+    private void TurnFeedBackCanvasOff()
+    {
+        feedBackCanvas.gameObject.SetActive(false);
+    }
+    
+    
     /// <summary>
     /// Defines a number of word necessary to cast a spell, and the ID of said spell, and creates a random sentence for this process while toggling Cast
     /// </summary>
@@ -207,10 +228,12 @@ public class Caster : MonoBehaviour
         if (_player.transform.localScale.x == 1)
         {
             _canvas.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            feedBackCanvas.transform.localScale = new Vector3(0.0045f, 0.0045f, 0.0045f);
         }
         else
         {
             _canvas.transform.localScale = new Vector3(-0.01f, 0.01f, 0.01f);
+            feedBackCanvas.transform.localScale = new Vector3(-0.0045f, 0.0045f, 0.0045f);
         }
     }
 
