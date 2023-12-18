@@ -30,6 +30,42 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool(animatorBool, false);
         }
     }
+
+    private void OnCast()
+    {
+        if (_player.ActualState() == Player.state.Casting) return;
+
+        if (!_player.CanRoll()) return;
+        
+        _mainAnimator.SetBool("isRolling", true);
+        _player.InvincibleOn();
+        _player.TurnRollOff();
+        Invoke("TurnRollOnAgain", 3f);
+        Invoke("TurnRollingOff", 0.5f);
+        Invoke("InvincibleOff", 1.4f);
+    }
+
+    /// <summary>
+    /// Turns player roll on
+    /// </summary>
+    private void TurnRollOnAgain()
+    {
+        _player.TurnRollOn();
+    }
+    /// <summary>
+    /// Turns player invincibility off
+    /// </summary>
+    private void InvincibleOff()
+    {
+        _player.InvincibleOff();
+    }
+    /// <summary>
+    /// Turns player's roll off
+    /// </summary>
+    private void TurnRollingOff()
+    {
+        _mainAnimator.SetBool("isRolling", false);
+    }
     /// <summary>
     /// Switches animator to the corresponding one, either if casting or not
     /// </summary>

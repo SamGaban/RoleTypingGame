@@ -20,12 +20,15 @@ public class Player : MonoBehaviour
         JumpingUp,
         JumpingDown,
         Casting,
+        Rolling
     }
 
     private state _state = state.Idling;
     private equipped _equipped = equipped.Spear;
 
     private bool canBeHurt = true;
+
+    private bool canRoll = true;
 
     private void Update()
     {
@@ -64,6 +67,31 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+
+    public void InvincibleOn()
+    {
+        canBeHurt = false;
+    }
+
+    public void InvincibleOff()
+    {
+        canBeHurt = true;
+    }
+
+    public bool CanRoll()
+    {
+        return canRoll;
+    }
+
+    public void TurnRollOn()
+    {
+        canRoll = true;
+    }
+
+    public void TurnRollOff()
+    {
+        canRoll = false;
+    }
 
     public void ToggleEquipped()
     {

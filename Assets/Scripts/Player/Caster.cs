@@ -121,7 +121,7 @@ public class Caster : MonoBehaviour
 
     private void OnCast()
     {
-        if (_player.ActualState() != Player.state.Casting) { return; } // To deactivate the skill launching early (if ennemies come too close or what)
+        if (_player.ActualState() != Player.state.Casting) { return; }
         _player.ToggleCasting();
     }
 
