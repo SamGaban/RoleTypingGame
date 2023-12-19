@@ -45,7 +45,7 @@ public class Caster : MonoBehaviour
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
                     case 1:
-                        SkillOne(_sentence.TypePrecision());
+                        SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute());
                         break;
                     case 2:
                         Debug.Log("Cast Skill 2");
@@ -237,14 +237,14 @@ public class Caster : MonoBehaviour
         }
     }
 
-    public void SkillOne(int precisionMod)
+    public void SkillOne(int precisionMod, int wordsPerMinute)
     {
         float dir = Mathf.Sign(_player.transform.localScale.x);
 
 
         GameObject fireball = Instantiate(FireBall, new Vector2(_player.transform.position.x, _player.transform.position.y + 0.22f), Quaternion.Euler(0f, 0f, dir == 1 ? 90f : 270f)); // Rotate 45 degrees around the z-axis
         Fireball script = fireball.GetComponent<Fireball>();
-        script.Inititalize(_player.direction, precisionMod);
+        script.Inititalize(_player.direction, precisionMod, wordsPerMinute);
     }
 
 

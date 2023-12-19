@@ -16,6 +16,7 @@ public class Fireball : MonoBehaviour
     [SerializeField] int Damage;
     private float _direction = 1;
     private int modifier;
+    private int _wpmMod;
 
     private Vector3 _normalScale;
     private Vector3 _reverserdScale;
@@ -29,10 +30,11 @@ public class Fireball : MonoBehaviour
         _reverserdScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
     }
 
-    public void Inititalize(float direction, int precisionMod)
+    public void Inititalize(float direction, int precisionMod, int wpmModif)
     {
         _direction = direction;
         modifier = precisionMod;
+        _wpmMod = wpmModif;
     }
 
     private void Update()
@@ -68,7 +70,11 @@ public class Fireball : MonoBehaviour
             }
             
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            _healthManager.DownHp(Convert.ToInt32((Damage / 100f) * modifier));
+
+            int resultDamage = DamageCalculator.CalculateDamage(Damage, modifier, _wpmMod);
+
+            _healthManager.DownHp(resultDamage);
+
             Launch(rb);
             Destroy(gameObject);
         }
