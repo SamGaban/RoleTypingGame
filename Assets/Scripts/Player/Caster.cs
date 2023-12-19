@@ -15,6 +15,7 @@ public class Caster : MonoBehaviour
     [SerializeField] private Canvas feedBackCanvas;
     [SerializeField] private TMP_Text precisionText;
     [SerializeField] private TMP_Text wpmText;
+    [SerializeField] private Animator fbCanvasAnimator;
 
     [Header("Prefabs")]
     [SerializeField] GameObject FireBall;
@@ -40,7 +41,6 @@ public class Caster : MonoBehaviour
                 wpmText.text = $"{_sentence.WordsPerMinute()}WPM";
                 TurnFeedBackCanvasOn();
                 Invoke("TurnFeedBackCanvasOff", 2f);
-                Debug.Log(_sentence.TypePrecision()); // Final precision counter
                 _player.ToggleCasting();
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
@@ -102,12 +102,12 @@ public class Caster : MonoBehaviour
 
     private void TurnFeedBackCanvasOn()
     {
-        feedBackCanvas.gameObject.SetActive(true);
+        fbCanvasAnimator.SetTrigger("isFadingIn");
     }
     
     private void TurnFeedBackCanvasOff()
     {
-        feedBackCanvas.gameObject.SetActive(false);
+        fbCanvasAnimator.SetTrigger("isFadingOut");
     }
     
     
