@@ -125,6 +125,7 @@ MonoBehaviour:
   _collider: {fileID: 2543858390535105979}
   _transform: {fileID: 2543858390535105973}
   _rb: {fileID: 2543858390535105978}
+  explosionPrefab: {fileID: 8098591270609030783, guid: 2529c09faac1d1f4ea35832a2539ed17, type: 3}
   speed: 10
   ProjectionForce: 7.5
   Damage: 35

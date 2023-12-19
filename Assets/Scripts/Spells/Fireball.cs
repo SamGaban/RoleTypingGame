@@ -10,6 +10,7 @@ public class Fireball : MonoBehaviour
     [SerializeField] Collider2D _collider;
     [SerializeField] Transform _transform;
     [SerializeField] Rigidbody2D _rb;
+    [SerializeField] private GameObject explosionPrefab;
     [Header("Settings")]
     [SerializeField] float speed;
     [SerializeField] float ProjectionForce;
@@ -86,7 +87,15 @@ public class Fireball : MonoBehaviour
 
             int resultDamage = DamageCalculator.CalculateDamage(Damage, modifier, _wpmMod);
 
-            _healthManager.DownHp(resultDamage);
+            // _healthManager.DownHp(resultDamage);
+            
+            // Instantiate explosion prefab
+            
+            GameObject explosion = Instantiate(explosionPrefab, _rb.position, Quaternion.identity);
+
+            Explosion exploScript = explosion.GetComponent<Explosion>();
+            
+            exploScript.Initialize(resultDamage);
 
             Launch(rb);
             Destroy(gameObject);
