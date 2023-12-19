@@ -130,6 +130,14 @@ namespace TypingComparator
             _isDone = true;
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>wordcount of sentence</returns>
+        public int WordCount()
+        {
+            return _wordCount;
+        }
+        /// <summary>
         /// Takes char input and compares it with the next char in the sentence (chararray)
         /// <para>If this is the first char typed, turns the hasBegun flag to true, and starts the _stopWatch</para>
         /// </summary>

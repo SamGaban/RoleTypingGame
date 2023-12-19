@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,7 @@ using UnityEngine;
 using TypingComparator;
 using System.Text;
 using UnityEditor.Experimental.GraphView;
+using Random = UnityEngine.Random;
 
 public class Caster : MonoBehaviour
 {
@@ -37,6 +39,9 @@ public class Caster : MonoBehaviour
         {
             if (_sentence.IsDone)
             {
+                decimal charNumberMod = (Convert.ToDecimal(characterCount) / Convert.ToDecimal(_sentence.WordCount()));
+                decimal charPerWord = (charNumberMod / 5) * 100;
+                Debug.Log((charNumberMod / 5) * 100);
                 precisionText.text = $"{_sentence.TypePrecision()}%";
                 wpmText.text = $"{_sentence.WordsPerMinute()}WPM";
                 TurnFeedBackCanvasOn();
@@ -45,7 +50,7 @@ public class Caster : MonoBehaviour
                 switch (_skillToLaunch) // Put all the skills related to the skills IDs here
                 {
                     case 1:
-                        SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                        SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute(), charPerWord);
                         break;
                     case 2:
                         Debug.Log("Cast Skill 2");
@@ -250,14 +255,14 @@ public class Caster : MonoBehaviour
     /// </summary>
     /// <param name="precisionMod">Typing precision</param>
     /// <param name="wordsPerMinute">WPM</param>
-    public void SkillOne(int precisionMod, int wordsPerMinute)
+    public void SkillOne(int precisionMod, int wordsPerMinute, decimal charPerWord)
     {
         float dir = Mathf.Sign(_player.transform.localScale.x);
 
 
         GameObject fireball = Instantiate(FireBall, new Vector2(_player.transform.position.x, _player.transform.position.y + 0.22f), Quaternion.Euler(0f, 0f, dir == 1 ? 90f : 270f)); // Rotate 45 degrees around the z-axis
         Fireball script = fireball.GetComponent<Fireball>();
-        script.Inititalize(_player.direction, precisionMod, wordsPerMinute);
+        script.Inititalize(_player.direction, precisionMod, wordsPerMinute, charPerWord);
     }
 
 

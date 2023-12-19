@@ -18,6 +18,7 @@ public class Fireball : MonoBehaviour
     private float _direction = 1;
     private int modifier;
     private int _wpmMod;
+    private decimal _charPerWordMod;
 
     private Vector3 _normalScale;
     private Vector3 _reverserdScale;
@@ -36,11 +37,12 @@ public class Fireball : MonoBehaviour
     /// <param name="direction"></param>
     /// <param name="precisionMod"></param>
     /// <param name="wpmModif"></param>
-    public void Inititalize(float direction, int precisionMod, int wpmModif)
+    public void Inititalize(float direction, int precisionMod, int wpmModif, decimal finalModifierCharPerWords)
     {
         _direction = direction;
         modifier = precisionMod;
         _wpmMod = wpmModif;
+        _charPerWordMod = finalModifierCharPerWords;
     }
     /// <summary>
     /// Moving
@@ -85,7 +87,7 @@ public class Fireball : MonoBehaviour
             
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
 
-            int resultDamage = DamageCalculator.CalculateDamage(Damage, modifier, _wpmMod);
+            int resultDamage = DamageCalculator.CalculateDamage(Damage, modifier, _wpmMod, _charPerWordMod);
 
             // _healthManager.DownHp(resultDamage);
             
