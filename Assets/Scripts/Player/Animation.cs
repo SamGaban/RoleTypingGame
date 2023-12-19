@@ -8,6 +8,10 @@ public class Animation : MonoBehaviour
     [SerializeField] Animator _mainAnimator;
     [SerializeField] RuntimeAnimatorController _spearAnimator;
     [SerializeField] RuntimeAnimatorController _magicAnimator;
+    
+    [SerializeField] private Hitter hitterScript;
+
+    private bool canAttack = true;
 
     private void Start()
     {
@@ -30,7 +34,9 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool(animatorBool, false);
         }
     }
-
+    /// <summary>
+    /// If not in casting mode, activates the roll
+    /// </summary>
     private void OnCast()
     {
         if (_player.ActualState() == Player.state.Casting) return;
@@ -44,7 +50,6 @@ public class Animation : MonoBehaviour
         Invoke("TurnRollingOff", 0.5f);
         Invoke("InvincibleOff", 1.4f);
     }
-
     /// <summary>
     /// Turns player roll on
     /// </summary>
@@ -80,7 +85,9 @@ public class Animation : MonoBehaviour
             _mainAnimator.runtimeAnimatorController = _magicAnimator;
         }
     }
-
+    /// <summary>
+    /// Checks for states to activate the animations (First method used, not the most efficient apparently)
+    /// </summary>
     private void Update()
     {
         PlayerEquippedCheck();
@@ -95,8 +102,63 @@ public class Animation : MonoBehaviour
 
         PlayerStateCheck(Player.state.Casting, "isCasting");
     }
+    /// <summary>
+    /// This iteration of OnSkill1() is for the spear attack, so, if not in magic mode
+    /// </summary>
+    private void OnSkill1() // Spear attack animation + state trigger
+    {
+        if (!canAttack) return;
+        
+        if (_player.ActualEquipped() == Player.equipped.Magic) return;
 
+        if (_player.ActualState() == Player.state.Rolling) return;
 
+        if (_player.ActualState() == Player.state.JumpingUp) return;
+
+        if (_player.ActualState() == Player.state.JumpingDown) return;
+
+        _player.canSwitchEquipped = false;
+
+        canAttack = false;
+        
+        _mainAnimator.SetBool("isHitting", true);
+        
+        Invoke("ActivateSpear", 0.4f);
+        
+        Invoke("TurnSkillOneOff", 1f);
+        
+        Invoke("CanAttackAgain", 1.5f);
+        
+        Invoke("CanSwitchEquippedAgain", 1.5f);
+    }
+    /// <summary>
+    /// To take from the player the ability to switch equipment directly after attacking with spear
+    /// </summary>
+    private void CanSwitchEquippedAgain()
+    {
+        _player.canSwitchEquipped = true;
+    }
+    /// <summary>
+    /// Can attack with the spear
+    /// </summary>
+    private void ActivateSpear()
+    {
+        hitterScript.Activate();
+    }
+    /// <summary>
+    /// Exits spear animation
+    /// </summary>
+    private void TurnSkillOneOff()
+    {
+        _mainAnimator.SetBool("isHitting", false);
+    }
+    /// <summary>
+    /// timer related variable to be able to attack again
+    /// </summary>
+    private void CanAttackAgain()
+    {
+        canAttack = true;
+    }
 
 
 }

@@ -21,7 +21,6 @@ public class BaseEnemy : MonoBehaviour
     {
         _player = FindObjectOfType<Player>();
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (_healthManager.isDead()) return;
@@ -31,7 +30,6 @@ public class BaseEnemy : MonoBehaviour
             _player.Hurt(dmgAmount);
         }
     }
-
     private void Update()
     {
         if (hasDied) return;
@@ -42,9 +40,6 @@ public class BaseEnemy : MonoBehaviour
             Invoke("DestroySelf", 2.5f);
         }
     }
-
-
-
     /// <summary>
     /// Self destruct
     /// </summary>

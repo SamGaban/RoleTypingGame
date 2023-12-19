@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Common script to handle health of an entity, to combine with a slider (take from an entity that already has one)
+/// </summary>
 public class HealthManager : MonoBehaviour
 {
     [SerializeField] Transform _entityTransform;
@@ -25,7 +28,6 @@ public class HealthManager : MonoBehaviour
         reversedScale = new Vector3(-_canvasTransform.localScale.x, _canvasTransform.localScale.y, _canvasTransform.localScale.z);
         _maxHealthPoints = _healthPoints;
     }
-
     private void Update()
     {
         if (isDeceased) return;

@@ -19,8 +19,11 @@ public class EnemyAnimation : MonoBehaviour
         {
             _animator.SetBool("isRunning", true);
         }
+        else
+        {
+            _animator.SetBool("isRunning", false);
+        }
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (hasDied) return;
@@ -39,7 +42,9 @@ public class EnemyAnimation : MonoBehaviour
             Invoke("TurnAttackOff", 1.2f);
         }
     }
-
+    /// <summary>
+    /// Turns the animator bool isAttacking off
+    /// </summary>
     private void TurnAttackOff()
     {
         _animator.SetBool("isAttacking", false);

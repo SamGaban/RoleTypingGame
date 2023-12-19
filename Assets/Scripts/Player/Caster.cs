@@ -11,7 +11,7 @@ public class Caster : MonoBehaviour
     [SerializeField] Player _player;
     [SerializeField] Canvas _canvas;
     [SerializeField] TMP_Text _text;
-
+    
     [SerializeField] private Canvas feedBackCanvas;
     [SerializeField] private TMP_Text precisionText;
     [SerializeField] private TMP_Text wpmText;
@@ -104,13 +104,10 @@ public class Caster : MonoBehaviour
     {
         fbCanvasAnimator.SetTrigger("isFadingIn");
     }
-    
     private void TurnFeedBackCanvasOff()
     {
         fbCanvasAnimator.SetTrigger("isFadingOut");
     }
-    
-    
     /// <summary>
     /// Defines a number of word necessary to cast a spell, and the ID of said spell, and creates a random sentence for this process while toggling Cast
     /// </summary>
@@ -125,30 +122,42 @@ public class Caster : MonoBehaviour
         _skillToLaunch = skillId;
         _player.ToggleCasting();
     }
-
+    /// <summary>
+    /// Key J
+    /// </summary>
     private void OnSkill1()
     {
         LaunchSkill(4, 1);
     }
+    /// <summary>
+    /// Key K
+    /// </summary>
     private void OnSkill2()
     {
         LaunchSkill(7, 2);
     }
+    /// <summary>
+    /// Key L
+    /// </summary>
     private void OnSkill3()
     {
         LaunchSkill(11, 3);
     }
+    /// <summary>
+    /// Key M
+    /// </summary>
     private void OnSkill4()
     {
         LaunchSkill(17, 4);
     }
-
+    /// <summary>
+    /// Cancel a began spellcast
+    /// </summary>
     private void OnCast()
     {
         if (_player.ActualState() != Player.state.Casting) { return; }
         _player.ToggleCasting();
     }
-
     /// <summary>
     /// Checks if the key pressed needs to be registered by the program
     /// </summary>
@@ -236,7 +245,11 @@ public class Caster : MonoBehaviour
             feedBackCanvas.transform.localScale = new Vector3(-0.0045f, 0.0045f, 0.0045f);
         }
     }
-
+    /// <summary>
+    /// Fireball skill
+    /// </summary>
+    /// <param name="precisionMod">Typing precision</param>
+    /// <param name="wordsPerMinute">WPM</param>
     public void SkillOne(int precisionMod, int wordsPerMinute)
     {
         float dir = Mathf.Sign(_player.transform.localScale.x);

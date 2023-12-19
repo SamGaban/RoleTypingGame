@@ -16,6 +16,8 @@ public class EnemyMove : MonoBehaviour
     private Vector3 _reversedOrientation;
 
     public JumpDetection jumpScript;
+    
+    private bool allowExternalForces = false;
 
     Vector2 _moveInput;
 
@@ -27,13 +29,17 @@ public class EnemyMove : MonoBehaviour
         _transform.localScale = _baseOrientation;
 
     }
-
+    /// <summary>
+    /// Gives out the player location and stores it in the predeclared variable
+    /// </summary>
     public void Detect()
     {
         _playerRb = FindObjectOfType<Player>().gameObject.GetComponent<Rigidbody2D>();
         jumpScript.FeedRb(_playerRb);
     }
-
+    /// <summary>
+    /// When a player is detected, moves towards its location
+    /// </summary>
     private void Move()
     {
         if (_healthManager.isDead()) return;
@@ -43,16 +49,41 @@ public class EnemyMove : MonoBehaviour
             _moveInput = new Vector2(Mathf.Sign(_playerRb.position.x - _rb.position.x) * speed, _rb.velocity.y);
         }
     }
-
     private void FixedUpdate()
     {
+        if (_playerRb == null)
+        {
+            _rb.velocity = Vector2.zero; // Need to put patrol here
+        }
+        
         if (_healthManager.isDead()) return;
 
-        Move();
-        SpriteFlip();
-        _rb.velocity = _moveInput;
+        if (!allowExternalForces)
+        {
+            Move();
+            SpriteFlip();
+            _rb.velocity = _moveInput;
+        }
     }
-
+    /// <summary>
+    /// Enables external forces to impact the RB of the enemy
+    /// </summary>
+    /// <param name="duration">duration</param>
+    public void EnableExternalForces(float duration)
+    {
+        allowExternalForces = true;
+        Invoke("DisableExternalForces", duration);
+    }
+    /// <summary>
+    /// Disables external forces on the enemy's rb
+    /// </summary>
+    private void DisableExternalForces()
+    {
+        allowExternalForces = false;
+    }
+    /// <summary>
+    /// Checks for enemy's direction to flip its sprite in the good direction
+    /// </summary>
     private void SpriteFlip()
     {
         if (_rb.velocity.x > Mathf.Epsilon)

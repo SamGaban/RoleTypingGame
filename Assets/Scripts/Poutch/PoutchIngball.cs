@@ -19,6 +19,9 @@ public class PoutchIngball : MonoBehaviour
         InvokeRepeating("Attribute", 1f, 1f);
     }
 
+    /// <summary>
+    /// Passes the HP from HPManager down the pyramid for comparison hp => hpOne => hpTwo
+    /// </summary>
     private void Attribute()
     {
         hpPointTwo = hpPointOne;
@@ -34,12 +37,16 @@ public class PoutchIngball : MonoBehaviour
         
 
     }
-
+    /// <summary>
+    /// Heals punching ball to full life
+    /// </summary>
     private void Heal()
     {
         healthManager.UpHp(1000);
     }
-
+    /// <summary>
+    /// Turns damage display canvas off
+    /// </summary>
     private void TurnCanvasOff()
     {
         feedBackCanvas.gameObject.SetActive(false);

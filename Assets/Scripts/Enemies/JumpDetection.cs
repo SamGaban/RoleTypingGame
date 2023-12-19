@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script used to detect (using a collider) if there's a wall in front of the enemy
+/// <para> if so, if the enemy's tracking the player, it will jump to get over the obstacle
+/// </summary>
 public class JumpDetection : MonoBehaviour
 {
     private Rigidbody2D _playerRb;
@@ -10,16 +14,14 @@ public class JumpDetection : MonoBehaviour
     private bool readyToJump = true;
     [SerializeField] HealthManager _healthManager;
 
+    /// <summary>
+    /// Publicly accessible script to feed the player's rb once found
+    /// </summary>
+    /// <param name="playerRb"></param>
     public void FeedRb(Rigidbody2D playerRb)
     {
         _playerRb = playerRb;
     }
-
-
-    private void Start()
-    {
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (_healthManager.isDead()) return;
@@ -36,7 +38,6 @@ public class JumpDetection : MonoBehaviour
             }
         }
     }
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (_healthManager.isDead()) return;

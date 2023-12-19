@@ -20,7 +20,8 @@ public class Player : MonoBehaviour
         JumpingUp,
         JumpingDown,
         Casting,
-        Rolling
+        Rolling,
+        Attacking
     }
 
     private state _state = state.Idling;
@@ -30,12 +31,16 @@ public class Player : MonoBehaviour
 
     private bool canRoll = true;
 
+    public bool canSwitchEquipped = true;
+    
+    
+    /// <summary>
+    /// Updates sprite direction
+    /// </summary>
     private void Update()
     {
         direction = Mathf.Sign(_transform.localScale.x);
     }
-
-
     #region States triggers region
     public state ActualState()
     {
@@ -66,35 +71,53 @@ public class Player : MonoBehaviour
         _state = state.Casting;
     }
     #endregion
-
-
+    public void SetState(state stateToSet)
+    {
+        _state = stateToSet;
+    }
+    /// <summary>
+    /// Turns canbehurt => false
+    /// </summary>
     public void InvincibleOn()
     {
         canBeHurt = false;
     }
-
+    /// <summary>
+    /// Turns canbehurt to true
+    /// </summary>
     public void InvincibleOff()
     {
         canBeHurt = true;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns>true if the player can roll</returns>
     public bool CanRoll()
     {
         return canRoll;
     }
-
+    /// <summary>
+    /// Makes canroll true
+    /// </summary>
     public void TurnRollOn()
     {
         canRoll = true;
     }
-
+    /// <summary>
+    /// Makes canRoll false
+    /// </summary>
     public void TurnRollOff()
     {
         canRoll = false;
     }
-
+    /// <summary>
+    /// Toggles between spear and magic
+    /// </summary>
     public void ToggleEquipped()
     {
+        if (!canSwitchEquipped) return;
+        
         if (_equipped == equipped.Spear)
         {
             _equipped = equipped.Magic;

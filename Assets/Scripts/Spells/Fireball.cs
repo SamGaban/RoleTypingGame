@@ -29,25 +29,38 @@ public class Fireball : MonoBehaviour
         _normalScale = _transform.localScale;
         _reverserdScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
     }
-
+    /// <summary>
+    /// Initializes this iteration of the prefab with needed values for direction / damage calculations
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="precisionMod"></param>
+    /// <param name="wpmModif"></param>
     public void Inititalize(float direction, int precisionMod, int wpmModif)
     {
         _direction = direction;
         modifier = precisionMod;
         _wpmMod = wpmModif;
     }
-
+    /// <summary>
+    /// Moving
+    /// </summary>
     private void Update()
     {
         _rb.velocity = _moveInput;
     }
-
+    /// <summary>
+    /// Entity move on impact
+    /// </summary>
+    /// <param name="rigid"></param>
     public void Launch(Rigidbody2D rigid)
     {
         Vector2 Projection = new Vector2(ProjectionForce * _direction, ProjectionForce);
         rigid.AddForce(Projection, ForceMode2D.Impulse);
     }
-
+    /// <summary>
+    /// Fireball impact
+    /// </summary>
+    /// <param name="collision">victim</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -58,8 +71,7 @@ public class Fireball : MonoBehaviour
         //If the collision has a health manager
 
 
-        HealthManager _healthManager = null;
-        _healthManager = collision.gameObject.GetComponent<HealthManager>();
+        HealthManager _healthManager = collision.gameObject.GetComponent<HealthManager>();
         if (_healthManager != null)
         {
             EnemyMove enemyMoveScript = _healthManager.gameObject.GetComponent<EnemyMove>();
@@ -67,6 +79,7 @@ public class Fireball : MonoBehaviour
             if (enemyMoveScript != null)
             {
                 enemyMoveScript.Detect();
+                enemyMoveScript.EnableExternalForces(0.5f);
             }
             
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
