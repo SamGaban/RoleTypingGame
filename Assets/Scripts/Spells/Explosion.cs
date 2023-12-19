@@ -23,7 +23,7 @@ public class Explosion : MonoBehaviour
         
         foreach (var hitCollider in hitColliders)
         {
-            // if (hitCollider.CompareTag("Player")) return;
+            if (hitCollider.CompareTag("Player")) return;
             
             HealthManager healthManager = hitCollider.GetComponent<HealthManager>();
             if (healthManager != null)
