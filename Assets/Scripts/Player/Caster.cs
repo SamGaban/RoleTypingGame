@@ -270,7 +270,7 @@ public class Caster : MonoBehaviour
         for (int i = 0; i < length; i++)
         {
             int randomIndex = Random.Range(0, 5001);
-            toReturn.Append(_wordArray[randomIndex]);
+            toReturn.Append(_wordArray[randomIndex].Replace("'", " ").Replace(".", ""));
             if (i == length - 1) { break; } // Doesn't insert a space if it's the last word (So that there's not an invisible character at the end of every sentence)
             toReturn.Append(" ");
         }
