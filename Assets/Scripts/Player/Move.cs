@@ -15,6 +15,8 @@ public class Move : MonoBehaviour
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpHeight = 5.0f;
 
+    private bool allowExternalForces = false;
+
     Vector2 moveInput;
     float idleMoveTreshold = 1.5f;
 
@@ -35,6 +37,9 @@ public class Move : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
+        if (allowExternalForces) return;
+        
         if (PlayerIsCasting())
         {
             _rb.velocity = new Vector2(0f, _rb.velocity.y);
@@ -47,6 +52,24 @@ public class Move : MonoBehaviour
         IdleCheck();
     }
 
+    /// <summary>
+    /// Allows external forces to apply on the player and deactivates his movement for a little time while
+    /// <para> applying knockback
+    /// </summary>
+    /// <param name="force"></param>
+    public void KnockBack(Vector2 force)
+    {
+        allowExternalForces = true;
+        
+        _rb.AddForce(force, ForceMode2D.Impulse);
+        
+        Invoke("TurnAllowExternalFalseAgain", 0.7f);
+    }
+
+    public void TurnAllowExternalFalseAgain()
+    {
+        allowExternalForces = false;
+    }
 
 
     /// <summary>
@@ -130,5 +153,6 @@ public class Move : MonoBehaviour
     {
         return (_player.ActualState() == Player.state.Casting) ? true : false;
     }
+    
 
 }

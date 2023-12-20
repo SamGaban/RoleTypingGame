@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] Transform _transform;
     [SerializeField] HealthManager _healthManager;
+    [SerializeField] private Move moveScript;
 
     public float direction;
     public enum equipped
@@ -131,9 +132,13 @@ public class Player : MonoBehaviour
     /// Hurts the player by triggering it's hpManager
     /// </summary>
     /// <param name="hpAmount"></param>
-    public void Hurt(int hpAmount)
+    public void Hurt(int hpAmount, Vector2 knckBack)
     {
         if (!canBeHurt) { return; }
+
+        moveScript.KnockBack(knckBack);
+        
+        
         _healthManager.DownHp(hpAmount);
         canBeHurt = false;
         Invoke("InvincibilityToggle", 2f);

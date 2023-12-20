@@ -54,12 +54,14 @@ public class JumpDetection : MonoBehaviour
             lastJumpTime = Time.time;
         }
     }
-
+    /// <summary>
+    /// Bool indicating if the jump has cooled down
+    /// </summary>
+    /// <returns></returns>
     private bool JumpCoolDown()
     {
         return Time.time - lastJumpTime >= 1.5f;
     }
-
     /// <summary>
     /// Publicly accessible script to feed the player's rb once found
     /// </summary>

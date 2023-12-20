@@ -13,8 +13,11 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Update()
     {
+        if (hasDied) return;
+        
         if (_healthManager.isDead())
         {
+            hasDied = true;
             _animator.SetBool("isDead", true);
             return;
         }
@@ -28,23 +31,13 @@ public class EnemyAnimation : MonoBehaviour
             _animator.SetBool("isRunning", false);
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void AttackAnim()
     {
-        if (hasDied) return;
-
-        if (_healthManager.isDead())
-        {
-            hasDied = true;
-            _animator.SetBool("isRunning", false);
-            _animator.SetBool("isAttacking", false);
-            _animator.SetTrigger("isDead");
-        }
-
-        if (collision.gameObject.tag == "Player")
-        {
-            _animator.SetBool("isAttacking", true);
-            Invoke("TurnAttackOff", 1.2f);
-        }
+        _animator.SetBool("isRunning", false);
+        
+        _animator.SetBool("isAttacking", true);
+        Invoke("TurnAttackOff", 0.4f);
     }
     /// <summary>
     /// Turns the animator bool isAttacking off

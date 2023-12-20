@@ -10,6 +10,14 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] Transform _transform;
     [SerializeField] int dmgAmount;
     [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] private EnemyMove moveScript;
+
+    [Header("Settings")]
+    [SerializeField] private float attackCoolDown = 5f;
+
+    [SerializeField] private float knockBackForce;
+
+    private float lastAttackTime;
 
     private bool hasDied = false;
 
@@ -20,16 +28,34 @@ public class BaseEnemy : MonoBehaviour
     private void Start()
     {
         _player = FindObjectOfType<Player>();
+        lastAttackTime = Time.time;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (_healthManager.isDead()) return;
 
+        if (!AttackCooledDown()) return;
+        
         if (collision.gameObject.CompareTag("Player"))
         {
-            _player.Hurt(dmgAmount);
+            Vector2 knockBack = new Vector2(knockBackForce * moveScript.Direction(), knockBackForce);
+            
+            _player.Hurt(dmgAmount, knockBack);
+            lastAttackTime = Time.time;
+
+            EnemyAnimation script = this.gameObject.GetComponent<EnemyAnimation>();
+            if (script != null)
+            {
+                script.AttackAnim();
+            }
         }
     }
+
+    private bool AttackCooledDown()
+    {
+        return Time.time - lastAttackTime >= attackCoolDown;
+    }
+    
     private void Update()
     {
         if (hasDied) return;

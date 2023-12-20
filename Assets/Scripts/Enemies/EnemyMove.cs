@@ -30,6 +30,8 @@ public class EnemyMove : MonoBehaviour
 
     Vector2 _moveInput;
 
+    private float direction;
+
     private void Start()
     {
         int randomNumber = Random.Range(0, 2);
@@ -90,6 +92,11 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
+    public float Direction()
+    {
+        return direction;
+    }
+
     private void Patrol()
     {
         if (_healthManager.isDead()) return;
@@ -127,10 +134,13 @@ public class EnemyMove : MonoBehaviour
         if (_rb.velocity.x > Mathf.Epsilon)
         {
             _transform.localScale = _baseOrientation;
+
+            direction = 1;
         }
         else
         {
             _transform.localScale = _reversedOrientation;
+            direction = -1;
         }
     }
 

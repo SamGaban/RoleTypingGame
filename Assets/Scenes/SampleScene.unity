@@ -1531,6 +1531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transform: {fileID: 851840637}
   _healthManager: {fileID: 851840647}
+  moveScript: {fileID: 851840642}
   direction: 0
   canSwitchEquipped: 1
 --- !u!95 &851840644
@@ -2608,6 +2609,7 @@ MonoBehaviour:
   jumpHeight: 13
   _healthManager: {fileID: 1959635670}
   _ownMove: {fileID: 1959635672}
+  maxVerticalVelocity: 13
 --- !u!61 &1525172839
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9732,6 +9734,9 @@ MonoBehaviour:
   _transform: {fileID: 1959635668}
   dmgAmount: 15
   spriteRenderer: {fileID: 1959635667}
+  moveScript: {fileID: 1959635672}
+  attackCoolDown: 0.5
+  knockBackForce: 8
   _healthManager: {fileID: 1959635670}
 --- !u!114 &1959635670
 MonoBehaviour:
