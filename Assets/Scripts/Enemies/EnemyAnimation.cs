@@ -13,7 +13,11 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (_healthManager.isDead()) return;
+        if (_healthManager.isDead())
+        {
+            _animator.SetBool("isDead", true);
+            return;
+        }
 
         if (Mathf.Abs(_rb.velocity.x) > Mathf.Epsilon)
         {

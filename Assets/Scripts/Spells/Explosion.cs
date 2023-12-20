@@ -23,13 +23,14 @@ public class Explosion : MonoBehaviour
         
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.CompareTag("Player")) return;
-            
-            HealthManager healthManager = hitCollider.GetComponent<HealthManager>();
-            if (healthManager != null)
+            if (!hitCollider.CompareTag("Player"))
             {
-                // Apply damage
-                healthManager.DownHp(damage); // explosionDamage is the damage amount
+                HealthManager healthManager = hitCollider.GetComponent<HealthManager>();
+                if (healthManager != null)
+                {
+                    // Apply damage
+                    healthManager.DownHp(damage); // explosionDamage is the damage amount
+                }
             }
         } // Applying damage
         

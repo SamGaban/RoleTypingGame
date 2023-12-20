@@ -39,59 +39,13 @@ public class Caster : MonoBehaviour
 
         if (_player.ActualState() == Player.state.Casting)
         { // 1. GOING INTO SPELL CAST MODE
-            switch (_skillToLaunch)
-            {
-                case 2: //FORCEFIELD
-
-                    if (!forceFieldActuallyCasting)
-                    {
-                        Forcefield actuallyExistingForcefield = FindObjectOfType<Forcefield>();
-                        if (actuallyExistingForcefield != null)
-                        {
-                            actuallyExistingForcefield.KillShield();
-                            forceFieldActuallyCasting = true;
-                        }
-                    }
-                    
-                    if (actuallyCasting == null)
-                    {
-                        actuallyCasting = SkillTwo(_sentence.CharCount());
-                    }
-                    break;
-                default:
-                    break;
-            }
+            
             if (_sentence.IsDone) // 3. SENTENCE TERMINATED = END OF SPELL CAST
             {
-                decimal charNumberMod = (Convert.ToDecimal(characterCount) / Convert.ToDecimal(_sentence.WordCount()));
-                decimal charPerWord = (charNumberMod / 5) * 100;
-                precisionText.text = $"{_sentence.TypePrecision()}%";
-                wpmText.text = $"{_sentence.WordsPerMinute()}WPM";
-                TurnFeedBackCanvasOn();
-                Invoke("TurnFeedBackCanvasOff", 2f);
-                _player.ToggleCasting();
-                switch (_skillToLaunch) // Put all the skills relative to the skills IDs here
-                {
-                    case 1: // FIREBALL
-                        SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute(), charPerWord);
-                        break;
-                    case 2: // FORCEFIELD
-                        actuallyCasting = null;
-                        forceFieldActuallyCasting = false;
-                        break;
-                    case 3:
-                        Debug.Log("Cast Skill 3");
-                        break;
-                    case 4:
-                        Debug.Log("Cast Skill 4");
-                        break;
-                    default:
-                        break;
-                }
+                EndOfSpellCast();
             }
 
             _canvas.gameObject.SetActive(true);
-
             _text.text = $"<color=green>{_sentence.ShowAchieved()}</color>";
             _text.text += _sentence.ShowRemaining();
 
@@ -114,26 +68,7 @@ public class Caster : MonoBehaviour
 
                         if (_sentence.TypeIn(keyChar)) // 2. FOR EACH GOOD KEYPRESS WHILE SPELL CASTING
                         {
-                            switch (_skillToLaunch)
-                            {
-                                case 2: // FORCEFIELD
-                                    
-                                    if (actuallyCasting != null)
-                                    {
-                                        Forcefield script = actuallyCasting.GetComponent<Forcefield>();
-                                        if (script != null)
-                                        {
-                                            script.Grow();
-                                        }
-                                    }
-
-                                    break;
-                                default:
-                                    break;
-                            }
-                            
-                            characterCount++; // +1 Per character correctly typed in
-                            _sentence.ClearChars(1);
+                            EachGoodKeyPress();
                         }
                     }
                 }
@@ -145,13 +80,96 @@ public class Caster : MonoBehaviour
 
             
             characterCount = 0; // resetting character count after a cast, or annulation
-
-            //Still in update here, if you want to add end of spell, go higher, cancelation, go down
             
             _canvas.gameObject.SetActive(false);
         }
     }
 
+
+    
+    /// <summary>
+    /// Method called on each successfull keypress
+    /// </summary>
+    private void EachGoodKeyPress()
+    {
+        switch (_skillToLaunch)
+        {
+            case 2: // FORCEFIELD
+                                    
+                if (actuallyCasting != null)
+                {
+                    Forcefield script = actuallyCasting.GetComponent<Forcefield>();
+                    if (script != null)
+                    {
+                        script.Grow();
+                    }
+                }
+
+                break;
+            default:
+                break;
+        }
+                            
+        characterCount++; // +1 Per character correctly typed in
+        _sentence.ClearChars(1);
+    }
+    
+    /// <summary>
+    /// Method called at the successfull end of a spellcast
+    /// </summary>
+    private void EndOfSpellCast()
+    {
+        decimal charNumberMod = (Convert.ToDecimal(characterCount) / Convert.ToDecimal(_sentence.WordCount()));
+        decimal charPerWord = (charNumberMod / 5) * 100;
+        precisionText.text = $"{_sentence.TypePrecision()}%";
+        wpmText.text = $"{_sentence.WordsPerMinute()}WPM";
+        TurnFeedBackCanvasOn();
+        Invoke("TurnFeedBackCanvasOff", 2f);
+        _player.ToggleCasting();
+        switch (_skillToLaunch) // Put all the skills relative to the skills IDs here
+        {
+            case 1: // FIREBALL
+                SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute(), charPerWord);
+                break;
+            case 2: // FORCEFIELD
+                actuallyCasting = null;
+                forceFieldActuallyCasting = false;
+                break;
+            case 3:
+                Debug.Log("Cast Skill 3");
+                break;
+            case 4:
+                Debug.Log("Cast Skill 4");
+                break;
+            default:
+                break;
+        }
+    }
+    
+    /// <summary>
+    /// Cancel a began spellcast
+    /// </summary>
+    private void OnCast() // ON PUSHING THE CAST BUTTON BEFORE SPELL IS COMPLETE
+    {
+        if (_player.ActualState() != Player.state.Casting) { return; }
+        
+        if (_skillToLaunch == 2) // If actually casting FORCEFIELD (CANCEL AND KILL SHIELD)
+        {
+            if (actuallyCasting != null)
+            {
+                Forcefield script = actuallyCasting.GetComponent<Forcefield>();
+                if (script != null) {}
+                script.KillShield();
+                actuallyCasting = null;
+            }
+            forceFieldActuallyCasting = false;
+        }
+        
+        _player.ToggleCasting(); // TOGGLE CASTING STATE
+    }
+
+    
+    
     private void TurnFeedBackCanvasOn()
     {
         fbCanvasAnimator.SetTrigger("isFadingIn");
@@ -161,7 +179,7 @@ public class Caster : MonoBehaviour
         fbCanvasAnimator.SetTrigger("isFadingOut");
     }
     /// <summary>
-    /// Defines a number of word necessary to cast a spell, and the ID of said spell, and creates a random sentence for this process while toggling Cast
+    /// <para>Defines a number of word necessary to cast a spell, and the ID of said spell, and creates a random sentence for this process while toggling Cast</para>
     /// </summary>
     /// <param name="numberOfWordsForCast">Numbers of words necessary for the casting of the skill</param>
     /// <param name="skillId">ID of the skill that is aimed to be cast</param>
@@ -179,6 +197,8 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnSkill1()
     {
+        if (_player.ActualState() == Player.state.Casting) return;
+        
         LaunchSkill(4, 1);
     }
     /// <summary>
@@ -186,7 +206,26 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnSkill2()
     {
-        LaunchSkill(17, 2);
+        if (_player.ActualState() == Player.state.Casting) return;
+
+        LaunchSkill(14, 2);
+
+
+        if (forceFieldActuallyCasting) return;
+
+        forceFieldActuallyCasting = true;
+
+        Forcefield actuallyExistingForcefield = FindObjectOfType<Forcefield>();
+        if (actuallyExistingForcefield != null)
+        {
+            actuallyExistingForcefield.KillShield();
+        }
+                    
+        if (actuallyCasting == null)
+        {
+            actuallyCasting = SkillTwo(_sentence.CharCount());
+        }
+
     }
     /// <summary>
     /// Key L
@@ -201,23 +240,6 @@ public class Caster : MonoBehaviour
     private void OnSkill4()
     {
         LaunchSkill(17, 4);
-    }
-    /// <summary>
-    /// Cancel a began spellcast
-    /// </summary>
-    private void OnCast() // ON PUSHING THE CAST BUTTON BEFORE SPELL IS COMPLETE
-    {
-        if (_player.ActualState() != Player.state.Casting) { return; }
-        
-        if (_skillToLaunch == 2) // If actually casting FORCEFIELD (CANCEL AND KILL SHIELD)
-        {
-            Forcefield script = actuallyCasting.GetComponent<Forcefield>();
-            script.KillShield();
-            actuallyCasting = null;
-            forceFieldActuallyCasting = false;
-        }
-        
-        _player.ToggleCasting(); // TOGGLE CASTING STATE
     }
     
     /// <summary>

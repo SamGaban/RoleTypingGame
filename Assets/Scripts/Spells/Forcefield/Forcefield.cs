@@ -41,9 +41,13 @@ public class Forcefield : MonoBehaviour
     
     private void FixedUpdate()
     {
-
         SizeCheck();
         DownCheck();
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        Shrink(5);
     }
 
     /// <summary>

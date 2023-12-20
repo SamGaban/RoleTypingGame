@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class EnemyMove : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class EnemyMove : MonoBehaviour
     private Vector3 _baseOrientation;
     private Vector3 _reversedOrientation;
 
+    private Vector2 _startPosition;
+
+    private bool isPatrolling = true;
+
     public JumpDetection jumpScript;
     
     private bool allowExternalForces = false;
@@ -27,16 +32,23 @@ public class EnemyMove : MonoBehaviour
         _baseOrientation = _transform.localScale;
         _reversedOrientation = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.y);
         _transform.localScale = _baseOrientation;
-
+        _startPosition = _rb.position;
     }
     /// <summary>
     /// Gives out the player location and stores it in the predeclared variable
     /// </summary>
     public void Detect()
     {
+        isPatrolling = false;
         _playerRb = FindObjectOfType<Player>().gameObject.GetComponent<Rigidbody2D>();
         jumpScript.FeedRb(_playerRb);
     }
+
+    public bool IsPatrolling()
+    {
+        return isPatrolling;
+    }
+    
     /// <summary>
     /// When a player is detected, moves towards its location
     /// </summary>
@@ -55,8 +67,12 @@ public class EnemyMove : MonoBehaviour
         {
             _rb.velocity = Vector2.zero; // Need to put patrol here
         }
-        
-        if (_healthManager.isDead()) return;
+
+        if (_healthManager.isDead())
+        {
+            _rb.velocity = Vector2.zero;
+            return;
+        }
 
         if (!allowExternalForces)
         {
