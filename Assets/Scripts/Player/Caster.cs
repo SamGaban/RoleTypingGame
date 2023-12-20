@@ -33,12 +33,12 @@ public class Caster : MonoBehaviour
     private int characterCount = 0;
     
 
-    private void Update()
+    private void Update() // Typing Cast Logic in Here
     {
         FlipCanvas();
 
         if (_player.ActualState() == Player.state.Casting)
-        { // GOING INTO SPELL CAST MODE
+        { // 1. GOING INTO SPELL CAST MODE
             switch (_skillToLaunch)
             {
                 case 2: //FORCEFIELD
@@ -61,7 +61,7 @@ public class Caster : MonoBehaviour
                 default:
                     break;
             }
-            if (_sentence.IsDone) // SENTENCE TERMINATED = END OF SPELL CAST
+            if (_sentence.IsDone) // 3. SENTENCE TERMINATED = END OF SPELL CAST
             {
                 decimal charNumberMod = (Convert.ToDecimal(characterCount) / Convert.ToDecimal(_sentence.WordCount()));
                 decimal charPerWord = (charNumberMod / 5) * 100;
@@ -112,7 +112,7 @@ public class Caster : MonoBehaviour
                             keyChar = (char)kcode;
                         }
 
-                        if (_sentence.TypeIn(keyChar)) // FOR EACH GOOD KEYPRESS WHILE SPELL CASTING
+                        if (_sentence.TypeIn(keyChar)) // 2. FOR EACH GOOD KEYPRESS WHILE SPELL CASTING
                         {
                             switch (_skillToLaunch)
                             {
