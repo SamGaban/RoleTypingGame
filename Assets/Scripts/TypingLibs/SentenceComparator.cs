@@ -46,7 +46,7 @@ namespace TypingComparator
         private int _characterCount;
 
         private bool _toLower;
-
+        
         #endregion
 
 
@@ -136,6 +136,14 @@ namespace TypingComparator
         public int WordCount()
         {
             return _wordCount;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>total chars count</returns>
+        public int CharCount()
+        {
+            return _characterCount;
         }
         /// <summary>
         /// Takes char input and compares it with the next char in the sentence (chararray)
