@@ -24,10 +24,18 @@ public class EnemyMove : MonoBehaviour
     
     private bool allowExternalForces = false;
 
+    private bool goingRight = true;
+
+    private bool goingLeft = false;
+
     Vector2 _moveInput;
 
     private void Start()
     {
+        int randomNumber = Random.Range(0, 2);
+        
+        InvokeRepeating("RightLeftToggle", 1f, 5f);
+        
         _transform = this.gameObject.transform;
         _baseOrientation = _transform.localScale;
         _reversedOrientation = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.y);
@@ -65,7 +73,7 @@ public class EnemyMove : MonoBehaviour
     {
         if (_playerRb == null)
         {
-            _rb.velocity = Vector2.zero; // Need to put patrol here
+            Patrol();
         }
 
         if (_healthManager.isDead())
@@ -81,6 +89,20 @@ public class EnemyMove : MonoBehaviour
             _rb.velocity = _moveInput;
         }
     }
+
+    private void Patrol()
+    {
+        if (_healthManager.isDead()) return;
+
+        _moveInput = new Vector2((goingRight ? 1 : -1) * speed, _rb.velocity.y);
+    }
+
+    private void RightLeftToggle()
+    {
+        goingRight = !goingRight;
+        goingLeft = !goingLeft;
+    }
+    
     /// <summary>
     /// Enables external forces to impact the RB of the enemy
     /// </summary>

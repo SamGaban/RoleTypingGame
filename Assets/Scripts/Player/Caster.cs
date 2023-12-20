@@ -206,6 +206,8 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnSkill2()
     {
+        if (_player.ActualEquipped() == Player.equipped.Spear) return;
+        
         if (_player.ActualState() == Player.state.Casting) return;
 
         LaunchSkill(14, 2);
