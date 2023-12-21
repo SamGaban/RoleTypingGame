@@ -34,6 +34,7 @@ public class HealthManager : MonoBehaviour
     public void SetHealth(int newHealth)
     {
         _healthPoints = newHealth;
+        _maxHealthPoints = newHealth;
     }
     
     private void Update()

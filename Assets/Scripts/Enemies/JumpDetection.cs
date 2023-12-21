@@ -76,7 +76,9 @@ public class JumpDetection : MonoBehaviour
     {
         if (!JumpCoolDown()) return;
         
-        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Forcefield")) return;
+        if (collision.gameObject.CompareTag("Player")
+            || collision.gameObject.CompareTag("Forcefield")
+            || collision.gameObject.CompareTag("Omen")) return;
         
         if (_healthManager.isDead()) return;
 

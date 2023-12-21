@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Enemy
   - Forcefield
+  - OmenSpawn
+  - Omen
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Spells
   - Enemy
   - Forcefield
-  - 
+  - Oman
   - 
   - 
   - 
@@ -50,11 +52,14 @@ TagManager:
   - name: ForceField
     uniqueID: 104287805
     locked: 0
-  - name: Ground
-    uniqueID: 4215397101
-    locked: 0
   - name: Enemies
     uniqueID: 2113036717
+    locked: 0
+  - name: Omen
+    uniqueID: 2520582947
+    locked: 0
+  - name: Ground
+    uniqueID: 4215397101
     locked: 0
   - name: Spells
     uniqueID: 34239051

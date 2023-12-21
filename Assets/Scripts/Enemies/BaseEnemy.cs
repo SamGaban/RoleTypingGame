@@ -59,10 +59,16 @@ public class BaseEnemy : MonoBehaviour
     private bool hasDied = false;
 
 
-    [Button] [TabGroup("Settings", "Sub")]
+    [ButtonGroup]
     private void Kill()
     {
         _healthManager.Kill();
+    }
+    
+    [ButtonGroup]
+    public void ActivateEnemy()
+    {
+        moveScript.ActivateEnemy();
     }
     
 

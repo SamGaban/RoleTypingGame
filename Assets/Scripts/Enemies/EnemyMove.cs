@@ -37,6 +37,8 @@ public class EnemyMove : MonoBehaviour
 
     private float direction;
 
+    private bool deactivated = true;
+
 
     private float RandomPatrolTimeGenerator()
     {
@@ -78,6 +80,8 @@ public class EnemyMove : MonoBehaviour
     /// </summary>
     private void Move()
     {
+        if (deactivated) return;
+
         if (_healthManager.isDead()) return;
 
         if (_playerRb != null)
@@ -87,23 +91,32 @@ public class EnemyMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_playerRb == null)
+        if (deactivated)
         {
-            Patrol();
-        }
-
-        if (_healthManager.isDead())
-        {
+            _rb.bodyType = RigidbodyType2D.Kinematic;
             _rb.velocity = Vector2.zero;
-            return;
         }
-
-        if (!allowExternalForces)
+        else
         {
-            Move();
-            SpriteFlip();
-            _rb.velocity = _moveInput;
+            if (_playerRb == null)
+            {
+                Patrol();
+            }
+
+            if (_healthManager.isDead())
+            {
+                _rb.velocity = Vector2.zero;
+                return;
+            }
+
+            if (!allowExternalForces)
+            {
+                Move();
+                SpriteFlip();
+                _rb.velocity = _moveInput;
+            }
         }
+        
     }
 
     public float Direction()
@@ -130,9 +143,18 @@ public class EnemyMove : MonoBehaviour
     /// <param name="duration">duration</param>
     public void EnableExternalForces(float duration)
     {
+        if (deactivated) return;
+
         allowExternalForces = true;
         Invoke("DisableExternalForces", duration);
     }
+
+    public void ActivateEnemy()
+    {
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        deactivated = false;
+    }
+    
     /// <summary>
     /// Disables external forces on the enemy's rb
     /// </summary>

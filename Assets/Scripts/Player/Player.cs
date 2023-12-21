@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
         
         _healthManager.DownHp(hpAmount);
         canBeHurt = false;
-        Invoke("InvincibilityToggle", 2f);
+        Invoke("InvincibilityToggle", 1f);
     }
     
     /// <summary>

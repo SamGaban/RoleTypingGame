@@ -48,6 +48,9 @@ public class Caster : MonoBehaviour
     [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Animator fbCanvasAnimator;
 
+    [TabGroup("References", "Actual Omen")] [ShowInInspector]
+    private GameObject actualOmen;
+
 
 
     private GameObject actuallyCasting; // Actually stored / casting spell
@@ -67,6 +70,17 @@ public class Caster : MonoBehaviour
         SlotToSpellIdDictionary.Add(1, 1);
         SlotToSpellIdDictionary.Add(2, 2);
     }
+
+    public void FeedOmen(GameObject omen)
+    {
+        actualOmen = omen;
+    }
+
+    public void ForgetOmen()
+    {
+        actualOmen = null;
+    }
+    
     
 /*==============================================================================================================
  * To Add A Spell
@@ -224,6 +238,7 @@ public class Caster : MonoBehaviour
     {
         fbCanvasAnimator.SetTrigger("isFadingOut");
     }
+    
     
     
     
