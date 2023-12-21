@@ -16,20 +16,39 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class Caster : MonoBehaviour
 {
+    [Space]
     [Header("References")]
+    [TabGroup("References", "Base")]
     [SerializeField] Player _player;
+    [TabGroup("References", "Base")]
     [SerializeField] private Move _moveScript;
+    [TabGroup("References", "Base")]
     [SerializeField] Canvas _canvas;
+    [TabGroup("References", "Base")]
     [SerializeField] TMP_Text _text;
     
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
+    GameObject FireBall;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
+    private Sprite id1Logo;
+    
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
+    private GameObject ForceField;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
+    private Sprite id2Logo;
+    
+    [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Canvas feedBackCanvas;
+    [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private TMP_Text precisionText;
+    [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private TMP_Text wpmText;
+    [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Animator fbCanvasAnimator;
 
-    [Header("Prefabs")]
-    [SerializeField] GameObject FireBall;
-    [SerializeField] private GameObject ForceField;
+
 
     private GameObject actuallyCasting; // Actually stored / casting spell
 
