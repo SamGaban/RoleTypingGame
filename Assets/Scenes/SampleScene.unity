@@ -2607,9 +2607,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1959635665}
-  jumpHeight: 13
   _healthManager: {fileID: 1959635670}
   _ownMove: {fileID: 1959635672}
+  jumpHeight: 13
   maxVerticalVelocity: 13
 --- !u!61 &1525172839
 BoxCollider2D:
@@ -9733,12 +9733,12 @@ MonoBehaviour:
   _collider: {fileID: 1959635666}
   _rb: {fileID: 1959635665}
   _transform: {fileID: 1959635668}
-  dmgAmount: 15
   spriteRenderer: {fileID: 1959635667}
   moveScript: {fileID: 1959635672}
+  _healthManager: {fileID: 1959635670}
+  dmgAmount: 15
   attackCoolDown: 0.5
   knockBackForce: 8
-  _healthManager: {fileID: 1959635670}
 --- !u!114 &1959635670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9754,7 +9754,7 @@ MonoBehaviour:
   _entityTransform: {fileID: 1959635668}
   _canvasTransform: {fileID: 1902412117}
   healthSlider: {fileID: 1960387708}
-  _healthPoints: 35
+  _healthPoints: 40
 --- !u!95 &1959635671
 Animator:
   serializedVersion: 5

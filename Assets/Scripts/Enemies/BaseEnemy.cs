@@ -1,24 +1,50 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] Collider2D _collider;
-    [SerializeField] Rigidbody2D _rb;
-    [SerializeField] Transform _transform;
-    [SerializeField] SpriteRenderer spriteRenderer;
-    [SerializeField] private EnemyMove moveScript;
-    [SerializeField] HealthManager _healthManager;
+    [TabGroup("Settings")] [SerializeField]
+    private int dmgAmount;
+
+    [TabGroup("Settings")] [SerializeField]
+    private float attackCoolDown = 5f;
+
+    [TabGroup("Settings")] [SerializeField]
+    private float knockBackForce;
+
+    [Space] [SerializeField] [TabGroup("Settings")]
+    private float moveSpeed;
+
+    [Space] [SerializeField] [TabGroup("Settings")]
+    private int healthPoints;
+
+    [Space] [SerializeField] [TabGroup("Settings")]
+    private float jumpHeight;
+
+    [TabGroup("References")] [SerializeField]
+    private Collider2D _collider;
+
+    [TabGroup("References")] [SerializeField]
+    private JumpDetection jumpScript;
+
+    [TabGroup("References")] [SerializeField]
+    private Rigidbody2D _rb;
+
+    [TabGroup("References")] [SerializeField]
+    private Transform _transform;
+
+    [TabGroup("References")] [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
+    [TabGroup("References")] [SerializeField]
+    private EnemyMove moveScript;
+
+    [TabGroup("References")] [SerializeField]
+    private HealthManager _healthManager;
     private Player _player;
-    [Header("Settings")]
-    [SerializeField] int dmgAmount;
-
-    [SerializeField] private float attackCoolDown = 5f;
-
-    [SerializeField] private float knockBackForce;
 
     private float lastAttackTime;
 
@@ -30,6 +56,10 @@ public class BaseEnemy : MonoBehaviour
     {
         _player = FindObjectOfType<Player>();
         lastAttackTime = Time.time;
+        
+        _healthManager.SetHealth(healthPoints);
+        
+        jumpScript.SetJumpHeight(jumpHeight);
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -50,6 +80,11 @@ public class BaseEnemy : MonoBehaviour
                 script.AttackAnim();
             }
         }
+    }
+
+    public float MoveSpeed()
+    {
+        return moveSpeed;
     }
     
     /// <summary>

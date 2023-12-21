@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField]
+    private BaseEnemy baseScript;
     [SerializeField] Rigidbody2D _rb;
     [Header("Settings")]
-    [SerializeField] float speed;
+    float speed;
     [SerializeField] HealthManager _healthManager;
 
     private Rigidbody2D _playerRb;
@@ -43,7 +46,10 @@ public class EnemyMove : MonoBehaviour
         _reversedOrientation = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.y);
         _transform.localScale = _baseOrientation;
         _startPosition = _rb.position;
+
+        speed = baseScript.MoveSpeed();
     }
+    [Button]
     /// <summary>
     /// Gives out the player location and stores it in the predeclared variable
     /// </summary>

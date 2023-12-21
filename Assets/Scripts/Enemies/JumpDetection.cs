@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -24,13 +25,13 @@ public class JumpDetection : MonoBehaviour
 
     private float lastJumpTime; // Last moment where a jump was performed per the entity
 
-
-
+    
+    
     private void FixedUpdate()
     {
-        if (_rb.velocity.y > maxVerticalVelocity)
+        if (_rb.velocity.y > jumpHeight)
         {
-            _rb.velocity = new Vector2(_rb.velocity.x, maxVerticalVelocity);
+            _rb.velocity = new Vector2(_rb.velocity.x, jumpHeight);
         }
         
         if (_playerRb != null)
@@ -101,5 +102,10 @@ public class JumpDetection : MonoBehaviour
                 readyToJump = false;
             }
         }
+    }
+
+    public void SetJumpHeight(float njumpHeight)
+    {
+        jumpHeight = njumpHeight;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -7,11 +8,13 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    [Header("References")]
+    [TabGroup("References")]
     [SerializeField] Transform _transform;
+    [TabGroup("References")]
     [SerializeField] HealthManager _healthManager;
+    [TabGroup("References")]
     [SerializeField] private Move moveScript;
-    [Header("Settings")]
+    [TabGroup("Settings")]
     public float direction;
     public enum equipped
     {

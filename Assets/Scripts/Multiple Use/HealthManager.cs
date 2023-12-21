@@ -8,12 +8,14 @@ using UnityEngine.UI;
 /// </summary>
 public class HealthManager : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Transform _entityTransform;
 
     [SerializeField] Transform _canvasTransform;
 
     [SerializeField] Slider healthSlider;
-
+    [Header("Settings")]
+    [Range(1, 2000)]
     public int _healthPoints;
     private int _maxHealthPoints;
 
@@ -28,6 +30,12 @@ public class HealthManager : MonoBehaviour
         reversedScale = new Vector3(-_canvasTransform.localScale.x, _canvasTransform.localScale.y, _canvasTransform.localScale.z);
         _maxHealthPoints = _healthPoints;
     }
+
+    public void SetHealth(int newHealth)
+    {
+        _healthPoints = newHealth;
+    }
+    
     private void Update()
     {
         if (isDeceased) return;
