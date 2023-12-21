@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
@@ -24,6 +25,9 @@ public class BaseEnemy : MonoBehaviour
     [Space] [SerializeField] [TabGroup("Settings")]
     private float jumpHeight;
 
+    [TabGroup("Animator Controller")] [SerializeField]
+    private RuntimeAnimatorController Controller;
+    
     [TabGroup("References")] [SerializeField]
     private Collider2D _collider;
 
@@ -46,11 +50,21 @@ public class BaseEnemy : MonoBehaviour
     private HealthManager _healthManager;
     private Player _player;
 
+    [TabGroup("References")] [SerializeField]
+    private EnemyAnimation animationScript;
+
+
     private float lastAttackTime;
 
     private bool hasDied = false;
 
 
+    [Button] [TabGroup("Settings", "Sub")]
+    private void Kill()
+    {
+        _healthManager.Kill();
+    }
+    
 
     private void Start()
     {

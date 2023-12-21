@@ -22,6 +22,8 @@ public class EnemyMove : MonoBehaviour
     private Vector2 _startPosition;
 
     private bool isPatrolling = true;
+    private float changeDirectionCooldown = 0.1f;
+    private float lastDirectionChange = 0f;
 
     public JumpDetection jumpScript;
     
@@ -35,11 +37,17 @@ public class EnemyMove : MonoBehaviour
 
     private float direction;
 
+
+    private float RandomPatrolTimeGenerator()
+    {
+        return Random.Range(2f, 6f);
+    }
+    
     private void Start()
     {
         int randomNumber = Random.Range(0, 2);
         
-        InvokeRepeating("RightLeftToggle", 1f, 5f);
+        InvokeRepeating("RightLeftToggle", 1f, RandomPatrolTimeGenerator());
         
         _transform = this.gameObject.transform;
         _baseOrientation = _transform.localScale;
@@ -137,6 +145,10 @@ public class EnemyMove : MonoBehaviour
     /// </summary>
     private void SpriteFlip()
     {
+        if (!(Time.time - lastDirectionChange > changeDirectionCooldown)) return;
+
+        lastDirectionChange = Time.time;
+        
         if (_rb.velocity.x > Mathf.Epsilon)
         {
             _transform.localScale = _baseOrientation;

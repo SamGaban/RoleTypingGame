@@ -106,4 +106,9 @@ public class HealthManager : MonoBehaviour
         return isDeceased;
     }
 
+    public void Kill()
+    {
+        SetHealth(0);
+    }
+
 }

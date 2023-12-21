@@ -9,7 +9,7 @@ public class EnemyAnimation : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] Rigidbody2D _rb;
-    [SerializeField] RuntimeAnimatorController _controller;
+    RuntimeAnimatorController _controller;
     [SerializeField] Animator _animator;
     [SerializeField] HealthManager _healthManager;
 
@@ -53,5 +53,12 @@ public class EnemyAnimation : MonoBehaviour
     private void TurnAttackOff()
     {
         _animator.SetBool("isAttacking", false);
+    }
+
+    public void FeedAnimator(RuntimeAnimatorController control)
+    {
+        _controller = control;
+        _animator.runtimeAnimatorController = _controller;
+        Debug.Log("test");
     }
 }
