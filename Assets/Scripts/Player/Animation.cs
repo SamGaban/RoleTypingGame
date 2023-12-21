@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// PLAYER Animator script
+/// </summary>
 public class Animation : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Player _player;
     [SerializeField] Animator _mainAnimator;
     [SerializeField] RuntimeAnimatorController _spearAnimator;
     [SerializeField] RuntimeAnimatorController _magicAnimator;
-    
     [SerializeField] private Hitter hitterScript;
 
     private bool canAttack = true;

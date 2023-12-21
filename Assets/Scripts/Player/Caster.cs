@@ -10,6 +10,9 @@ using UnityEditor.Experimental.GraphView;
 #endif
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Class responsible for all of the player's spell casting
+/// </summary>
 public class Caster : MonoBehaviour
 {
     [Header("References")]
@@ -25,16 +28,15 @@ public class Caster : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] GameObject FireBall;
-
     [SerializeField] private GameObject ForceField;
 
-    private GameObject actuallyCasting;
+    private GameObject actuallyCasting; // Actually stored / casting spell
 
     private bool forceFieldActuallyCasting = false;
 
-    Sentence _sentence;
-    int _skillToLaunch = -1;
-    private int characterCount = 0;
+    Sentence _sentence; // Sentence being currently typed / last sentence that has been typed
+    int _skillToLaunch = -1; // Skill that is currently being cast / last skill cast
+    private int characterCount = 0; // Char count of the current sentence
     
 
     private void Update() // Typing Cast Logic in Here

@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Main player script
+/// </summary>
 public class Player : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Transform _transform;
     [SerializeField] HealthManager _healthManager;
     [SerializeField] private Move moveScript;
-
+    [Header("Settings")]
     public float direction;
     public enum equipped
     {
@@ -42,6 +46,7 @@ public class Player : MonoBehaviour
     {
         direction = Mathf.Sign(_transform.localScale.x);
     }
+    
     #region States triggers region
     public state ActualState()
     {
@@ -76,6 +81,7 @@ public class Player : MonoBehaviour
     {
         _state = stateToSet;
     }
+    
     /// <summary>
     /// Turns canbehurt => false
     /// </summary>
@@ -83,6 +89,7 @@ public class Player : MonoBehaviour
     {
         canBeHurt = false;
     }
+    
     /// <summary>
     /// Turns canbehurt to true
     /// </summary>
@@ -90,6 +97,7 @@ public class Player : MonoBehaviour
     {
         canBeHurt = true;
     }
+    
     /// <summary>
     /// 
     /// </summary>
@@ -98,6 +106,7 @@ public class Player : MonoBehaviour
     {
         return canRoll;
     }
+    
     /// <summary>
     /// Makes canroll true
     /// </summary>
@@ -105,6 +114,7 @@ public class Player : MonoBehaviour
     {
         canRoll = true;
     }
+    
     /// <summary>
     /// Makes canRoll false
     /// </summary>
@@ -112,6 +122,7 @@ public class Player : MonoBehaviour
     {
         canRoll = false;
     }
+    
     /// <summary>
     /// Toggles between spear and magic
     /// </summary>
@@ -128,6 +139,7 @@ public class Player : MonoBehaviour
             _equipped = equipped.Spear;
         }
     }
+    
     /// <summary>
     /// Hurts the player by triggering it's hpManager
     /// </summary>
@@ -143,6 +155,7 @@ public class Player : MonoBehaviour
         canBeHurt = false;
         Invoke("InvincibilityToggle", 2f);
     }
+    
     /// <summary>
     /// Toggles player invicibility (which triggers after hit) off => To be called after a little invicibility time
     /// </summary>
@@ -150,6 +163,7 @@ public class Player : MonoBehaviour
     {
         canBeHurt = true;
     }
+    
     /// <summary>
     /// Heals the player by triggering its hpManager
     /// </summary>
@@ -158,6 +172,7 @@ public class Player : MonoBehaviour
     {
         _healthManager.UpHp(hpAmount);
     }
+    
     /// <summary>
     /// Method called by pressing shift, to cancel a spellcast before it's finished
     /// </summary>
@@ -167,6 +182,7 @@ public class Player : MonoBehaviour
 
         ToggleEquipped();
     }
+    
     /// <summary>
     /// Casting state on or off if the actual state is using magic
     /// </summary>

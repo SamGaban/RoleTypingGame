@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// PLAYER move script, takes input from input manager
+/// </summary>
 public class Move : MonoBehaviour
 {
     [Header("References")]
@@ -29,12 +32,24 @@ public class Move : MonoBehaviour
         MoveCheck();
     }
 
+    /// <summary>
+    /// Zeroes the actually stored moveInput
+    /// </summary>
+    public void StopMoveInput()
+    {
+        moveInput = Vector2.zero;
+    }
+    
+    /// <summary>
+    /// Input triggered jump
+    /// </summary>
     private void OnJump()
     {
         if (PlayerIsCasting()) { return; }
 
         Jump();
     }
+    
     private void FixedUpdate()
     {
 
@@ -66,12 +81,14 @@ public class Move : MonoBehaviour
         Invoke("TurnAllowExternalFalseAgain", 0.7f);
     }
 
+    /// <summary>
+    /// Trigger that disables the "Allow External forces" used for knockback
+    /// </summary>
     public void TurnAllowExternalFalseAgain()
     {
         allowExternalForces = false;
     }
-
-
+    
     /// <summary>
     /// Flips player sprite based rb's velocity / Direction
     /// </summary>

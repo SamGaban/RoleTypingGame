@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ENEMY animator script
+/// </summary>
 public class EnemyAnimation : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] Rigidbody2D _rb;
     [SerializeField] RuntimeAnimatorController _controller;
     [SerializeField] Animator _animator;
@@ -32,6 +36,10 @@ public class EnemyAnimation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attack animation script
+    /// <para>Turns other animations off for a while, while activating the attack one</para>
+    /// </summary>
     public void AttackAnim()
     {
         _animator.SetBool("isRunning", false);

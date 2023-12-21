@@ -1585,6 +1585,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 851840643}
+  _moveScript: {fileID: 851840642}
   _canvas: {fileID: 951909222}
   _text: {fileID: 611594005}
   feedBackCanvas: {fileID: 746108830}

@@ -14,7 +14,9 @@ public class Forcefield : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform ownTransform;
     [SerializeField] private Collider2D ownCollider;
-    
+    [Header("Settings")]
+    [SerializeField] private float maxHealth = 3000f;
+    [SerializeField] private int drainOnContinuousContact = 5;
     
     private int _healthPoints = 1;
 
@@ -28,11 +30,11 @@ public class Forcefield : MonoBehaviour
 
     private float minHealth = 1f;
 
-    private float maxHealth = 3000f;
     
     Vector3 minScale = new Vector3(4f, 4f, 4f);
     
     Vector3 maxScale = new Vector3(20f, 20f, 20f);
+
     
     
     
@@ -45,9 +47,12 @@ public class Forcefield : MonoBehaviour
         DownCheck();
     }
 
+    /// <summary>
+    /// If enemies in contact with the shield, life drain
+    /// </summary>
     private void OnCollisionStay2D(Collision2D other)
     {
-        Shrink(5);
+        Shrink(drainOnContinuousContact);
     }
 
     /// <summary>
@@ -93,13 +98,13 @@ public class Forcefield : MonoBehaviour
     /// <param name="amount"></param>
     public void Grow()
     {
-        if (_healthPoints + _growAmount <= 3000)
+        if (_healthPoints + _growAmount <= maxHealth)
         {
             _healthPoints += _growAmount;
         }
         else
         {
-            _healthPoints = 3000;
+            _healthPoints = Convert.ToInt32(maxHealth);
         }
     }
     /// <summary>
@@ -118,16 +123,23 @@ public class Forcefield : MonoBehaviour
         isDown = true;
     }
 
+    /// <summary>
+    /// Returns true if the shield is active
+    /// </summary>
     public bool IsActive()
     {
         return isActive;
     }
     
+    /// <summary>
+    /// Enables the shield
+    /// </summary>
+    /// <param name="totalChars">Total characcters in the sentence used for the casting of the shield</param>
     public void ActivateShield(int totalChars)
     {
         isActive = true;
         ownCollider.enabled = true;
         ownTransform.localScale = new Vector3(minViableSize, minViableSize, minViableSize);
-        _growAmount = Convert.ToInt32(3000 / totalChars);
+        _growAmount = Convert.ToInt32(maxHealth / totalChars);
     }
 }

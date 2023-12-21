@@ -9,20 +9,21 @@ using UnityEngine;
 /// </summary>
 public class JumpDetection : MonoBehaviour
 {
+    [Header("References")]
     private Rigidbody2D _playerRb;
     public Rigidbody2D _rb;
-    [SerializeField] float jumpHeight;
     private bool readyToJump = true;
     [SerializeField] HealthManager _healthManager;
-
     [SerializeField] private EnemyMove _ownMove;
+    [Header("Settings")]
+    [SerializeField] float jumpHeight;
+    public float maxVerticalVelocity = 5f;
 
-    private float verticalDistance;
+    private float verticalDistance; // Vertical distance with the player (not null if player is detected)
     private float horizontalDistance;
 
-    private float lastJumpTime;
+    private float lastJumpTime; // Last moment where a jump was performed per the entity
 
-    public float maxVerticalVelocity = 5f;
 
 
     private void FixedUpdate()

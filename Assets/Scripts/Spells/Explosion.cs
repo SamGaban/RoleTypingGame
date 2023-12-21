@@ -8,6 +8,7 @@ using UnityEngine;
 /// </summary>
 public class Explosion : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private float explosionRadius = 5.0f; // Example radius
     private Collider2D[] hitColliders;
 
@@ -51,6 +52,9 @@ public class Explosion : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// GameObject self destroy script
+    /// </summary>
     private void DestroySelf()
     {
         Destroy(this.gameObject);
