@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using TypingComparator;
 using System.Text;
+using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
 #endif
@@ -37,7 +38,27 @@ public class Caster : MonoBehaviour
     Sentence _sentence; // Sentence being currently typed / last sentence that has been typed
     int _skillToLaunch = -1; // Skill that is currently being cast / last skill cast
     private int characterCount = 0; // Char count of the current sentence
+
+    private Dictionary<int, int> SlotToSpellIdDictionary;
+
+
+    private void Start()
+    {
+        SlotToSpellIdDictionary = new Dictionary<int, int>();
+        SlotToSpellIdDictionary.Add(1, 1);
+        SlotToSpellIdDictionary.Add(2, 2);
+    }
     
+/*==============================================================================================================
+ * To Add A Spell
+*1. Create the full execution of the spell, with the parameters it will take, into the SPELL HELPER REGION
+*2. Then, in the SPELL WRAPPER REGION, call the sentence creation method, then call the first method just created.
+*       You can then pass the needed parameters from the sentence just created into the helper method
+*3. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change the slots using the skills
+*4. Logic related to start / during / after spell must be inserted inside the update() and the helpers inside
+===============================================================================================================*/
+    
+
 
     private void Update() // Typing Cast Logic in Here
     {
@@ -184,6 +205,9 @@ public class Caster : MonoBehaviour
     {
         fbCanvasAnimator.SetTrigger("isFadingOut");
     }
+    
+    
+    
     /// <summary>
     /// <para>Defines a number of word necessary to cast a spell, and the ID of said spell, and creates a random sentence for this process while toggling Cast</para>
     /// <para>stops all moveInput stored so that the character doesn't move after a cast without input</para>
@@ -201,56 +225,36 @@ public class Caster : MonoBehaviour
         _skillToLaunch = skillId;
         _player.ToggleCasting();
     }
+
     /// <summary>
-    /// Key J
+    /// Method to call inside the keypresses, to call the spell associated to that key within the dictionary
     /// </summary>
-    private void OnSkill1()
+    private void ExecuteSpellFromSlot(int slotId)
     {
-        if (_player.ActualState() == Player.state.Casting) return;
-        
-        LaunchSkill(4, 1);
-    }
-    /// <summary>
-    /// Key K
-    /// </summary>
-    private void OnSkill2()
-    {
-        if (_player.ActualEquipped() == Player.equipped.Spear) return;
-        
-        if (_player.ActualState() == Player.state.Casting) return;
-
-        LaunchSkill(14, 2);
-
-
-        if (forceFieldActuallyCasting) return;
-
-        forceFieldActuallyCasting = true;
-
-        Forcefield actuallyExistingForcefield = FindObjectOfType<Forcefield>();
-        if (actuallyExistingForcefield != null)
+        switch (SlotToSpellIdDictionary[slotId])
         {
-            actuallyExistingForcefield.KillShield();
+            case 1:
+                SpellId1();
+                break;
+            case 2:
+                SpellId2();
+                break;
         }
-                    
-        if (actuallyCasting == null)
-        {
-            actuallyCasting = SkillTwo(_sentence.CharCount());
-        }
+    }
 
-    }
     /// <summary>
-    /// Key L
+    /// Bool to see if the state the player's in right now makes him be able to cast
     /// </summary>
-    private void OnSkill3()
+    private bool CanCast()
     {
-        LaunchSkill(11, 3);
-    }
-    /// <summary>
-    /// Key M
-    /// </summary>
-    private void OnSkill4()
-    {
-        LaunchSkill(17, 4);
+        if (_player.ActualState() == Player.state.Casting || _player.ActualEquipped() == Player.equipped.Spear)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
     
     /// <summary>
@@ -324,6 +328,7 @@ public class Caster : MonoBehaviour
                 return false;
         }
     }
+    
     /// <summary>
     /// Flips canvas in relation to player's direction to keep it straight
     /// </summary>
@@ -340,6 +345,47 @@ public class Caster : MonoBehaviour
             feedBackCanvas.transform.localScale = new Vector3(-0.0045f, 0.0045f, 0.0045f);
         }
     }
+    
+    // KEYPRESS REGION
+    #region Keypresses
+    /// <summary>
+    /// Key J
+    /// </summary>
+    private void OnSkill1()
+    {
+        if (!CanCast()) return;
+        
+        ExecuteSpellFromSlot(1);
+    }
+    /// <summary>
+    /// Key K
+    /// </summary>
+    private void OnSkill2()
+    {
+        if (!CanCast()) return;
+        
+        ExecuteSpellFromSlot(2);
+    }
+    /// <summary>
+    /// Key L
+    /// </summary>
+    private void OnSkill3()
+    {
+        LaunchSkill(11, 3);
+    }
+    /// <summary>
+    /// Key M
+    /// </summary>
+    private void OnSkill4()
+    {
+        LaunchSkill(17, 4);
+    }
+    #endregion
+    // KEYPRESS REGION
+
+    // SPELL HELPER REGION
+    #region Spell Helper Region
+
     /// <summary>
     /// Fireball skill
     /// </summary>
@@ -355,6 +401,9 @@ public class Caster : MonoBehaviour
         script.Inititalize(_player.direction, precisionMod, wordsPerMinute, charPerWord);
     }
 
+    /// <summary>
+    /// Forcefield Skill
+    /// </summary>
     public GameObject SkillTwo(int charCount)
     {
         GameObject forceField = Instantiate(ForceField, _player.transform.position, Quaternion.identity);
@@ -362,6 +411,44 @@ public class Caster : MonoBehaviour
         script.ActivateShield(charCount);
         return forceField;
     }
+    
+    #endregion
+    // SPELL HELPER REGION
+
+    
+    //SPELL WRAPPER REGION
+    #region Spells Region Wrap Spell Here When Done
+
+    private void SpellId1() // Fireball
+    {
+        LaunchSkill(4, 1);
+    }
+
+    private void SpellId2() // ForceField
+    {
+        LaunchSkill(14, 2);
+
+
+        if (forceFieldActuallyCasting) return;
+
+        forceFieldActuallyCasting = true;
+
+        Forcefield actuallyExistingForcefield = FindObjectOfType<Forcefield>();
+        if (actuallyExistingForcefield != null)
+        {
+            actuallyExistingForcefield.KillShield();
+        }
+                    
+        if (actuallyCasting == null)
+        {
+            actuallyCasting = SkillTwo(_sentence.CharCount());
+        }
+    }
+    
+
+    #endregion
+    //SPELL WRAPPER REGION
+
     
     #region RandomWordsGenerator related code
     private readonly string[] _wordArray = new string[]
