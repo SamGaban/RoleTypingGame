@@ -23,10 +23,16 @@ public class Omen : MonoBehaviour
     private List<Sprite> mainOmenSpriteList;
 
     [TabGroup("references", "References")] [SerializeField]
+    private List<GameObject> livesList;
+
+    [TabGroup("references", "References")] [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
     private Dictionary<int, bool> hasItSpawnDictionary;
+
+    [TabGroup("testing", "Data")] [ShowInInspector]
+    private int livesCount = 3;
 
 
     #endregion
@@ -140,6 +146,26 @@ public class Omen : MonoBehaviour
     }
     
     #endregion
+
+    #region Lives Related
+
+    [ButtonGroup("TestButtons")]
+    public void LivesDown()
+    {
+        Destroy(livesList[^1].gameObject);
+        livesList.RemoveAt(livesList.Count -1);
+        livesCount -= 1;
+    }
+
+    private void NoLivesCheck()
+    {
+        if (livesCount <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    #endregion
     
     private void Start()
     {
@@ -152,6 +178,7 @@ public class Omen : MonoBehaviour
     private void Update()
     {
         SpawnEnemy();
+        NoLivesCheck();
     }
 
     private void OnTriggerEnter2D(Collider2D col)

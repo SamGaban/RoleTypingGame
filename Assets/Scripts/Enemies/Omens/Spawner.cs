@@ -76,8 +76,7 @@ public class Spawner : MonoBehaviour
             healthManager = script;
         }
     }
-
-
+    
     private void Update()
     {
         GoUp();
