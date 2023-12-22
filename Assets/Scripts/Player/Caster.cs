@@ -29,26 +29,17 @@ public class Caster : MonoBehaviour
 
     private bool isDead = false;
     
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Logo List")]
+    private List<Sprite> logoList;
+    
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
     GameObject FireBall;
-
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
-    private Sprite id1Logo;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
     private GameObject ForceField;
-
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
-    private Sprite id2Logo;
-
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Purify (id3)")]
-    private Sprite id3Logo;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
     private GameObject GoospelPrefab;
-
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
-    private Sprite id4Logo;
 
     
     [TabGroup("References", "Feedback Canvas")]
@@ -75,7 +66,14 @@ public class Caster : MonoBehaviour
 
     private Dictionary<int, int> SlotToSpellIdDictionary;
     
+    // ######################### ID 1 : Fireball ################################################
+    //Sends a fireball towards the direction you're facing, zone damage, affected by precision/wpm
     
+    // ######################### ID 2 : Forcefield ##############################################
+    //Creates a shield around you keeping enemies and projectiles away, shield grows per char
+    
+    // ######################### ID 3 : Purify ##################################################
+    // Purifies unholy grounds by destroying the omens
     
     // ######################### ID 4 : GooSpell ################################################
 
@@ -93,6 +91,17 @@ public class Caster : MonoBehaviour
     #endregion
 
 
+    public List<Sprite> ReturnLogoList()
+    {
+        return logoList;
+    }
+
+    public Dictionary<int, int> ReturnSlotDictionary()
+    {
+        return SlotToSpellIdDictionary;
+    }
+    
+    
     private void Start()
     {
         SlotToSpellIdDictionary = new Dictionary<int, int>();
@@ -124,7 +133,7 @@ public class Caster : MonoBehaviour
 * 
 * 3. Add the entry in "ExecuteSpellFromSlot" for the ID you just created;
 * 
-* 4. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills
+* 4. Add entry in SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills + LOGOLIST
 * 
 * 5. Logic related to start / during / after / cancelation  spell must be inserted inside the CASES vvv
 *                                                             EachGoodKeyPress() - EndOfSpellCast() - OnCast()
@@ -478,6 +487,34 @@ public class Caster : MonoBehaviour
         
         ExecuteSpellFromSlot(4);
 
+    }
+
+    private void OnSkill5()
+    {
+        if (!CanCast()) return;
+
+        ExecuteSpellFromSlot(5);
+    }
+    
+    private void OnSkill6()
+    {
+        if (!CanCast()) return;
+
+        ExecuteSpellFromSlot(6);
+    }
+    
+    private void OnSkill7()
+    {
+        if (!CanCast()) return;
+
+        ExecuteSpellFromSlot(7);
+    }
+    
+    private void OnSkill8()
+    {
+        if (!CanCast()) return;
+
+        ExecuteSpellFromSlot(8);
     }
     #endregion
     // KEYPRESS REGION

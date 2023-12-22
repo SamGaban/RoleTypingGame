@@ -53,6 +53,8 @@ public class HealthManager : MonoBehaviour
     /// </summary>
     private void KeepOrientation()
     {
+        if (_entityTransform == null) return;
+        
         if (Mathf.Sign(_entityTransform.localScale.x) > 0)
         {
             _canvasTransform.localScale = defaultScale;
