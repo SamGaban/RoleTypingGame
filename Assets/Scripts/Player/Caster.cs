@@ -16,6 +16,7 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class Caster : MonoBehaviour
 {
+    #region References
     [Space]
     [TabGroup("References", "Base")]
     [SerializeField] Player _player;
@@ -61,6 +62,7 @@ public class Caster : MonoBehaviour
     private int characterCount = 0; // Char count of the current sentence
 
     private Dictionary<int, int> SlotToSpellIdDictionary;
+    #endregion
 
 
     private void Start()
@@ -82,16 +84,21 @@ public class Caster : MonoBehaviour
     }
     
     
-/*==============================================================================================================
- * To Add A Spell
-*1. Create the full execution of the spell, with the parameters it will take, into the SPELL HELPER REGION
-*2. Then, in the SPELL WRAPPER REGION, call the sentence creation method, then call the first method just created.
+/*====================================================================================================================
+*                                                     To Add A Spell
+* 
+* 1. Create the full execution of the spell, with the parameters it will take, into the SPELL HELPER REGION
+* 
+* 2. Then, in the SPELL WRAPPER REGION, call the sentence creation method, then call the first method just created.
 *       You can then pass the needed parameters from the sentence just created into the helper method
-*3. Add the entry in "ExecuteSpellFromSlot" for the ID you just created; 
-*4. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills
-*5. Logic related to start / during / after spell must be inserted inside the update() and the helpers inside
-*                                              (EachGoodKeyPress()) - (EndOfSpellCast()) ... 
-===============================================================================================================*/
+* 
+* 3. Add the entry in "ExecuteSpellFromSlot" for the ID you just created;
+* 
+* 4. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills
+* 
+* 5. Logic related to start / during / after / cancelation  spell must be inserted inside the CASES vvv
+*                                                             EachGoodKeyPress() - EndOfSpellCast() - OnCast()
+=====================================================================================================================*/
     
 
 
@@ -154,7 +161,7 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void EachGoodKeyPress()
     {
-        switch (_skillToLaunch)
+        switch (_skillToLaunch) // CASES ARE SKILL IDs
         {
             case 2: // FORCEFIELD
                                     
@@ -179,7 +186,7 @@ public class Caster : MonoBehaviour
     /// <summary>
     /// Method called at the successfull end of a spellcast
     /// </summary>
-    private void EndOfSpellCast()
+    private void EndOfSpellCast() // What happens when each skill has been typed correctly
     {
         decimal charNumberMod = (Convert.ToDecimal(characterCount) / Convert.ToDecimal(_sentence.WordCount()));
         decimal charPerWord = (charNumberMod / 5) * 100;
@@ -188,7 +195,7 @@ public class Caster : MonoBehaviour
         TurnFeedBackCanvasOn();
         Invoke("TurnFeedBackCanvasOff", 2f);
         _player.ToggleCasting();
-        switch (_skillToLaunch) // Put all the skills relative to the skills IDs here
+        switch (_skillToLaunch) // CASES ARE SKILL IDs
         {
             case 1: // FIREBALL
                 SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute(), charPerWord);
@@ -197,7 +204,7 @@ public class Caster : MonoBehaviour
                 actuallyCasting = null;
                 forceFieldActuallyCasting = false;
                 break;
-            case 3:
+            case 3: // PURIFY
                 SkillThree();
                 break;
             case 4:
@@ -503,7 +510,7 @@ public class Caster : MonoBehaviour
     {
         if (actualOmen == null) return; // If no omen in range, do not begin a cast
         
-        LaunchSkill(8, 3);
+        LaunchSkill(6, 3);
     } 
     
 

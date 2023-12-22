@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Enemy spawner motherclass
+/// </summary>
 public class Omen : MonoBehaviour
 {
     #region References
@@ -41,7 +44,6 @@ public class Omen : MonoBehaviour
     private bool isDestroying = false;
     
     #endregion
-    
     
     #region InitMethods
 
@@ -97,8 +99,7 @@ public class Omen : MonoBehaviour
     }
     
     #endregion
-
-
+    
     #region Functionnalities
 
     // private void Spawn(GameObject enemy)
@@ -164,6 +165,9 @@ public class Omen : MonoBehaviour
         livesCount -= 1;
     }
 
+    /// <summary>
+    /// Checks if lives go to zero, if so, triggers the self destruct sequence, killing mobs / spawners / itself
+    /// </summary>
     private void NoLivesCheck()
     {
         if (isDestroying) return;
@@ -189,7 +193,6 @@ public class Omen : MonoBehaviour
             Invoke("DestroyHelper", 8f);
         }
     }
-
     private void DestroyHelper()
     {
         Destroy(this.gameObject);

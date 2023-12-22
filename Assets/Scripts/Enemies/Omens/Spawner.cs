@@ -151,6 +151,9 @@ public class Spawner : MonoBehaviour
 
     #region DestroyMethods
 
+    /// <summary>
+    /// Kills associated enemy, blocks the spawning thread, self destructs
+    /// </summary>
     public void SelfDestruct()
     {
         isDestroying = true;
@@ -162,7 +165,6 @@ public class Spawner : MonoBehaviour
         
         Invoke("DestroyHelper", 2.2f);
     }
-
     private void DestroyHelper()
     {
         Destroy(this.gameObject);

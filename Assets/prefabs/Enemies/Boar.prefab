@@ -272,7 +272,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2113036717
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 27da003528f94ff4aa3ac2b35e622bbb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgAmount: 15
-  attackCoolDown: 5
+  attackCoolDown: 2
   knockBackForce: 8
   moveSpeed: 3
   healthPoints: 20
@@ -436,7 +436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 1485362036528086338}
-  _controller: {fileID: 9100000, guid: 1c7a5972562c2854886c64e1b57b6e8b, type: 2}
   _animator: {fileID: 1485362036528086340}
   _healthManager: {fileID: 1485362036528086341}
 --- !u!95 &1485362036528086340

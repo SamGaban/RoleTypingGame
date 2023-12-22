@@ -8,13 +8,13 @@ using UnityEngine;
 /// </summary>
 public class Player : MonoBehaviour
 {
-    [TabGroup("References")]
+    [TabGroup("references", "References")]
     [SerializeField] Transform _transform;
-    [TabGroup("References")]
+    [TabGroup("references", "References")]
     [SerializeField] HealthManager _healthManager;
-    [TabGroup("References")]
+    [TabGroup("references", "References")]
     [SerializeField] private Move moveScript;
-    [TabGroup("Settings")]
+    [TabGroup("references", "Data")]
     public float direction;
     public enum equipped
     {
@@ -31,23 +31,26 @@ public class Player : MonoBehaviour
         Rolling,
         Attacking
     }
-
+    
+    [TabGroup("references", "Data")]
     private state _state = state.Idling;
+    
+    [TabGroup("references", "Data")]
     private equipped _equipped = equipped.Spear;
 
+    [TabGroup("references", "Data")] [ShowInInspector]
     private bool canBeHurt = true;
-
+    
+    [TabGroup("references", "Data")]
     private bool canRoll = true;
 
+    [TabGroup("references", "Data")]
     public bool canSwitchEquipped = true;
     
     
-    /// <summary>
-    /// Updates sprite direction
-    /// </summary>
     private void Update()
     {
-        direction = Mathf.Sign(_transform.localScale.x);
+        DirectionTrack();
     }
     
     #region States triggers region
@@ -79,30 +82,28 @@ public class Player : MonoBehaviour
     {
         _state = state.Casting;
     }
-    #endregion
+    
     public void SetState(state stateToSet)
     {
         _state = stateToSet;
     }
+
+    
+    #endregion
     
     /// <summary>
-    /// Turns canbehurt => false
+    /// Tracks the direction the player is facing
     /// </summary>
-    public void InvincibleOn()
+    private void DirectionTrack()
     {
-        canBeHurt = false;
+        direction = Mathf.Sign(_transform.localScale.x);
     }
     
-    /// <summary>
-    /// Turns canbehurt to true
-    /// </summary>
-    public void InvincibleOff()
-    {
-        canBeHurt = true;
-    }
+    #region RollRelated
+
     
     /// <summary>
-    /// 
+    /// Tracks the availability of the player's roll
     /// </summary>
     /// <returns>true if the player can roll</returns>
     public bool CanRoll()
@@ -125,23 +126,13 @@ public class Player : MonoBehaviour
     {
         canRoll = false;
     }
+
     
-    /// <summary>
-    /// Toggles between spear and magic
-    /// </summary>
-    public void ToggleEquipped()
-    {
-        if (!canSwitchEquipped) return;
-        
-        if (_equipped == equipped.Spear)
-        {
-            _equipped = equipped.Magic;
-        }
-        else if (_equipped == equipped.Magic)
-        {
-            _equipped = equipped.Spear;
-        }
-    }
+
+    #endregion
+    
+    #region LifeRelated
+
     
     /// <summary>
     /// Hurts the player by triggering it's hpManager
@@ -177,6 +168,30 @@ public class Player : MonoBehaviour
     }
     
     /// <summary>
+    /// Turns canbehurt => false
+    /// </summary>
+    public void InvincibleOn()
+    {
+        canBeHurt = false;
+    }
+    
+    /// <summary>
+    /// Turns canbehurt to true
+    /// </summary>
+    public void InvincibleOff()
+    {
+        canBeHurt = true;
+    }
+
+
+    #endregion
+
+    #region Toggling Region
+
+    
+
+    
+    /// <summary>
     /// Method called by pressing shift, to cancel a spellcast before it's finished
     /// </summary>
     private void OnToggleEquipped()
@@ -202,4 +217,26 @@ public class Player : MonoBehaviour
             _state = state.Idling;
         }
     }
+    
+    /// <summary>
+    /// Toggles between spear and magic
+    /// </summary>
+    public void ToggleEquipped()
+    {
+        if (!canSwitchEquipped) return;
+        
+        if (_equipped == equipped.Spear)
+        {
+            _equipped = equipped.Magic;
+        }
+        else if (_equipped == equipped.Magic)
+        {
+            _equipped = equipped.Spear;
+        }
+    }
+    
+    #endregion
+    
+    
+
 }
