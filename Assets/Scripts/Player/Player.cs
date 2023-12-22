@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -46,14 +47,18 @@ public class Player : MonoBehaviour
 
     [TabGroup("references", "Data")]
     public bool canSwitchEquipped = true;
-    
+
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private bool isDead = false;
     
     private void Update()
     {
         DirectionTrack();
+        DeathCheck();
     }
     
     #region States triggers region
+    
     public state ActualState()
     {
         return _state;
@@ -91,13 +96,7 @@ public class Player : MonoBehaviour
     
     #endregion
     
-    /// <summary>
-    /// Tracks the direction the player is facing
-    /// </summary>
-    private void DirectionTrack()
-    {
-        direction = Mathf.Sign(_transform.localScale.x);
-    }
+
     
     #region RollRelated
 
@@ -183,6 +182,21 @@ public class Player : MonoBehaviour
         canBeHurt = true;
     }
 
+    private void DeathCheck()
+    {
+        if (isDead) return;
+        
+        if (_healthManager.isDead())
+        {
+            isDead = true;
+        }
+    }
+
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
 
     #endregion
 
@@ -236,7 +250,18 @@ public class Player : MonoBehaviour
     }
     
     #endregion
-    
+
+    #region MoveRelated
+
+    /// <summary>
+    /// Tracks the direction the player is facing
+    /// </summary>
+    private void DirectionTrack()
+    {
+        direction = Mathf.Sign(_transform.localScale.x);
+    }
+
+    #endregion
     
 
 }

@@ -26,6 +26,8 @@ public class Move : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
+        if (_player.IsDead()) return;
+        
         if (PlayerIsCasting()) { return; }
 
         moveInput = value.Get<Vector2>();
@@ -45,6 +47,8 @@ public class Move : MonoBehaviour
     /// </summary>
     private void OnJump()
     {
+        if (_player.IsDead()) return;
+        
         if (PlayerIsCasting()) { return; }
 
         Jump();
@@ -52,7 +56,8 @@ public class Move : MonoBehaviour
     
     private void FixedUpdate()
     {
-
+        if (_player.IsDead()) return;
+        
         if (allowExternalForces) return;
         
         if (PlayerIsCasting())

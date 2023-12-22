@@ -14,7 +14,10 @@ public class Animation : MonoBehaviour
     [SerializeField] RuntimeAnimatorController _magicAnimator;
     [SerializeField] private Hitter hitterScript;
 
+    private bool isDead = false;
+
     private bool canAttack = true;
+    
 
     private void Start()
     {
@@ -37,11 +40,30 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool(animatorBool, false);
         }
     }
+
+    private void DeathCheck()
+    {
+        if (isDead) return;
+        
+        if (_player.IsDead())
+        {
+            isDead = true;
+            _mainAnimator.SetBool("isRunning", false);
+            _mainAnimator.SetBool("isJumpingUp", false);
+            _mainAnimator.SetBool("isJumpingDown", false);
+            _mainAnimator.SetBool("isRolling", false);
+            _mainAnimator.SetBool("isHitting", false);
+            _mainAnimator.SetTrigger("Dying");
+        }
+    }
+    
     /// <summary>
     /// If not in casting mode, activates the roll
     /// </summary>
     private void OnCast()
     {
+        if (_player.IsDead()) return;
+        
         if (_player.ActualState() == Player.state.Casting) return;
 
         if (!_player.CanRoll()) return;
@@ -93,6 +115,8 @@ public class Animation : MonoBehaviour
     /// </summary>
     private void Update()
     {
+        DeathCheck();
+        
         PlayerEquippedCheck();
 
         PlayerStateCheck(Player.state.Running, "isRunning");
@@ -110,6 +134,8 @@ public class Animation : MonoBehaviour
     /// </summary>
     private void OnSkill1() // Spear attack animation + state trigger
     {
+        if (_player.IsDead()) return;
+        
         if (!canAttack) return;
         
         if (_player.ActualEquipped() == Player.equipped.Magic) return;

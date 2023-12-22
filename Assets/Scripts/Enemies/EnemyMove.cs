@@ -11,6 +11,9 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] Rigidbody2D _rb;
     [Header("Settings")]
     float speed;
+
+    private float originalSpeed;
+    
     [SerializeField] HealthManager _healthManager;
 
     private Rigidbody2D _playerRb;
@@ -58,6 +61,7 @@ public class EnemyMove : MonoBehaviour
         _startPosition = _rb.position;
 
         speed = baseScript.MoveSpeed();
+        originalSpeed = baseScript.MoveSpeed();
     }
     [Button]
     /// <summary>
@@ -69,7 +73,6 @@ public class EnemyMove : MonoBehaviour
         _playerRb = FindObjectOfType<Player>().gameObject.GetComponent<Rigidbody2D>();
         jumpScript.FeedRb(_playerRb);
     }
-
     public bool IsPatrolling()
     {
         return isPatrolling;
@@ -91,6 +94,15 @@ public class EnemyMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_playerRb != null)
+        {
+            Player script = _playerRb.gameObject.GetComponent<Player>();
+            if (script != null)
+            {
+                if (script.IsDead()) deactivated = true;
+            }
+        }
+        
         if (deactivated)
         {
             _rb.bodyType = RigidbodyType2D.Kinematic;
@@ -183,5 +195,19 @@ public class EnemyMove : MonoBehaviour
             direction = -1;
         }
     }
+
+    #region Skill 4 related
+
+    public void Slow(float efficiencyPercentage)
+    {
+        speed = speed / (4 * efficiencyPercentage);
+    }
+
+    public void RestoreSpeed()
+    {
+        speed = originalSpeed;
+    }
+
+    #endregion
 
 }

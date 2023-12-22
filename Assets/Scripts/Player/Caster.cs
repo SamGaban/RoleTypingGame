@@ -38,6 +38,16 @@ public class Caster : MonoBehaviour
 
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
     private Sprite id2Logo;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Purify (id3)")]
+    private Sprite id3Logo;
+    
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
+    private GameObject GoospelPrefab;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
+    private Sprite id4Logo;
+
     
     [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Canvas feedBackCanvas;
@@ -62,6 +72,22 @@ public class Caster : MonoBehaviour
     private int characterCount = 0; // Char count of the current sentence
 
     private Dictionary<int, int> SlotToSpellIdDictionary;
+    
+    
+    
+    // ######################### ID 4 : GooSpell ################################################
+
+    private GameObject actualGoospell;
+
+    public void ForgetGoospell()
+    {
+        actualGoospell = null;
+    }
+    
+    
+    // ##########################################################################################
+
+    
     #endregion
 
 
@@ -71,6 +97,7 @@ public class Caster : MonoBehaviour
         SlotToSpellIdDictionary.Add(1, 1);
         SlotToSpellIdDictionary.Add(2, 2);
         SlotToSpellIdDictionary.Add(3, 3);
+        SlotToSpellIdDictionary.Add(4, 4);
     }
 
     public void FeedOmen(GameObject omen)
@@ -82,6 +109,7 @@ public class Caster : MonoBehaviour
     {
         actualOmen = null;
     }
+    
     
     
 /*====================================================================================================================
@@ -104,6 +132,8 @@ public class Caster : MonoBehaviour
 
     private void Update() // Typing Cast Logic in Here
     {
+        if (_player.IsDead()) return;
+        
         FlipCanvas();
 
         if (_player.ActualState() == Player.state.Casting)
@@ -208,7 +238,7 @@ public class Caster : MonoBehaviour
                 SkillThree();
                 break;
             case 4:
-                Debug.Log("Cast Skill 4");
+                SkillFour(_sentence.TypePrecision(), _sentence.WordsPerMinute());
                 break;
             default:
                 break;
@@ -220,6 +250,8 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnCast() // ON PUSHING THE CAST BUTTON BEFORE SPELL IS COMPLETE
     {
+        if (_player.IsDead()) return;
+        
         if (_player.ActualState() != Player.state.Casting) { return; }
         
         if (_skillToLaunch == 2) // If actually casting FORCEFIELD (CANCEL AND KILL SHIELD)
@@ -284,6 +316,9 @@ public class Caster : MonoBehaviour
                 break;
             case 3:
                 SpellId3();
+                break;
+            case 4:
+                SpellId4();
                 break;
         }
     }
@@ -426,7 +461,10 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnSkill4()
     {
-        LaunchSkill(17, 4);
+        if (!CanCast()) return;
+        
+        ExecuteSpellFromSlot(4);
+
     }
     #endregion
     // KEYPRESS REGION
@@ -472,7 +510,27 @@ public class Caster : MonoBehaviour
         if (script == null) return;
         
         script.LivesDown();
-    }    
+    }
+
+    /// <summary>
+    /// Goospell skill / Slows enemies
+    /// </summary>
+    private void SkillFour(int precision, int wpm)
+    {
+        if (actualGoospell != null) // Destroy the possibly existing goospell
+        {
+            Destroy(actualGoospell.gameObject);
+        }
+
+        actualGoospell = Instantiate(GoospelPrefab); // Instantiates and sets the position in front of the player
+        actualGoospell.transform.position = new Vector3(_player.transform.position.x + (10f * _player.direction),
+            _player.transform.position.y - 0.4f, _player.transform.position.z);
+        Goospell script = actualGoospell.GetComponent<Goospell>();
+        script.Init(precision, wpm); // Initializes
+    }
+    
+    
+    
     #endregion
     // SPELL HELPER REGION
 
@@ -511,7 +569,12 @@ public class Caster : MonoBehaviour
         if (actualOmen == null) return; // If no omen in range, do not begin a cast
         
         LaunchSkill(6, 3);
-    } 
+    }
+
+    private void SpellId4() // Goospell
+    {
+        LaunchSkill(5, 4);
+    }
     
 
     #endregion

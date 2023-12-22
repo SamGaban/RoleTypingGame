@@ -37,6 +37,9 @@ public class Hitter : MonoBehaviour
     }
     private void Update()
     {
+        if (playerScript.IsDead()) return;
+
+        
         if (canAttack && enemyInRange)
         {
             canAttack = false;
@@ -54,6 +57,8 @@ public class Hitter : MonoBehaviour
     /// <param name="enemy">enemy taken from the trigger</param>
     private void AttackEnemy(Collider2D enemy)
     {
+        if (playerScript.IsDead()) return;
+        
         HealthManager healthScript = enemy.GetComponent<HealthManager>();
         healthScript.DownHp(15);
 

@@ -23,7 +23,7 @@ TagManager:
   - Enemy
   - Forcefield
   - Oman
-  - 
+  - Goo
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: ForceField
     uniqueID: 104287805
+    locked: 0
+  - name: Goo
+    uniqueID: 4260216419
     locked: 0
   - name: Enemies
     uniqueID: 2113036717
