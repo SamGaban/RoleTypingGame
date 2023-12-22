@@ -34,12 +34,22 @@ public class Caster : MonoBehaviour
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
     GameObject FireBall;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
+    private int WordCount1;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
     private GameObject ForceField;
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
+    private int WordCount2;
+    
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Purify (id3)")]
+    private int WordCount3;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
     private GameObject GoospelPrefab;
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
+    private int WordCount4;
 
     
     [TabGroup("References", "Feedback Canvas")]
@@ -488,28 +498,36 @@ public class Caster : MonoBehaviour
         ExecuteSpellFromSlot(4);
 
     }
-
+    /// <summary>
+    /// Key U
+    /// </summary>
     private void OnSkill5()
     {
         if (!CanCast()) return;
 
         ExecuteSpellFromSlot(5);
     }
-    
+    /// <summary>
+    /// Key I
+    /// </summary>
     private void OnSkill6()
     {
         if (!CanCast()) return;
 
         ExecuteSpellFromSlot(6);
     }
-    
+    /// <summary>
+    /// Key O
+    /// </summary>
     private void OnSkill7()
     {
         if (!CanCast()) return;
 
         ExecuteSpellFromSlot(7);
     }
-    
+    /// <summary>
+    /// Key P
+    /// </summary>
     private void OnSkill8()
     {
         if (!CanCast()) return;
@@ -590,12 +608,12 @@ public class Caster : MonoBehaviour
 
     private void SpellId1() // Fireball
     {
-        LaunchSkill(4, 1);
+        LaunchSkill(WordCount1, 1);
     }
 
     private void SpellId2() // ForceField
     {
-        LaunchSkill(14, 2);
+        LaunchSkill(WordCount2, 2);
 
 
         if (forceFieldActuallyCasting) return;
@@ -618,12 +636,12 @@ public class Caster : MonoBehaviour
     {
         if (actualOmen == null) return; // If no omen in range, do not begin a cast
         
-        LaunchSkill(2, 3);
+        LaunchSkill(WordCount3, 3);
     }
 
     private void SpellId4() // Goospell
     {
-        LaunchSkill(5, 4);
+        LaunchSkill(WordCount4, 4);
     }
     
 
