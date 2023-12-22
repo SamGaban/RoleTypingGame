@@ -581,7 +581,7 @@ public class Caster : MonoBehaviour
     {
         if (actualOmen == null) return; // If no omen in range, do not begin a cast
         
-        LaunchSkill(6, 3);
+        LaunchSkill(2, 3);
     }
 
     private void SpellId4() // Goospell

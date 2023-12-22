@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 /// <summary>
@@ -26,6 +27,12 @@ public class Omen : MonoBehaviour
     private List<Sprite> mainOmenSpriteList;
 
     [TabGroup("references", "References")] [SerializeField]
+    private Canvas canvas;
+
+    [TabGroup("references", "References")] [SerializeField]
+    private Slider slider;
+    
+    [TabGroup("references", "References")] [SerializeField]
     private Animator animator;
     
     [TabGroup("references", "References")] [SerializeField]
@@ -33,6 +40,9 @@ public class Omen : MonoBehaviour
 
     [TabGroup("references", "References")] [SerializeField]
     private SpriteRenderer spriteRenderer;
+    
+    [TabGroup("references", "Settings")] [SerializeField]
+    private float timeToDestroyLife = 8f;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
     private Dictionary<int, bool> hasItSpawnDictionary;
@@ -42,6 +52,9 @@ public class Omen : MonoBehaviour
 
     [TabGroup("testing", "Data")] [ShowInInspector]
     private bool isDestroying = false;
+
+    [TabGroup("testing", "Data")] [ShowInInspector]
+    private bool hasTimerBegun = false;
     
     #endregion
     
@@ -157,12 +170,44 @@ public class Omen : MonoBehaviour
 
     #region Lives Related
 
+    private float startTime;
+    
+
     [ButtonGroup("TestButtons")]
     public void LivesDown()
+    {
+        startTime = Time.time;
+
+        hasTimerBegun = true;
+    }
+
+    private void LifeDownHelper()
     {
         Destroy(livesList[^1].gameObject);
         livesList.RemoveAt(livesList.Count -1);
         livesCount -= 1;
+    }
+
+    private void TimeCheck()
+    {
+        if (!hasTimerBegun) return;
+
+        if (Time.time - startTime < timeToDestroyLife) return;
+
+        hasTimerBegun = false;
+        LifeDownHelper();
+    }
+
+    private void CanvasCheck()
+    {
+        if (!hasTimerBegun)
+        {
+            canvas.gameObject.SetActive(false);
+            return;
+        }
+
+        canvas.gameObject.SetActive(true);
+        slider.value = (timeToDestroyLife - (Time.time - startTime)) / timeToDestroyLife;
     }
 
     /// <summary>
@@ -212,6 +257,8 @@ public class Omen : MonoBehaviour
     {
         SpawnEnemy();
         NoLivesCheck();
+        TimeCheck();
+        CanvasCheck();
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -221,6 +268,11 @@ public class Omen : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D col)
     {
-        MakePlayerForgetOmen(col);
+
+        if (col.gameObject.CompareTag("Player"))
+        {
+            MakePlayerForgetOmen(col);
+            hasTimerBegun = false;
+        }
     }
 }

@@ -72,7 +72,7 @@ public class Spawner : MonoBehaviour
         enemy.transform.localRotation = Quaternion.identity;
         enemy.transform.localScale = Vector3.one;
 
-        // Your existing code
+        // Placement underground
         capsule.transform.localPosition = new Vector3(0, -1f, 0);
         startTime = Time.time;
         isGoingUp = true;
