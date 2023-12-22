@@ -17,7 +17,6 @@ using Random = UnityEngine.Random;
 public class Caster : MonoBehaviour
 {
     [Space]
-    [Header("References")]
     [TabGroup("References", "Base")]
     [SerializeField] Player _player;
     [TabGroup("References", "Base")]
@@ -69,6 +68,7 @@ public class Caster : MonoBehaviour
         SlotToSpellIdDictionary = new Dictionary<int, int>();
         SlotToSpellIdDictionary.Add(1, 1);
         SlotToSpellIdDictionary.Add(2, 2);
+        SlotToSpellIdDictionary.Add(3, 3);
     }
 
     public void FeedOmen(GameObject omen)
@@ -87,8 +87,10 @@ public class Caster : MonoBehaviour
 *1. Create the full execution of the spell, with the parameters it will take, into the SPELL HELPER REGION
 *2. Then, in the SPELL WRAPPER REGION, call the sentence creation method, then call the first method just created.
 *       You can then pass the needed parameters from the sentence just created into the helper method
-*3. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change the slots using the skills
-*4. Logic related to start / during / after spell must be inserted inside the update() and the helpers inside
+*3. Add the entry in "ExecuteSpellFromSlot" for the ID you just created; 
+*4. SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills
+*5. Logic related to start / during / after spell must be inserted inside the update() and the helpers inside
+*                                              (EachGoodKeyPress()) - (EndOfSpellCast()) ... 
 ===============================================================================================================*/
     
 
@@ -196,7 +198,7 @@ public class Caster : MonoBehaviour
                 forceFieldActuallyCasting = false;
                 break;
             case 3:
-                Debug.Log("Cast Skill 3");
+                SkillThree();
                 break;
             case 4:
                 Debug.Log("Cast Skill 4");
@@ -272,6 +274,9 @@ public class Caster : MonoBehaviour
                 break;
             case 2:
                 SpellId2();
+                break;
+            case 3:
+                SpellId3();
                 break;
         }
     }
@@ -405,7 +410,9 @@ public class Caster : MonoBehaviour
     /// </summary>
     private void OnSkill3()
     {
-        LaunchSkill(11, 3);
+        if (!CanCast()) return;
+
+        ExecuteSpellFromSlot(3);
     }
     /// <summary>
     /// Key M
@@ -445,7 +452,20 @@ public class Caster : MonoBehaviour
         script.ActivateShield(charCount);
         return forceField;
     }
-    
+
+    /// <summary>
+    /// Purify skill
+    /// </summary>
+    private void SkillThree()
+    {
+        if (actualOmen == null) return;
+
+        Omen script = actualOmen.GetComponent<Omen>();
+
+        if (script == null) return;
+        
+        script.LivesDown();
+    }    
     #endregion
     // SPELL HELPER REGION
 
@@ -478,6 +498,13 @@ public class Caster : MonoBehaviour
             actuallyCasting = SkillTwo(_sentence.CharCount());
         }
     }
+
+    private void SpellId3() // Purify
+    {
+        if (actualOmen == null) return; // If no omen in range, do not begin a cast
+        
+        LaunchSkill(8, 3);
+    } 
     
 
     #endregion

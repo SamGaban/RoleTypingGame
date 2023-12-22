@@ -2550,6 +2550,7 @@ GameObject:
   - component: {fileID: 1379521974}
   - component: {fileID: 1379521973}
   - component: {fileID: 1379521976}
+  - component: {fileID: 1379521977}
   m_Layer: 11
   m_Name: Omen
   m_TagString: Omen
@@ -2579,6 +2580,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 29fe802e511947f48ac7a0d10c270097, type: 3}
   - {fileID: 21300000, guid: 9b2e94da24428fa40b48b0a4d0e0f707, type: 3}
   - {fileID: 21300000, guid: 4150979a3daf94947b29eeaf160be489, type: 3}
+  animator: {fileID: 1379521977}
   livesList:
   - {fileID: 1950666513}
   - {fileID: 1092888962}
@@ -2681,6 +2683,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 1.86}
   m_EdgeRadius: 0
+--- !u!95 &1379521977
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379521972}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d5990e74298b23846951e49b112811d7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1850166617
 GameObject:
   m_ObjectHideFlags: 0

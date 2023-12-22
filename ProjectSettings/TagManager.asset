@@ -9,6 +9,7 @@ TagManager:
   - Forcefield
   - OmenSpawn
   - Omen
+  - Spell
   layers:
   - Default
   - TransparentFX

@@ -23,6 +23,9 @@ public class Spawner : MonoBehaviour
     [TabGroup("references", "Data")] [ShowInInspector]
     private HealthManager healthManager;
 
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private BaseEnemy currentlySpawnedEnemy;
+    
     [TabGroup("settings", "Settings")] [SerializeField]
     private float MaxRandomSpawnTime = 10f;
 
@@ -34,6 +37,8 @@ public class Spawner : MonoBehaviour
     private float startTime = 0f;
 
     private bool hasActiveEnemy = false;
+
+    private bool isDestroying = false;
     
     
 
@@ -42,6 +47,8 @@ public class Spawner : MonoBehaviour
     /// </summary>
     public void SpawnEnemy(GameObject pref)
     {
+        if (isDestroying) return;
+        
         hasActiveEnemy = true;
 
         currentPrefab = pref;
@@ -74,6 +81,12 @@ public class Spawner : MonoBehaviour
         if (script != null)
         {
             healthManager = script;
+        }
+
+        BaseEnemy baseScript = enemy.GetComponent<BaseEnemy>();
+        if (baseScript != null)
+        {
+            currentlySpawnedEnemy = baseScript;
         }
     }
     
@@ -133,6 +146,28 @@ public class Spawner : MonoBehaviour
         hasActiveEnemy = false;
         enemy = null;
         healthManager = null;
+        currentlySpawnedEnemy = null;
     }
+
+    #region DestroyMethods
+
+    public void SelfDestruct()
+    {
+        isDestroying = true;
+        
+        if (healthManager != null)
+        {
+            healthManager.Kill();
+        }
+        
+        Invoke("DestroyHelper", 2.2f);
+    }
+
+    private void DestroyHelper()
+    {
+        Destroy(this.gameObject);
+    }
+
+    #endregion
     
 }

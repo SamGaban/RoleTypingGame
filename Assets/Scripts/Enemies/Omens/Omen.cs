@@ -23,6 +23,9 @@ public class Omen : MonoBehaviour
     private List<Sprite> mainOmenSpriteList;
 
     [TabGroup("references", "References")] [SerializeField]
+    private Animator animator;
+    
+    [TabGroup("references", "References")] [SerializeField]
     private List<GameObject> livesList;
 
     [TabGroup("references", "References")] [SerializeField]
@@ -34,7 +37,9 @@ public class Omen : MonoBehaviour
     [TabGroup("testing", "Data")] [ShowInInspector]
     private int livesCount = 3;
 
-
+    [TabGroup("testing", "Data")] [ShowInInspector]
+    private bool isDestroying = false;
+    
     #endregion
     
     
@@ -133,6 +138,8 @@ public class Omen : MonoBehaviour
     /// </summary>
     private void SpawnEnemy()
     {
+        if (isDestroying) return;
+        
         foreach (GameObject spawn in spawnList)
         {
             Spawner script = spawn.GetComponent<Spawner>();
@@ -159,10 +166,33 @@ public class Omen : MonoBehaviour
 
     private void NoLivesCheck()
     {
+        if (isDestroying) return;
+        
         if (livesCount <= 0)
         {
-            Destroy(this.gameObject);
+            animator.SetTrigger("isGoingDown");
+            
+            isDestroying = true;
+            
+            Caster playerScript = FindObjectOfType<Caster>();
+
+            if (playerScript != null)
+            {
+                playerScript.ForgetOmen();
+            }
+            
+            foreach (GameObject o in spawnList)
+            {
+                Spawner script = o.GetComponent<Spawner>();
+                script.SelfDestruct();
+            }
+            Invoke("DestroyHelper", 8f);
         }
+    }
+
+    private void DestroyHelper()
+    {
+        Destroy(this.gameObject);
     }
 
     #endregion
