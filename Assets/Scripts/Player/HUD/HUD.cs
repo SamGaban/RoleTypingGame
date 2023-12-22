@@ -83,4 +83,5 @@ public class HUD : MonoBehaviour
         
         Invoke("WholeUpdate", 1f);
     }
+    
 }

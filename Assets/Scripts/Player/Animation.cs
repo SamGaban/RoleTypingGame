@@ -14,6 +14,8 @@ public class Animation : MonoBehaviour
     [SerializeField] RuntimeAnimatorController _magicAnimator;
     [SerializeField] private Hitter hitterScript;
 
+    [SerializeField] private Canvas escapeMenu;
+
     private bool isDead = false;
 
     private bool canAttack = true;
@@ -196,5 +198,13 @@ public class Animation : MonoBehaviour
         canAttack = true;
     }
 
+    /// <summary>
+    /// Placeholder place to put this as I don't know why it won't work in gamemanager
+    /// </summary>
+    private void OnEscape()
+    {
+        escapeMenu.gameObject.SetActive(true);
+    }
+    
 
 }

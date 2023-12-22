@@ -17,7 +17,6 @@ using Random = UnityEngine.Random;
 public class Caster : MonoBehaviour
 {
     #region References
-    [Space]
     [TabGroup("References", "Base")]
     [SerializeField] Player _player;
     [TabGroup("References", "Base")]
@@ -35,21 +34,41 @@ public class Caster : MonoBehaviour
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
     GameObject FireBall;
 
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
+    [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Fireball (id1)")]
     private int WordCount1;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
     private GameObject ForceField;
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Forcefield (id2)")]
+    [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Forcefield (id2)")]
     private int WordCount2;
     
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Purify (id3)")]
+    [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Purify (id3)")]
     private int WordCount3;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
     private GameObject GoospelPrefab;
-    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Goospell (id4)")]
+    [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Goospell (id4)")]
     private int WordCount4;
+
+    
+    // Base word counts (set in editor)
+
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount1;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount2;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount3;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount4;
+    
+    // ################################
+
+    
+    
+    #region FeedbackCanvas
+
+    
 
     
     [TabGroup("References", "Feedback Canvas")]
@@ -60,21 +79,14 @@ public class Caster : MonoBehaviour
     [SerializeField] private TMP_Text wpmText;
     [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Animator fbCanvasAnimator;
-
-    [TabGroup("References", "Actual Omen")] [ShowInInspector]
-    private GameObject actualOmen;
-
-
-
-    private GameObject actuallyCasting; // Actually stored / casting spell
-
-    private bool forceFieldActuallyCasting = false;
-
+    
+    
     Sentence _sentence; // Sentence being currently typed / last sentence that has been typed
     int _skillToLaunch = -1; // Skill that is currently being cast / last skill cast
     private int characterCount = 0; // Char count of the current sentence
-
-    private Dictionary<int, int> SlotToSpellIdDictionary;
+    
+    #endregion
+    
     
     // ######################### ID 1 : Fireball ################################################
     //Sends a fireball towards the direction you're facing, zone damage, affected by precision/wpm
@@ -82,8 +94,21 @@ public class Caster : MonoBehaviour
     // ######################### ID 2 : Forcefield ##############################################
     //Creates a shield around you keeping enemies and projectiles away, shield grows per char
     
+    
+    
+    private GameObject actuallyCasting; // Actually stored / casting spell
+
+    private bool forceFieldActuallyCasting = false;
+    
+    
+    
     // ######################### ID 3 : Purify ##################################################
     // Purifies unholy grounds by destroying the omens
+    
+    
+    [TabGroup("References", "Actual Omen")] [ShowInInspector]
+    private GameObject actualOmen;
+    
     
     // ######################### ID 4 : GooSpell ################################################
 
@@ -100,6 +125,46 @@ public class Caster : MonoBehaviour
     
     #endregion
 
+    #region Difficulty Related
+
+    public enum DifficultyLevel { VeryEasy, Easy, Normal, Hard, VeryHard }
+    private Dictionary<DifficultyLevel, float> difficultyMultipliers = new Dictionary<DifficultyLevel, float>()
+    {
+        { DifficultyLevel.VeryEasy, 0.35f },
+        { DifficultyLevel.Easy, 0.75f },
+        { DifficultyLevel.Normal, 1f },
+        { DifficultyLevel.Hard, 1.5f },
+        { DifficultyLevel.VeryHard, 2f }
+    };
+    
+    public void AdjustDifficulty(DifficultyLevel newDifficulty)
+    {
+        difficultyLevel = GameManager.Instance.difficultyLevel;
+
+        
+        WordCount1 = baseWordCount1;
+        WordCount2 = baseWordCount2;
+        WordCount3 = baseWordCount3;
+        WordCount4 = baseWordCount4;
+        
+        float multiplier = difficultyMultipliers[newDifficulty];
+    
+        WordCount1 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount1 * multiplier));
+        WordCount2 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount2 * multiplier));
+        WordCount3 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount3 * multiplier));
+        WordCount4 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount4 * multiplier));
+
+        // Update any other related game settings or UI here
+    }
+
+    public DifficultyLevel difficultyLevel = DifficultyLevel.Normal;
+    
+    
+
+    #endregion
+    
+
+    private Dictionary<int, int> SlotToSpellIdDictionary;
 
     public List<Sprite> ReturnLogoList()
     {
@@ -114,11 +179,20 @@ public class Caster : MonoBehaviour
     
     private void Start()
     {
+        
         SlotToSpellIdDictionary = new Dictionary<int, int>();
         SlotToSpellIdDictionary.Add(1, 1);
         SlotToSpellIdDictionary.Add(2, 2);
         SlotToSpellIdDictionary.Add(3, 3);
         SlotToSpellIdDictionary.Add(4, 4);
+
+
+        WordCount1 = baseWordCount1;
+        WordCount2 = baseWordCount2;
+        WordCount3 = baseWordCount3;
+        WordCount4 = baseWordCount4;
+        
+        AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
 
     public void FeedOmen(GameObject omen)
@@ -147,6 +221,8 @@ public class Caster : MonoBehaviour
 * 
 * 5. Logic related to start / during / after / cancelation  spell must be inserted inside the CASES vvv
 *                                                             EachGoodKeyPress() - EndOfSpellCast() - OnCast()
+*
+* 6. Do not forget to add the wordCount(SPELL_ID) and basewordcount(in start method) props 
 =====================================================================================================================*/
     
 
