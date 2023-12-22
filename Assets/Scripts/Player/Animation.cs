@@ -52,7 +52,14 @@ public class Animation : MonoBehaviour
             _mainAnimator.SetBool("isJumpingUp", false);
             _mainAnimator.SetBool("isJumpingDown", false);
             _mainAnimator.SetBool("isRolling", false);
-            _mainAnimator.SetBool("isHitting", false);
+            if (_mainAnimator.runtimeAnimatorController == _spearAnimator)
+            {
+                _mainAnimator.SetBool("isHitting", false);
+            }
+            else if (_mainAnimator.runtimeAnimatorController == _magicAnimator)
+            {
+                _mainAnimator.SetBool("isCasting", false);
+            }
             _mainAnimator.SetTrigger("Dying");
         }
     }

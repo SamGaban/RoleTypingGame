@@ -26,6 +26,8 @@ public class Caster : MonoBehaviour
     [SerializeField] Canvas _canvas;
     [TabGroup("References", "Base")]
     [SerializeField] TMP_Text _text;
+
+    private bool isDead = false;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Fireball (id1)")]
     GameObject FireBall;
@@ -132,7 +134,18 @@ public class Caster : MonoBehaviour
 
     private void Update() // Typing Cast Logic in Here
     {
-        if (_player.IsDead()) return;
+        if (isDead) return;
+        
+        if (_player.IsDead())
+        {
+            isDead = true;
+            if (_player.ActualState() == Player.state.Casting)
+            {
+                _player.ToggleCasting();
+            }
+            _canvas.gameObject.SetActive(false);
+            return;
+        }
         
         FlipCanvas();
 
