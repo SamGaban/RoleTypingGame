@@ -829,6 +829,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxDuration: 35
   slider: {fileID: 5073966480383808799}
+  maxRaycastDistance: 100
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!61 &5073966482427429184
 BoxCollider2D:
   m_ObjectHideFlags: 0

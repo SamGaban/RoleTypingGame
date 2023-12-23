@@ -17,6 +17,7 @@ public class EscapeMenu : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private Caster spellCasterScript;
 
+    
     public void CloseTab()
     {
         this.gameObject.SetActive(false);

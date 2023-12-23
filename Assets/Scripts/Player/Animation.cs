@@ -19,6 +19,8 @@ public class Animation : MonoBehaviour
     private bool isDead = false;
 
     private bool canAttack = true;
+
+    private bool menuOpen = false;
     
 
     private void Start()
@@ -203,7 +205,16 @@ public class Animation : MonoBehaviour
     /// </summary>
     private void OnEscape()
     {
-        escapeMenu.gameObject.SetActive(true);
+        if (menuOpen)
+        {
+            menuOpen = false;
+            escapeMenu.gameObject.SetActive(false);
+        }
+        else
+        {
+            menuOpen = true;
+            escapeMenu.gameObject.SetActive(true);
+        }
     }
     
 

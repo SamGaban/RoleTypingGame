@@ -23,11 +23,35 @@ public class Goospell : MonoBehaviour
 
     private float startTime = 0;
     private bool hasStarted = false;
+
+    #region Raycast groundfinding region
+
+    [TabGroup("settings", "settings")] [SerializeField]
+    private float maxRaycastDistance = 100f;  // Maximum distance to check for the ground
+    [TabGroup("settings", "settings")] [SerializeField]
+    private LayerMask groundLayer;  // Assign the ground layer in the inspector
+
+    void Start()
+    {
+        // Cast a ray downward from the spell's current position
+        RaycastHit2D hit = Physics2D.Raycast(this.gameObject.transform.position, Vector2.down, maxRaycastDistance, groundLayer);
+
+        if (hit.collider != null)
+        {
+            // We hit something, move the spell to the ground level
+            this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, hit.point.y, transform.position.z);
+        }
+    }
+    
+    
+    #endregion
     
 
     private void Update()
     {
         if (!hasStarted) return;
+        
+        
         
         AutoDestroy();
         SliderUpdate();
