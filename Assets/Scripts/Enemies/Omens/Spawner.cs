@@ -138,6 +138,9 @@ public class Spawner : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Detects the player only if he's in contact with the omen parentm
+    /// </summary>
     private void DetectionCheck()
     {
         if (omenParent.hasPlayerOn && hasActiveEnemy)
