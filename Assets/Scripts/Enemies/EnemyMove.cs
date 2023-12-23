@@ -69,6 +69,8 @@ public class EnemyMove : MonoBehaviour
     /// </summary>
     public void Detect()
     {
+        if (_playerRb != null) return;
+        
         isPatrolling = false;
         _playerRb = FindObjectOfType<Player>().gameObject.GetComponent<Rigidbody2D>();
         jumpScript.FeedRb(_playerRb);

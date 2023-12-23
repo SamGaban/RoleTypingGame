@@ -47,8 +47,14 @@ public class GameManager : MonoBehaviour
 
     
     public Caster.DifficultyLevel difficultyLevel = Caster.DifficultyLevel.Normal;
-    
-    
-    
-    
+
+    public Dictionary<int, int> slotToSpellDic = new Dictionary<int, int>()
+    {
+        {1,1},
+        {2,3},
+        {3,4},
+        {4,2}
+    };
+
+
 }

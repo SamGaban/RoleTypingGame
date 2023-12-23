@@ -310,6 +310,7 @@ MonoBehaviour:
   - {fileID: 3990725702655309779}
   spriteRenderer: {fileID: 3990725700552264913}
   timeToDestroyLife: 20
+  hasPlayerOn: 0
 --- !u!61 &3990725700552264927
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -658,7 +659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3990725701799287282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.31, y: 0, z: 0}
+  m_LocalPosition: {x: 12.92, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -731,6 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capsule: {fileID: 3990725701621868181}
+  omenParent: {fileID: 3990725700552264914}
   MaxRandomSpawnTime: 12
   MinRandomSpawnTime: 3
 --- !u!1 &3990725702655309779

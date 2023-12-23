@@ -17,17 +17,25 @@ public class EscapeMenu : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private Caster spellCasterScript;
 
-    
+    /// <summary>
+    /// Closes menu
+    /// </summary>
     public void CloseTab()
     {
         this.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Reloads active scene
+    /// </summary>
     public void TryAgain()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    /// <summary>
+    /// Quitting editor game window or build application
+    /// </summary>
     public void QuitGame()
     {
         #if UNITY_EDITOR
@@ -41,6 +49,9 @@ public class EscapeMenu : MonoBehaviour
         #endif
     }
 
+    /// <summary>
+    /// Opens the difficulty menu
+    /// </summary>
     public void DifficultyMenu()
     {
         difficultyCanvas.gameObject.SetActive(true);

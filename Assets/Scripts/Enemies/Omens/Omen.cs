@@ -55,6 +55,8 @@ public class Omen : MonoBehaviour
 
     [TabGroup("testing", "Data")] [ShowInInspector]
     private bool hasTimerBegun = false;
+
+    public bool hasPlayerOn = false;
     
     #endregion
     
@@ -263,7 +265,11 @@ public class Omen : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        FeedOmenToPlayer(col);
+        if (col.gameObject.CompareTag("Player"))
+        {
+            FeedOmenToPlayer(col);
+            hasPlayerOn = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D col)
@@ -272,6 +278,7 @@ public class Omen : MonoBehaviour
         if (col.gameObject.CompareTag("Player"))
         {
             MakePlayerForgetOmen(col);
+            hasPlayerOn = false;
             hasTimerBegun = false;
         }
     }

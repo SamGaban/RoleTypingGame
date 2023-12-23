@@ -11,6 +11,9 @@ public class Spawner : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private GameObject capsule;
 
+    [TabGroup("references", "References")] [SerializeField]
+    private Omen omenParent;
+    
     [TabGroup("references", "Data")] [ShowInInspector]
     private bool isGoingUp = true;
 
@@ -95,6 +98,7 @@ public class Spawner : MonoBehaviour
         GoUp();
         StopGoingUp();
         DeathCheck();
+        DetectionCheck();
     }
 
     /// <summary>
@@ -133,6 +137,19 @@ public class Spawner : MonoBehaviour
             }
         }
     }
+
+    private void DetectionCheck()
+    {
+        if (omenParent.hasPlayerOn && hasActiveEnemy)
+        {
+            BaseEnemy script = enemy.GetComponent<BaseEnemy>();
+            if (script != null)
+            {
+                script.DetectPlayer();
+            }
+        }
+    }
+    
 
     /// <summary>
     /// Checks if the assigned enemy is dead to then send the signal to the Omen that a new slot is free

@@ -179,13 +179,8 @@ public class Caster : MonoBehaviour
     
     private void Start()
     {
-        
-        SlotToSpellIdDictionary = new Dictionary<int, int>();
-        SlotToSpellIdDictionary.Add(1, 1);
-        SlotToSpellIdDictionary.Add(2, 2);
-        SlotToSpellIdDictionary.Add(3, 3);
-        SlotToSpellIdDictionary.Add(4, 4);
 
+        SlotToSpellIdDictionary = GameManager.Instance.slotToSpellDic;
 
         WordCount1 = baseWordCount1;
         WordCount2 = baseWordCount2;

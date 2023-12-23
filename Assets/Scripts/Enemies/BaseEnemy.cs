@@ -69,6 +69,10 @@ public class BaseEnemy : MonoBehaviour
     public void ActivateEnemy()
     {
         moveScript.ActivateEnemy();
+    }
+
+    public void DetectPlayer()
+    {
         moveScript.Detect();
     }
     
