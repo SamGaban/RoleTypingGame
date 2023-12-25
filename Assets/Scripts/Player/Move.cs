@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,10 +20,13 @@ public class Move : MonoBehaviour
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpHeight = 5.0f;
 
+    private float speedModifier = 1f;
+    
     private bool allowExternalForces = false;
 
     Vector2 moveInput;
     float idleMoveTreshold = 1.5f;
+    
 
 
     private void OnMove(InputValue value)
@@ -31,6 +36,7 @@ public class Move : MonoBehaviour
         if (PlayerIsCasting()) { return; }
 
         moveInput = value.Get<Vector2>();
+        
         MoveCheck();
     }
 
@@ -56,6 +62,7 @@ public class Move : MonoBehaviour
     
     private void FixedUpdate()
     {
+        
         if (_player.IsDead()) return;
         
         if (allowExternalForces) return;
@@ -114,7 +121,7 @@ public class Move : MonoBehaviour
     /// </summary>
     private void UpdateVelocity()
     {
-        _rb.velocity = new Vector2(moveSpeed * moveInput.x, _rb.velocity.y);
+        _rb.velocity = new Vector2(moveSpeed * moveInput.x * speedModifier, _rb.velocity.y * speedModifier);
     }
     /// <summary>
     /// Adds impulse force to the rb's
@@ -176,5 +183,4 @@ public class Move : MonoBehaviour
         return (_player.ActualState() == Player.state.Casting) ? true : false;
     }
     
-
 }

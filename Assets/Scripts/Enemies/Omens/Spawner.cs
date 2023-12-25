@@ -143,6 +143,8 @@ public class Spawner : MonoBehaviour
     /// </summary>
     private void DetectionCheck()
     {
+        if (enemy == null) return;
+        
         if (omenParent.hasPlayerOn && hasActiveEnemy)
         {
             BaseEnemy script = enemy.GetComponent<BaseEnemy>();

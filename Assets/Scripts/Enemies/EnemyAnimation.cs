@@ -54,7 +54,6 @@ public class EnemyAnimation : MonoBehaviour
     {
         _animator.SetBool("isAttacking", false);
     }
-
     public void FeedAnimator(RuntimeAnimatorController control)
     {
         _controller = control;
