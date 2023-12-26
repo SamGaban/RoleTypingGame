@@ -83,11 +83,13 @@ public class GameSession : MonoBehaviour
     {
         playerTransform.gameObject.SetActive(false);
         mainCamera.Follow = objectToEdit.transform;
+        Cursor.visible = false;
     }
 
     public void DeactivateEditMove()
     {
         playerTransform.gameObject.SetActive(true);
         mainCamera.Follow = playerTransform;
+        Cursor.visible = true;
     }
 }
