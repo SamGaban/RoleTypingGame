@@ -50,6 +50,12 @@ TagManager:
   - name: Background
     uniqueID: 473604427
     locked: 0
+  - name: BehindBG
+    uniqueID: 3428662793
+    locked: 0
+  - name: ForeBG
+    uniqueID: 1446047377
+    locked: 0
   - name: ForceField
     uniqueID: 104287805
     locked: 0

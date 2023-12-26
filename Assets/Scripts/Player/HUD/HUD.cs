@@ -69,7 +69,13 @@ public class HUD : MonoBehaviour
         {
             omenLogo.SetActive(false);
         }
+        
+        Invoke(nameof(UpdateOmenLogos), 2f);
+        
+    }
 
+    public void UpdateOmenLogos()
+    {
         if (gameSession.OmenCount > 0)
         {
             for (int i = 0; i < gameSession.OmenCount; i++)

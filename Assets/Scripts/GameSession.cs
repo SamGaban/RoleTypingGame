@@ -38,6 +38,9 @@ public class GameSession : MonoBehaviour
         get => omenKillCount;
         private set => omenKillCount = value;
     }
+
+    [TabGroup("references", "data")] [ShowInInspector]
+    private List<Omen> omenList = new List<Omen>();
     
 
     public void KilledOmen()
@@ -61,6 +64,7 @@ public class GameSession : MonoBehaviour
         
         foreach (Omen omen in FindObjectsOfType<Omen>())
         {
+            omenList.Add(omen);
             omenCount++;
         }
     }
