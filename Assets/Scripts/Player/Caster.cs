@@ -199,7 +199,15 @@ public class Caster : MonoBehaviour
     {
         actualOmen = null;
     }
-    
+
+    /// <summary>
+    /// Accesser for the Session build mode
+    /// </summary>
+    private void OnBuild()
+    {
+        GameSession session = FindObjectOfType<GameSession>();
+        session.OnBuild();
+    }
     
     
 /*====================================================================================================================

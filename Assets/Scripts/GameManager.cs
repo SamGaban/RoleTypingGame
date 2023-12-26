@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     
     #endregion
 
+    [SerializeField] private GameObject TestBuildable;
     
     public Caster.DifficultyLevel difficultyLevel = Caster.DifficultyLevel.Normal;
 
@@ -56,15 +57,37 @@ public class GameManager : MonoBehaviour
         {3,4},
         {4,2}
     };
+
+    public bool buildMode { get; private set; } = true;
     
     private int numberOfOmen = 0;
 
     public int PlayerGold { get; private set; } = 9999;
+    
+    [TabGroup("references", "data")][ShowInInspector]
+    public Dictionary<GameObject, int> Buildables { get; private set; }
 
 
+    public void AddToBuildables(GameObject buildable)
+    {
+        if (Buildables.ContainsKey(buildable))
+        {
+            Buildables[buildable] += 1;
+        }
+        else
+        {
+            Buildables.Add(buildable, 1);
+        }
+    }
+    
     public void ChangeDifficulty(Caster.DifficultyLevel newDiff)
     {
         difficultyLevel = newDiff;
     }
-    
+
+    private void Start()
+    {
+        Buildables = new Dictionary<GameObject, int>();
+        AddToBuildables(TestBuildable);
+    }
 }

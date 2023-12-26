@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class GameSession : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private Transform playerTransform;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private Canvas buildPanel;
 
     [TabGroup("references", "references")] [SerializeField]
     private CinemachineVirtualCamera mainCamera;
@@ -51,6 +56,9 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "data")] [SerializeField]
     private GameObject objectToPlace;
+
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private bool buildPanelOpen = false;
     
 
     public void KilledOmen()
@@ -75,6 +83,8 @@ public class GameSession : MonoBehaviour
             omenList.Add(omen);
             omenCount++;
         }
+
+        buildPanel.gameObject.SetActive(false);
     }
 
 
@@ -92,4 +102,24 @@ public class GameSession : MonoBehaviour
         mainCamera.Follow = playerTransform;
         Cursor.visible = true;
     }
+
+    public void OnBuild()
+    {
+        
+        if (GameManager.Instance.buildMode)
+        {
+            if (buildPanelOpen)
+            {
+                buildPanel.gameObject.SetActive(false);
+                buildPanelOpen = false;
+            }
+            else
+            {
+                buildPanel.gameObject.SetActive(true);
+                buildPanelOpen = true;
+            }
+        }
+    }
+    
+    
 }
