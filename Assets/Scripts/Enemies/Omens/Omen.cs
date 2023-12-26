@@ -237,11 +237,22 @@ public class Omen : MonoBehaviour
                 Spawner script = o.GetComponent<Spawner>();
                 script.SelfDestruct();
             }
+            
+            GameSession gameSession = FindObjectOfType<GameSession>();
+
+            if (gameSession != null)
+            {
+                gameSession.KilledOmen();
+            }
+            
+            
             Invoke("DestroyHelper", 8f);
         }
     }
     private void DestroyHelper()
     {
+
+        
         Destroy(this.gameObject);
     }
 

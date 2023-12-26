@@ -17,13 +17,20 @@ public class HUD : MonoBehaviour
     [TabGroup("references", "references")] [SerializeField]
     private List<Image> logoSlotList;
 
+    [TabGroup("references", "references")] [SerializeField]
+    private List<GameObject> omenLogos;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private GameSession gameSession;
+    
     [TabGroup("references", "data")] [ShowInInspector]
     private List<Sprite> logoList;
 
     [TabGroup("references", "data")] [ShowInInspector]
     private Dictionary<int, int> SlotSpellDictionary;
-    
-    
+
+    [TabGroup("references", "data")] [ShowInInspector]
+    private int omenCount = 0;    
 
     #endregion
 
@@ -58,6 +65,25 @@ public class HUD : MonoBehaviour
     {
         Feed();
         UpdateLogos();
+        foreach (GameObject omenLogo in omenLogos)
+        {
+            omenLogo.SetActive(false);
+        }
+
+        if (gameSession.OmenCount > 0)
+        {
+            for (int i = 0; i < gameSession.OmenCount; i++)
+            {
+                omenLogos[i].SetActive(true);
+                omenCount++;
+            }            
+        }
+    }
+
+    public void MinusOneOmen()
+    {
+        omenCount--;
+        omenLogos[omenCount].SetActive(false);
     }
 
     /// <summary>
