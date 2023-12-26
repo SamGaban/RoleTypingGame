@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -14,6 +15,12 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private HUD hud;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private Transform playerTransform;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private CinemachineVirtualCamera mainCamera;
     
     public int OmenCount
     {
@@ -41,6 +48,9 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "data")] [ShowInInspector]
     private List<Omen> omenList = new List<Omen>();
+
+    [TabGroup("references", "data")] [SerializeField]
+    private GameObject objectToPlace;
     
 
     public void KilledOmen()
@@ -60,12 +70,24 @@ public class GameSession : MonoBehaviour
     
     void Start()
     {
-        
-        
         foreach (Omen omen in FindObjectsOfType<Omen>())
         {
             omenList.Add(omen);
             omenCount++;
         }
+    }
+
+
+    
+    public void ActivateEditMove(GameObject objectToEdit)
+    {
+        playerTransform.gameObject.SetActive(false);
+        mainCamera.Follow = objectToEdit.transform;
+    }
+
+    public void DeactivateEditMove()
+    {
+        playerTransform.gameObject.SetActive(true);
+        mainCamera.Follow = playerTransform;
     }
 }
