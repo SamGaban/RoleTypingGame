@@ -56,6 +56,12 @@ TagManager:
   - name: ForeBG
     uniqueID: 1446047377
     locked: 0
+  - name: Outlines
+    uniqueID: 2328320747
+    locked: 0
+  - name: Buildables
+    uniqueID: 3709232475
+    locked: 0
   - name: ForceField
     uniqueID: 104287805
     locked: 0

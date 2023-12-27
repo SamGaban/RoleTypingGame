@@ -63,12 +63,12 @@ public class GameManager : MonoBehaviour
     private int numberOfOmen = 0;
 
     public int PlayerGold { get; private set; } = 9999;
-    
-    [TabGroup("references", "data")][ShowInInspector]
-    public Dictionary<GameObject, int> Buildables { get; private set; }
+
+    [TabGroup("references", "data")] [ShowInInspector]
+    public Dictionary<int, int> Buildables;
 
 
-    public void AddToBuildables(GameObject buildable)
+    public void AddToBuildables(int buildable)
     {
         if (Buildables.ContainsKey(buildable))
         {
@@ -79,6 +79,19 @@ public class GameManager : MonoBehaviour
             Buildables.Add(buildable, 1);
         }
     }
+
+    public void RemoveBuildable(int buildable)
+    {
+        if (Buildables[buildable] > 0)
+        {
+            Buildables[buildable]--;
+        }
+
+        if (Buildables[buildable] <= 0)
+        {
+            Buildables.Remove(buildable);
+        }
+    }
     
     public void ChangeDifficulty(Caster.DifficultyLevel newDiff)
     {
@@ -87,7 +100,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Buildables = new Dictionary<GameObject, int>();
-        AddToBuildables(TestBuildable);
+        Buildables = new Dictionary<int, int>();
+        AddToBuildables(1);
+        AddToBuildables(1);
+        AddToBuildables(2);
+
     }
 }

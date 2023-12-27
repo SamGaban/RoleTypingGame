@@ -15,6 +15,8 @@ public class Buildable : MonoBehaviour
 
     private float coolDownClick = 0f;
 
+    public int buildIndex;
+
 
 
     private void Start()
@@ -26,6 +28,11 @@ public class Buildable : MonoBehaviour
     private void OnMouseOver()
     {
         if (editing) return;
+
+        if (session.inEditMode) return;
+
+        if (session.buildPanelOpen) return;
+        
         
         this.GetComponent<SpriteRenderer>().color = Color.magenta;
     }
@@ -53,10 +60,20 @@ public class Buildable : MonoBehaviour
         }
     }
 
+    public void SetEditingTrue()
+    {
+        editing = true;
+    }
+
     private void OnMouseDown()
     {
         if (!editing)
         {
+            if (session.inEditMode) return;
+
+            if (session.buildPanelOpen) return;
+
+            session.SetAsEditedObject(this.gameObject, buildIndex);
 
             this.GetComponent<SpriteRenderer>().color = originalColor;
 
