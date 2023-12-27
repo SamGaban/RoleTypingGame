@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+/// <summary>
+/// Class serving as reference for all the existing prefabricated buildable items
+/// </summary>
 public class BuildDico : SerializedMonoBehaviour
 {
     public static BuildDico Instance { get; private set; }

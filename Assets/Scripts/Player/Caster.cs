@@ -190,11 +190,17 @@ public class Caster : MonoBehaviour
         AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
 
+    /// <summary>
+    /// Feeds omen to the current omen parameter
+    /// </summary>
     public void FeedOmen(GameObject omen)
     {
         actualOmen = omen;
     }
-
+    
+    /// <summary>
+    /// Nulls the current omen reference
+    /// </summary>
     public void ForgetOmen()
     {
         actualOmen = null;

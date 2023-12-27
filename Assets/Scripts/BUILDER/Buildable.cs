@@ -17,6 +17,8 @@ public class Buildable : MonoBehaviour
 
     public int buildIndex;
 
+    public int goldValue;
+
 
 
     private void Start()
@@ -25,6 +27,9 @@ public class Buildable : MonoBehaviour
         originalColor = this.GetComponent<SpriteRenderer>().color;
     }
 
+    /// <summary>
+    /// Highlights item on mouse over
+    /// </summary>
     private void OnMouseOver()
     {
         if (editing) return;
@@ -37,6 +42,10 @@ public class Buildable : MonoBehaviour
         this.GetComponent<SpriteRenderer>().color = Color.magenta;
     }
 
+    
+    /// <summary>
+    /// Gives item its color back
+    /// </summary>
     private void OnMouseExit()
     {
         if (editing) return;
@@ -60,11 +69,18 @@ public class Buildable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the editing variable to true
+    /// </summary>
     public void SetEditingTrue()
     {
         editing = true;
     }
-
+    
+    /// <summary>
+    /// If item is clicked, go in build mode with it as item
+    /// <para>make the item the edited item in the GameSession + edited item index
+    /// </summary>
     private void OnMouseDown()
     {
         if (!editing)

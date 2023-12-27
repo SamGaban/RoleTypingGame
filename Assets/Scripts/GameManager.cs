@@ -60,14 +60,22 @@ public class GameManager : MonoBehaviour
 
     public bool buildMode { get; private set; } = true;
     
+    /// <summary>
+    /// Parameter set on selection of a game contract, to set the number of omens in said game
+    /// </summary>
     private int numberOfOmen = 0;
 
     public int PlayerGold { get; private set; } = 9999;
 
+    /// <summary>
+    /// Player's buildable inventory
+    /// </summary>
     [TabGroup("references", "data")] [ShowInInspector]
     public Dictionary<int, int> Buildables;
 
-
+    /// <summary>
+    /// Adds a new entry or increments an existing one in the player's buildable inventory
+    /// </summary>
     public void AddToBuildables(int buildable)
     {
         if (Buildables.ContainsKey(buildable))
@@ -80,6 +88,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes a buildable from the player's inventory (stored in gamemanager)
+    /// </summary>
     public void RemoveBuildable(int buildable)
     {
         if (Buildables[buildable] > 0)
@@ -93,6 +104,9 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Sets difficulty to the new parameter input difficulty (before launching a game)
+    /// </summary>
     public void ChangeDifficulty(Caster.DifficultyLevel newDiff)
     {
         difficultyLevel = newDiff;

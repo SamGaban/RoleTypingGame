@@ -7,6 +7,10 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+
+/// <summary>
+/// Class serving as direct information about the game session, be it town mode or game mode
+/// </summary>
 public class GameSession : MonoBehaviour
 {
 
@@ -79,6 +83,9 @@ public class GameSession : MonoBehaviour
     private GameObject currentlyPlacingObject;
     
 
+    /// <summary>
+    /// Counts the number of omen killed in the current game
+    /// </summary>
     public void KilledOmen()
     {
         omenCount--;
@@ -105,6 +112,9 @@ public class GameSession : MonoBehaviour
         buildPanel.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Sets parameter inputted object as the currently edited object
+    /// </summary>
     public void SetAsEditedObject(GameObject newObject, int newIndex)
     {
         currentlyPlacingObject = newObject;
@@ -131,7 +141,9 @@ public class GameSession : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Activates edit mode / deactivates player view
+    /// </summary>
     public void ActivateEditMove(GameObject objectToEdit)
     {
         playerTransform.gameObject.SetActive(false);
@@ -140,6 +152,9 @@ public class GameSession : MonoBehaviour
         inEditMode = true;
     }
 
+    /// <summary>
+    /// Turns edit mode off
+    /// </summary>
     public void DeactivateEditMove()
     {
         playerTransform.gameObject.SetActive(true);
@@ -148,6 +163,10 @@ public class GameSession : MonoBehaviour
         inEditMode = false;
     }
 
+    /// <summary>
+    /// Opens player inventory of buildables / Panel
+    /// <para>Helper called within the caster because of centralization of input calling
+    /// </summary>
     public void OnBuild()
     {
         
@@ -174,6 +193,9 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Closing the build panel
+    /// </summary>
     private void CloseBuildPanel()
     {
         buildPanel.gameObject.SetActive(false);
@@ -193,6 +215,9 @@ public class GameSession : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initializes the buildables list on opening the inventory
+    /// </summary>
     public void CreateBuildList(int itemIndex, int itemAmount, int spaceModifier)
     {
         GameObject item = Instantiate(panelItemPrefab, contentPanel.transform);
@@ -204,6 +229,9 @@ public class GameSession : MonoBehaviour
         panelItem.button.onClick.AddListener(() => OnPanelItemButtonClick(itemIndex));
     }
 
+    /// <summary>
+    /// Custom event serving as the button click within the buildable inventory
+    /// </summary>
     public void OnPanelItemButtonClick(int buildIndex)
     {
         CloseBuildPanel();

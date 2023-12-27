@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildIndex: 2
+  goldValue: 65
 --- !u!60 &7289363798990896641
 PolygonCollider2D:
   m_ObjectHideFlags: 0
