@@ -56,8 +56,20 @@ public class SmithStore : MonoBehaviour
 
             if (script != null)
             {
+                Buildable buildable = entry.Value.GetComponent<Buildable>();
                 script.logo.sprite = entry.Value.GetComponent<SpriteRenderer>().sprite;
-                script.priceText.text = entry.Value.GetComponent<Buildable>().goldValue.ToString();
+                script.priceText.text = buildable.goldValue.ToString();
+                
+                script.button.onClick.AddListener(() =>
+                {
+                    if (GameManager.Instance.SubstractGold(buildable.goldValue))
+                    {
+                        HUD hud = FindObjectOfType<HUD>();
+                        hud.UpdateGoldCount();
+                        GameManager.Instance.AddToBuildables(entry.Key);
+                    }
+                });
+
             }
             
             counter++;

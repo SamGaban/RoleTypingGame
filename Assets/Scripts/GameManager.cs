@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int numberOfOmen = 0;
 
-    public int PlayerGold { get; private set; } = 9999;
+    public int PlayerGold { get; private set; } = 0;
 
     /// <summary>
     /// Player's buildable inventory
@@ -112,12 +112,29 @@ public class GameManager : MonoBehaviour
         difficultyLevel = newDiff;
     }
 
+    public bool SubstractGold(int amount)
+    {
+        if (PlayerGold - amount >= 0)
+        {
+            PlayerGold -= amount;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void AddGold(int amount)
+    {
+        PlayerGold += amount;
+    }
+
     private void Start()
     {
         Buildables = new Dictionary<int, int>();
-        AddToBuildables(1);
-        AddToBuildables(1);
-        AddToBuildables(2);
+    
+        AddGold(100);
 
     }
 }
