@@ -39,6 +39,9 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private Transform TownParent;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private Canvas pressToInteractCanvas;
     
     public int OmenCount
     {
@@ -64,10 +67,10 @@ public class GameSession : MonoBehaviour
         private set => omenKillCount = value;
     }
 
-    [TabGroup("references", "data")] [ShowInInspector]
+    [TabGroup("references", "Data")] [ShowInInspector]
     private List<Omen> omenList = new List<Omen>();
 
-    [TabGroup("references", "data")] [SerializeField]
+    [TabGroup("references", "Data")] [SerializeField]
     private GameObject objectToPlace;
 
     [TabGroup("references", "Data")] [ShowInInspector]
@@ -81,6 +84,19 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "Data")] [ShowInInspector]
     private GameObject currentlyPlacingObject;
+
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private Interractable currentlyFocused;
+
+    public void SetInterractable(Interractable subject)
+    {
+        currentlyFocused = subject;
+    }
+
+    public void ForgetInterractable()
+    {
+        currentlyFocused = null;
+    }
     
 
     /// <summary>
@@ -124,6 +140,8 @@ public class GameSession : MonoBehaviour
 
     private void Update()
     {
+        pressToInteractCanvas.gameObject.SetActive(currentlyFocused != null);
+
         if (!inEditMode) return;
         
         
@@ -190,6 +208,14 @@ public class GameSession : MonoBehaviour
                 }
                 
             }
+        }
+    }
+
+    public void OnInteraction()
+    {
+        if (currentlyFocused != null)
+        {
+            currentlyFocused.Interact();
         }
     }
 

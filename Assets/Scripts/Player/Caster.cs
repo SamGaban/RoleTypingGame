@@ -214,7 +214,15 @@ public class Caster : MonoBehaviour
         GameSession session = FindObjectOfType<GameSession>();
         session.OnBuild();
     }
-    
+
+    /// <summary>
+    /// Accesser for the interaction
+    /// </summary>
+    private void OnInteraction()
+    {
+        GameSession session = FindObjectOfType<GameSession>();
+        session.OnInteraction();
+    }
     
 /*====================================================================================================================
 *                                                     To Add A Spell

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
@@ -22,6 +23,9 @@ public class HUD : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private GameSession gameSession;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private TMP_Text goldText;
     
     [TabGroup("references", "data")] [ShowInInspector]
     private List<Sprite> logoList;
@@ -70,8 +74,15 @@ public class HUD : MonoBehaviour
             omenLogo.SetActive(false);
         }
         
+        UpdateGoldCount();
+        
         Invoke(nameof(UpdateOmenLogos), 2f);
         
+    }
+
+    public void UpdateGoldCount()
+    {
+        goldText.text = GameManager.Instance.PlayerGold.ToString();
     }
 
     public void UpdateOmenLogos()
