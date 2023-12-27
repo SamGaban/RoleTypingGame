@@ -27,6 +27,7 @@ public class Interractable : MonoBehaviour
             GameSession script = FindObjectOfType<GameSession>();
             if (script != null)
             {
+                StopInteract();
                 script.ForgetInterractable();
             }
         }
