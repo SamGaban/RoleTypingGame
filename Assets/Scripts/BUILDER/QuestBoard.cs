@@ -7,6 +7,9 @@ public class QuestBoard : MonoBehaviour
 {
     [TabGroup("references", "References")] [SerializeField]
     private Interractable interactScript;
+
+    [TabGroup("references", "References")] [SerializeField]
+    private Canvas questBoardPanel;
     
     private void Start()
     {
@@ -16,12 +19,12 @@ public class QuestBoard : MonoBehaviour
 
     private void OnInteract()
     {
-        Debug.Log("Questboard interact");
+        questBoardPanel.gameObject.SetActive(true);
     }
 
     private void OnStopInteract()
     {
-        Debug.Log("Questboard stop interact");
+        questBoardPanel.gameObject.SetActive(false);
     }
     
 }

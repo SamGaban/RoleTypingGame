@@ -67,6 +67,18 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int numberOfOmen = 0;
 
+    private int goldReward = 0;
+
+    public void SetOmenAmount(int amount)
+    {
+        numberOfOmen = amount;
+    }
+
+    public void SetGoldReward(int amount)
+    {
+        goldReward = amount;
+    }
+    
     
     // ######################################################################################
     
