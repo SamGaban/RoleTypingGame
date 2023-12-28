@@ -26,6 +26,9 @@ public class GameSession : MonoBehaviour
     private Transform playerTransform;
 
     [TabGroup("references", "references")] [SerializeField]
+    private Player player;
+
+    [TabGroup("references", "references")] [SerializeField]
     private Canvas buildPanel;
 
     [TabGroup("references", "references")] [SerializeField]
@@ -88,6 +91,10 @@ public class GameSession : MonoBehaviour
     [TabGroup("references", "Data")] [ShowInInspector]
     private Interractable currentlyFocused;
 
+    [TabGroup("references", "Data")] [SerializeField]
+    public bool inTown;
+    
+    
     public void SetInterractable(Interractable subject)
     {
         currentlyFocused = subject;
@@ -119,6 +126,7 @@ public class GameSession : MonoBehaviour
     
     void Start()
     {
+        
         foreach (Omen omen in FindObjectsOfType<Omen>())
         {
             omenList.Add(omen);
@@ -188,7 +196,7 @@ public class GameSession : MonoBehaviour
     public void OnBuild()
     {
         
-        if (GameManager.Instance.buildMode)
+        if (inTown && player.ActualState() != Player.state.Casting)
         {
             if (buildPanelOpen)
             {

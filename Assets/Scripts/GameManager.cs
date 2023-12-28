@@ -58,13 +58,18 @@ public class GameManager : MonoBehaviour
         {4,2}
     };
 
-    public bool buildMode { get; private set; } = true;
+    
+    // ################################# LAUNCHING A MISSION ###############################
+    
     
     /// <summary>
     /// Parameter set on selection of a game contract, to set the number of omens in said game
     /// </summary>
     private int numberOfOmen = 0;
 
+    
+    // ######################################################################################
+    
     public int PlayerGold { get; private set; } = 0;
 
     /// <summary>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
@@ -11,11 +12,16 @@ public class EscapeMenu : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private Canvas menuCanvas;
 
-    [TabGroup("references", "References")] [SerializeField]
-    private Canvas difficultyCanvas;
 
     [TabGroup("references", "References")] [SerializeField]
     private Caster spellCasterScript;
+
+    private GameSession session;
+
+    private void Start()
+    {
+        session = FindObjectOfType<GameSession>();
+    }
 
     /// <summary>
     /// Closes menu
@@ -30,6 +36,8 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void TryAgain()
     {
+        if (session.inTown) return;
+        
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -49,13 +57,11 @@ public class EscapeMenu : MonoBehaviour
         #endif
     }
 
-    /// <summary>
-    /// Opens the difficulty menu
-    /// </summary>
-    public void DifficultyMenu()
+    public void Abandon()
     {
-        difficultyCanvas.gameObject.SetActive(true);
-        this.gameObject.SetActive(false);
+        if (session.inTown) return;
+
+        
     }
 
     public void VeryEasy()
