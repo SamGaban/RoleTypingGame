@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -54,8 +55,8 @@ public class QuestBoardItem : MonoBehaviour
             GameManager.Instance.difficultyLevel = _difficultyLevel;
             GameManager.Instance.SetGoldReward(_goldAmount);
             GameManager.Instance.SetOmenAmount(_omenAmount);
-            
-            Debug.Log("Launching Mission");
+
+            SceneManager.LoadScene(1);
         });
         
     }
