@@ -52,7 +52,7 @@ public class EscapeMenu : MonoBehaviour
             
         #else
         
-            Application.Quit()
+            Application.Quit();
         
         #endif
     }

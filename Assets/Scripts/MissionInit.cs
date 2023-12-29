@@ -18,7 +18,7 @@ public class MissionInit : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.OmenAmount(); i++)
         {
             GameObject map = Instantiate(mapBlocksPrefabs[Random.Range(0, mapBlocksPrefabs.Count)]);
-            map.transform.position = new Vector3(0, 0 - (i * 135.22f), 0);
+            map.transform.position = new Vector3(0, 0 - (i * 170.00f), 0);
         }
     }
 }
