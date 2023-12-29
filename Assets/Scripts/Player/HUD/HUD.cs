@@ -34,8 +34,13 @@ public class HUD : MonoBehaviour
     private Dictionary<int, int> SlotSpellDictionary;
 
     [TabGroup("references", "data")] [ShowInInspector]
-    private int omenCount = 0;    
+    private int omenCount = 0;
 
+    public int OmenCount()
+    {
+        return omenCount;
+    }
+    
     #endregion
 
     /// <summary>

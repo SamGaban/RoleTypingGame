@@ -93,6 +93,8 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "Data")] [SerializeField]
     public bool inTown;
+
+    private float countdown;
     
     
     public void SetInterractable(Interractable subject)
@@ -126,6 +128,7 @@ public class GameSession : MonoBehaviour
     
     void Start()
     {
+        countdown = Time.time;
         
         foreach (Omen omen in FindObjectsOfType<Omen>())
         {
@@ -165,6 +168,32 @@ public class GameSession : MonoBehaviour
                 currentlyPlacingObject.transform.localScale.y,
                 currentlyPlacingObject.transform.localScale.z);
         }
+
+        if (inTown) return;
+
+        Player player = FindObjectOfType<Player>();
+
+        if (player != null)
+        {
+            if (player.IsDead())
+            {
+                Debug.Log("You lost!");
+            }
+        }
+        
+        if (Time.time - countdown < 60f);
+
+        HUD hud = FindObjectOfType<HUD>();
+
+        if (hud != null)
+        {
+            if (hud.OmenCount() <= 0) // WINING CONDITION
+            {
+                Debug.Log("You won!");
+            }
+        }
+
+
     }
 
     /// <summary>
