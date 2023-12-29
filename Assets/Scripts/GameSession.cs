@@ -170,16 +170,7 @@ public class GameSession : MonoBehaviour
         }
 
         if (inTown) return;
-
-        Player player = FindObjectOfType<Player>();
-
-        if (player != null)
-        {
-            if (player.IsDead())
-            {
-                Debug.Log("You lost!");
-            }
-        }
+        
         
         if (Time.time - countdown < 60f);
 

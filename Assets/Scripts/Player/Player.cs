@@ -189,6 +189,14 @@ public class Player : MonoBehaviour
         if (_healthManager.isDead())
         {
             isDead = true;
+            GameSession session = FindObjectOfType<GameSession>();
+            if (session != null)
+            {
+                if (!session.inTown)
+                {
+                    Debug.Log("You Lost!");
+                }
+            }
         }
     }
 
