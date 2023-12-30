@@ -85,6 +85,11 @@ public class GameManager : MonoBehaviour
     {
         goldReward = amount;
     }
+
+    public int GoldReward()
+    {
+        return goldReward;
+    }
     
     
     // ######################################################################################

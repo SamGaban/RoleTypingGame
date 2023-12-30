@@ -23,6 +23,9 @@ public class GameSession : MonoBehaviour
     private HUD hud;
 
     [TabGroup("references", "references")] [SerializeField]
+    private Canvas loadingScreen;
+
+    [TabGroup("references", "references")] [SerializeField]
     private Transform playerTransform;
 
     [TabGroup("references", "references")] [SerializeField]
@@ -117,17 +120,42 @@ public class GameSession : MonoBehaviour
         omenKillCount++;
         hud.MinusOneOmen();
 
-        if (omenCount <= 0)
+        if (omenCount <= 0) // WIN CONDITION
         {
-            Debug.Log("You Won!");
+            EndOfMission end = FindObjectOfType<EndOfMission>();
+
+            if (end != null)
+            {
+                int goldReward = GameManager.Instance.GoldReward();
+
+                float multiplier = (killCount / 100f) + 1f;
+
+                int finalGold = Convert.ToInt32(goldReward * multiplier);
+
+                end.Win(killCount, finalGold);
+                
+                GameManager.Instance.AddGold(finalGold);
+            }
         }
         
+    }
+
+    private void LoadingScreenOff()
+    {
+        loadingScreen.gameObject.SetActive(false);
+    }
+
+    public void KilledEnemy()
+    {
+        killCount++;
     }
 
 
     
     void Start()
     {
+        loadingScreen.gameObject.SetActive(true);
+        Invoke("LoadingScreenOff", 4f);
         countdown = Time.time;
         
         foreach (Omen omen in FindObjectsOfType<Omen>())

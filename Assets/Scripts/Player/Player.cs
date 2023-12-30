@@ -192,9 +192,14 @@ public class Player : MonoBehaviour
             GameSession session = FindObjectOfType<GameSession>();
             if (session != null)
             {
-                if (!session.inTown)
+                if (!session.inTown) // LOSE CONDITION
                 {
-                    Debug.Log("You Lost!");
+                    EndOfMission end = FindObjectOfType<EndOfMission>();
+
+                    if (end != null)
+                    {
+                        end.Lose(session.KillCount);
+                    }
                 }
             }
         }

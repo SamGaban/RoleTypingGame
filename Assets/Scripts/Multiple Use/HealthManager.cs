@@ -43,6 +43,16 @@ public class HealthManager : MonoBehaviour
 
         if (_healthPoints <= 0)
         {
+            GameSession session = FindObjectOfType<GameSession>();
+
+            if (session != null)
+            {
+                if (this.gameObject.CompareTag("Enemy"))
+                {
+                    session.KilledEnemy();
+                }
+            }
+            
             isDeceased = true;
         }
         healthSlider.value = (float)_healthPoints / (float)_maxHealthPoints;
