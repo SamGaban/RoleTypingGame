@@ -51,17 +51,22 @@ public class EscapeMenu : MonoBehaviour
             EditorApplication.isPlaying = false;
             
         #else
-        
+
+            GameManager.Instance.WholeSave();
+
             Application.Quit();
         
         #endif
     }
 
+    
+    
     public void Abandon()
     {
         if (session.inTown) return;
 
-        
+        SceneManager.LoadScene(0);
+
     }
 
     public void VeryEasy()

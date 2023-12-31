@@ -161,9 +161,53 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        #if UNITY_EDITOR
+        
         Buildables = new Dictionary<int, int>();
     
         AddGold(100);
+        
+        #else
+        
+        WholeLoad();
+        
+        #endif
 
     }
+
+    public void WholeSave()
+    {
+        SaveBuildables();
+        SaveGold();
+    }
+
+    public void WholeLoad()
+    {
+        LoadBuildables();
+        LoadGold();
+    }
+    
+    #region SAVE/LOAD
+
+    public void SaveBuildables()
+    {
+        ES3.Save("savedBuildables", Buildables);
+    }
+
+    public void LoadBuildables()
+    {
+        Buildables = ES3.Load("savedBuildables", new Dictionary<int, int>());
+    }
+
+    public void SaveGold()
+    {
+        ES3.Save("savedGold", PlayerGold);
+    }
+
+    public void LoadGold()
+    {
+        PlayerGold = ES3.Load("savedGold", 0);
+    }
+    
+    #endregion
 }
