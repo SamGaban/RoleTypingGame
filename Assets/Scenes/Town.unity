@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 135616489}
   m_Layer: 0
   m_Name: TOWN
-  m_TagString: Untagged
+  m_TagString: TownParent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9186,6 +9186,7 @@ MonoBehaviour:
     - {fileID: 5810212039040523000, guid: d87a858bb7c8efb4c9c33f9130b9df10, type: 3}
     - {fileID: 3611156643456770795, guid: 9578c35ab532b884faa4874242a8022d, type: 3}
     - {fileID: 8604827147865033710, guid: 125476f82304a9b49b31d5ff0b1b0f47, type: 3}
+    - {fileID: 668354843397190315, guid: 5ff8029b9961c864992ca9502079e5bb, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -9204,7 +9205,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
       Data: 
@@ -9238,6 +9239,18 @@ MonoBehaviour:
     - Name: $v
       Entry: 10
       Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 10
+      Data: 3
     - Name: 
       Entry: 8
       Data: 

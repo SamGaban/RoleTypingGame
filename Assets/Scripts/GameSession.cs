@@ -154,6 +154,11 @@ public class GameSession : MonoBehaviour
     
     void Start()
     {
+        if (inTown)
+        {
+            GameManager.Instance.LoadTown();
+        }
+        
         loadingScreen.gameObject.SetActive(true);
         Invoke("LoadingScreenOff", 4f);
         countdown = Time.time;
@@ -198,9 +203,9 @@ public class GameSession : MonoBehaviour
         }
 
         if (inTown) return;
-        
-        
-        if (Time.time - countdown < 60f);
+
+
+        if (Time.time - countdown < 60f) return;
 
         HUD hud = FindObjectOfType<HUD>();
 

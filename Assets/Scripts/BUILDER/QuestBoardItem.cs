@@ -55,6 +55,8 @@ public class QuestBoardItem : MonoBehaviour
             GameManager.Instance.difficultyLevel = _difficultyLevel;
             GameManager.Instance.SetGoldReward(_goldAmount);
             GameManager.Instance.SetOmenAmount(_omenAmount);
+            
+            GameManager.Instance.SaveTown();
 
             SceneManager.LoadScene(1);
         });

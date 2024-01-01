@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviour
     {
         SaveBuildables();
         SaveGold();
+        SaveTown();
     }
 
     public void WholeLoad()
@@ -208,6 +209,52 @@ public class GameManager : MonoBehaviour
     {
         PlayerGold = ES3.Load("savedGold", 0);
     }
+    
+    public void SaveTown()
+    {
+        int counter = 0;
+        GameObject[] saveableObjects = GameObject.FindGameObjectsWithTag("Saveable");
+
+        foreach (GameObject obj in saveableObjects)
+        {
+            // Create save data from the GameObject
+            SaveableObjectData data = new SaveableObjectData(obj);
+
+            // Save the data with a unique key
+            string key = "Saveable_" + counter++;
+            ES3.Save(key, data);
+        }
+
+        // Save the total count of saveable objects
+        ES3.Save("Saveable_Count", counter);
+    }
+
+    
+    public void LoadTown()
+    {
+        int totalSaveables = ES3.Load<int>("Saveable_Count");
+        GameObject townParent = GameObject.FindGameObjectWithTag("TownParent");
+
+        for (int counter = 0; counter < totalSaveables; counter++)
+        {
+            string key = "Saveable_" + counter;
+            if (ES3.KeyExists(key))
+            {
+                // Load saved data
+                SaveableObjectData data = ES3.Load<SaveableObjectData>(key);
+
+                // Use the saved data to instantiate and set up the object
+                GameObject prefab = BuildDico.Instance.dico[data.buildIndex];
+                GameObject newInstance = Instantiate(prefab, data.position, data.rotation, townParent.transform);
+                newInstance.transform.localScale = data.scale;
+                // Apply any other state or component data as necessary
+            }
+        }
+    }
+
+
+
+
     
     #endregion
 }
