@@ -1188,6 +1188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapBlocksPrefabs:
   - {fileID: 5664195382136505574, guid: fb5fd177ca631084aa06f9631ecb6091, type: 3}
+  mapEnd: {fileID: 1367464968408329576, guid: cd76209c03b74604dbd6c70434cbd709, type: 3}
 --- !u!4 &170100190
 Transform:
   m_ObjectHideFlags: 0
@@ -2355,6 +2356,7 @@ MonoBehaviour:
   contentPanel: {fileID: 667949715}
   TownParent: {fileID: 0}
   pressToInteractCanvas: {fileID: 957266816}
+  pressToInteractCanvasNameObject: {fileID: 0}
   objectToPlace: {fileID: 0}
   buildPanelOpen: 0
   inEditMode: 0

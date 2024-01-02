@@ -290,6 +290,11 @@ public class GameManager : MonoBehaviour
                 GameObject prefab = BuildDico.Instance.dico[data.buildIndex];
                 GameObject newInstance = Instantiate(prefab, data.position, data.rotation, townParent.transform);
                 newInstance.transform.localScale = data.scale;
+                SpriteRenderer sr = newInstance.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.sortingOrder = data.sortOrder;
+                }
                 // Apply any other state or component data as necessary
             }
         }

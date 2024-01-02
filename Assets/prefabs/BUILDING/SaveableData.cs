@@ -15,6 +15,7 @@ public class SaveableObjectData
 
     // Custom data from the "Buildable" script or other components
     public int buildIndex;
+    public int sortOrder;
 
     // Constructor to create save data from a GameObject
     public SaveableObjectData(GameObject obj)
@@ -29,6 +30,12 @@ public class SaveableObjectData
         if(buildable != null)
         {
             buildIndex = buildable.buildIndex;
+        }
+
+        SpriteRenderer spriteRender = obj.GetComponent<SpriteRenderer>();
+        if (spriteRender != null)
+        {
+            sortOrder = spriteRender.sortingOrder;
         }
     }
 }

@@ -36,6 +36,9 @@ public class GameSession : MonoBehaviour
     private Canvas buildPanel;
 
     [TabGroup("references", "references")] [SerializeField]
+    private Canvas buildUI;
+
+    [TabGroup("references", "references")] [SerializeField]
     private CinemachineVirtualCamera mainCamera;
 
     [TabGroup("references", "references")] [SerializeField]
@@ -181,8 +184,11 @@ public class GameSession : MonoBehaviour
         {
             GameManager.Instance.LoadTown();
         }
+        #if UNITY_EDITOR
+        #else
         loadingScreen.gameObject.SetActive(true);
         Invoke("LoadingScreenOff", 3.5f);
+        #endif
         countdown = Time.time;
         
         foreach (Omen omen in FindObjectsOfType<Omen>())
@@ -207,39 +213,54 @@ public class GameSession : MonoBehaviour
     private void Update()
     {
         pressToInteractCanvas.gameObject.SetActive(currentlyFocused != null);
-        pressToInteractCanvasNameObject.text = interactName;
-
-        if (!inEditMode) return;
-        
-        
-        else if (Input.GetMouseButtonDown(1))
+        if (currentlyFocused != null)
         {
-            Destroy(currentlyPlacingObject);
-            GameManager.Instance.AddToBuildables(currentlyPlacingIndex);
-            DeactivateEditMove();
-        }
-        else if (Input.GetMouseButtonDown(2))
-        {
-            currentlyPlacingObject.transform.localScale = new Vector3(currentlyPlacingObject.transform.localScale.x * -1,
-                currentlyPlacingObject.transform.localScale.y,
-                currentlyPlacingObject.transform.localScale.z);
+            pressToInteractCanvasNameObject.text = interactName;
         }
 
-        if (inTown) return;
-
-
-        if (Time.time - countdown < 60f) return;
-
-        HUD hud = FindObjectOfType<HUD>();
-
-        if (hud != null)
+        if (!inEditMode)
         {
-            if (hud.OmenCount() <= 0) // WINING CONDITION
+            buildUI.gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            buildUI.gameObject.SetActive(true);
+            
+            if (Input.GetMouseButtonDown(1))
             {
-                Debug.Log("You won!");
+                Destroy(currentlyPlacingObject);
+                GameManager.Instance.AddToBuildables(currentlyPlacingIndex);
+                DeactivateEditMove();
+            }
+            if (Input.GetMouseButtonDown(2))
+            {
+                currentlyPlacingObject.transform.localScale = new Vector3(currentlyPlacingObject.transform.localScale.x * -1,
+                    currentlyPlacingObject.transform.localScale.y,
+                    currentlyPlacingObject.transform.localScale.z);
+            }
+        
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+            if (scroll > 0f)
+            {
+                // Scrolling up
+                SpriteRenderer sr = currentlyPlacingObject.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.sortingOrder++;
+                }
+            }
+            else if (scroll < 0f)
+            {
+                // Scrolling down
+                SpriteRenderer sr = currentlyPlacingObject.GetComponent<SpriteRenderer>();
+                if (sr != null)
+                {
+                    sr.sortingOrder--;
+                }
             }
         }
-
 
     }
 

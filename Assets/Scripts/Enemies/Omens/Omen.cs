@@ -174,13 +174,24 @@ public class Omen : MonoBehaviour
 
     private float startTime;
     
-
+    /// <summary>
+    /// Begins the countdown live down of an omen
+    /// <para>If countdown already started, deduct 10 seconds
+    /// </summary>
     [ButtonGroup("TestButtons")]
     public void LivesDown()
     {
-        startTime = Time.time;
+        if (!hasTimerBegun)
+        {
+            startTime = Time.time;
 
-        hasTimerBegun = true;
+            hasTimerBegun = true;
+        }
+        else
+        {
+            startTime -= 10f;
+        }
+
     }
 
     private void LifeDownHelper()
