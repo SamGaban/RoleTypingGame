@@ -10,6 +10,8 @@ using UnityEngine;
 /// </summary>
 public class Interractable : MonoBehaviour
 {
+
+    public string interactName;
     public event Action OnInteract;
     public event Action OnStopInteract;
     

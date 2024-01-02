@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Cinemachine;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -48,6 +49,9 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private Canvas pressToInteractCanvas;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private TMP_Text pressToInteractCanvasNameObject;
     
     public int OmenCount
     {
@@ -94,25 +98,30 @@ public class GameSession : MonoBehaviour
     [TabGroup("references", "Data")] [ShowInInspector]
     private Interractable currentlyFocused;
 
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private string interactName;
+
     [TabGroup("references", "Data")] [SerializeField]
     public bool inTown;
 
     private float countdown;
     
     /// <summary>
-    /// Sets the clicked item as the focused subject for the camera
+    /// Sets the clicked item as the focused subject for the interactions
     /// </summary>
     /// <param name="subject">New subject for the follow camera</param>
     public void SetInterractable(Interractable subject)
     {
         currentlyFocused = subject;
+        interactName = subject.interactName;
     }
     /// <summary>
-    /// Forgets the previously set new target for follow camera and retakes the player as main target
+    /// Forgets the previously set new target for interactions
     /// </summary>
     public void ForgetInterractable()
     {
         currentlyFocused = null;
+        interactName = null;
     }
     
 
@@ -198,6 +207,7 @@ public class GameSession : MonoBehaviour
     private void Update()
     {
         pressToInteractCanvas.gameObject.SetActive(currentlyFocused != null);
+        pressToInteractCanvasNameObject.text = interactName;
 
         if (!inEditMode) return;
         
