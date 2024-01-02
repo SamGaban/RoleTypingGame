@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script attached to an object that is placeable in town by the player
+/// <para>Do not forget to tag the gameObject as saveable
+/// <para>Do no forget to also add it to build dictionary
+/// </summary>
 public class Buildable : MonoBehaviour
 {
     private GameSession session;

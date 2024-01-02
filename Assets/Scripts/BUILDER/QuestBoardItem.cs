@@ -8,6 +8,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
+/// <summary>
+/// Clickable questboard link
+/// </summary>
 public class QuestBoardItem : MonoBehaviour
 {
     [TabGroup("references", "References")] [SerializeField]
@@ -32,6 +35,10 @@ public class QuestBoardItem : MonoBehaviour
     [TabGroup("references", "data")] [ShowInInspector]
     private int _goldAmount;
 
+    
+    /// <summary>
+    /// Creating a random set of quests
+    /// </summary>
     private void Start()
     {
         int difficultyCount = Enum.GetValues(typeof(Caster.DifficultyLevel)).Length;
@@ -65,7 +72,10 @@ public class QuestBoardItem : MonoBehaviour
 
     
     
-    
+    /// <summary>
+    /// Calculates a base gold reward that's randomly a little higher for some missions
+    /// </summary>
+    /// <returns>Base gold amount before calculations based on difficulty</returns>
     private int GetBaseGoldAmount()
     {
         float rand = Random.Range(0f, 100f); // Random number between 0 and 100

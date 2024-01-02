@@ -99,12 +99,17 @@ public class GameSession : MonoBehaviour
 
     private float countdown;
     
-    
+    /// <summary>
+    /// Sets the clicked item as the focused subject for the camera
+    /// </summary>
+    /// <param name="subject">New subject for the follow camera</param>
     public void SetInterractable(Interractable subject)
     {
         currentlyFocused = subject;
     }
-
+    /// <summary>
+    /// Forgets the previously set new target for follow camera and retakes the player as main target
+    /// </summary>
     public void ForgetInterractable()
     {
         currentlyFocused = null;
@@ -140,27 +145,35 @@ public class GameSession : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Cuts loading screen
+    /// </summary>
     private void LoadingScreenOff()
     {
         loadingScreen.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Ups the enemy killcount by one
+    /// </summary>
     public void KilledEnemy()
     {
         killCount++;
     }
 
 
-    
+    /// <summary>
+    /// Loads town every time on start if the player's in town
+    /// <para>Counts the number of omen and adds them to the omen list
+    /// </summary>
     void Start()
     {
         if (inTown)
         {
             GameManager.Instance.LoadTown();
         }
-        
         loadingScreen.gameObject.SetActive(true);
-        Invoke("LoadingScreenOff", 4f);
+        Invoke("LoadingScreenOff", 3.5f);
         countdown = Time.time;
         
         foreach (Omen omen in FindObjectsOfType<Omen>())
@@ -271,7 +284,9 @@ public class GameSession : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Triggers the interaction event handler
+    /// </summary>
     public void OnInteraction()
     {
         if (currentlyFocused != null)

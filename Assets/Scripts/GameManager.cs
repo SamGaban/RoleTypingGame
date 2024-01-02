@@ -7,6 +7,10 @@ using Sirenix.OdinInspector.Editor;
 #endif
 using UnityEngine;
 
+//SINGLETON
+/// <summary>
+/// Class used for saving / Persistent data
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     #region Singleton region
@@ -71,21 +75,34 @@ public class GameManager : MonoBehaviour
 
     private int goldReward = 0;
 
+    /// <summary>
+    /// Sets the amount of omen on clicking a questboard item
+    /// </summary>
+    /// <param name="amount">amount of omen in the next quest</param>
     public void SetOmenAmount(int amount)
     {
         numberOfOmen = amount;
     }
-
+    /// <summary>
+    /// Returns the amount of omen
+    /// </summary>
+    /// <returns>Amount of omen</returns>
     public int OmenAmount()
     {
         return numberOfOmen;
     }
-
+    /// <summary>
+    /// Sets gold reward on clicking a questboard item
+    /// </summary>
+    /// <param name="amount">Amount of gold for the quest</param>
     public void SetGoldReward(int amount)
     {
         goldReward = amount;
     }
-
+    /// <summary>
+    /// Returns gold reward for the current quest
+    /// </summary>
+    /// <returns>Current quest's gold reward</returns>
     public int GoldReward()
     {
         return goldReward;
@@ -94,6 +111,9 @@ public class GameManager : MonoBehaviour
     
     // ######################################################################################
     
+    /// <summary>
+    /// Actual player gold (Loaded and saved)
+    /// </summary>
     public int PlayerGold { get; private set; } = 0;
 
     /// <summary>
@@ -140,7 +160,12 @@ public class GameManager : MonoBehaviour
     {
         difficultyLevel = newDiff;
     }
-
+    
+    /// <summary>
+    /// Subtracting gold on paying a buildable
+    /// </summary>
+    /// <param name="amount">Amount subtracted</param>
+    /// <returns>true if enough gold to subtract, false otherwise</returns>
     public bool SubstractGold(int amount)
     {
         if (PlayerGold - amount >= 0)
@@ -153,19 +178,25 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
-
+    /// <summary>
+    /// Adds gold to the player's inventory after a quest
+    /// </summary>
+    /// <param name="amount">Amount of gold</param>
     public void AddGold(int amount)
     {
         PlayerGold += amount;
     }
-
+    
+    /// <summary>
+    /// Load sequence (For things others than the town, which saves at every quest and return to town
+    /// </summary>
     private void Start()
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR // INVENTORY WIPE AND 10000 GOLD IF IN EDITOR, SAVE / LOAD IN NORMAL MODE
         
         Buildables = new Dictionary<int, int>();
     
-        AddGold(100);
+        AddGold(10000);
         
         #else
         
@@ -175,19 +206,25 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Whole save sequences
+    /// </summary>
     public void WholeSave()
     {
         SaveBuildables();
         SaveGold();
         SaveTown();
     }
-
+    /// <summary>
+    /// Whole load sequence
+    /// </summary>
     public void WholeLoad()
     {
         LoadBuildables();
         LoadGold();
     }
     
+    //Individual parts of game saving / To put in whole save / load
     #region SAVE/LOAD
 
     public void SaveBuildables()
@@ -210,8 +247,11 @@ public class GameManager : MonoBehaviour
         PlayerGold = ES3.Load("savedGold", 0);
     }
     
+    //ONLY WORKS IN BUILD MODE
     public void SaveTown()
     {
+        #if UNITY_EDITOR
+        #else
         int counter = 0;
         GameObject[] saveableObjects = GameObject.FindGameObjectsWithTag("Saveable");
 
@@ -227,11 +267,14 @@ public class GameManager : MonoBehaviour
 
         // Save the total count of saveable objects
         ES3.Save("Saveable_Count", counter);
+        #endif
     }
 
-    
+    //ONLY WORKS IN BUILD MODE
     public void LoadTown()
     {
+        #if UNITY_EDITOR
+        #else
         int totalSaveables = ES3.Load<int>("Saveable_Count");
         GameObject townParent = GameObject.FindGameObjectWithTag("TownParent");
 
@@ -250,6 +293,7 @@ public class GameManager : MonoBehaviour
                 // Apply any other state or component data as necessary
             }
         }
+        #endif
     }
 
 

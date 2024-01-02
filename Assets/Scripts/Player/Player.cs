@@ -182,6 +182,10 @@ public class Player : MonoBehaviour
         canBeHurt = true;
     }
 
+    /// <summary>
+    /// Checks continuously if player is dead
+    /// <para> If so, triggers the mission end screen if the player's in a mission
+    /// </summary>
     private void DeathCheck()
     {
         if (isDead) return;
@@ -194,17 +198,34 @@ public class Player : MonoBehaviour
             {
                 if (!session.inTown) // LOSE CONDITION
                 {
-                    EndOfMission end = FindObjectOfType<EndOfMission>();
-
-                    if (end != null)
-                    {
-                        end.Lose(session.KillCount);
-                    }
+                    LoseCurrentMission();
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Triggers the lose screen
+    /// </summary>
+    public void LoseCurrentMission()
+    {
+        GameSession sess = FindObjectOfType<GameSession>();
+
+        if (sess != null)
+        {
+            EndOfMission end = FindObjectOfType<EndOfMission>();
+
+            if (end != null)
+            {
+                end.Lose(sess.KillCount);
+            }
+        }
+    }
+    
+    /// <summary>
+    /// returns a bool indicating the player's actual living condition
+    /// </summary>
+    /// <returns>True if dead, false otherwise</returns>
     public bool IsDead()
     {
         return isDead;

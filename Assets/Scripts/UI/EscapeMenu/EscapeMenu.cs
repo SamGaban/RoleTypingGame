@@ -60,43 +60,20 @@ public class EscapeMenu : MonoBehaviour
     }
 
     
-    
+    /// <summary>
+    /// Triggers the lose screen to the current mission directly
+    /// </summary>
     public void Abandon()
     {
         if (session.inTown) return;
 
-        SceneManager.LoadScene(0);
+        Player player = FindObjectOfType<Player>();
 
-    }
+        if (player != null)
+        {
+            player.LoseCurrentMission();
+        }
 
-    public void VeryEasy()
-    {
-        GameManager.Instance.difficultyLevel = Caster.DifficultyLevel.VeryEasy;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    
-    public void Easy()
-    {
-        GameManager.Instance.difficultyLevel = Caster.DifficultyLevel.Easy;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    
-    public void Normal()
-    {
-        GameManager.Instance.difficultyLevel = Caster.DifficultyLevel.Normal;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    
-    public void Hard()
-    {
-        GameManager.Instance.difficultyLevel = Caster.DifficultyLevel.Hard;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    
-    public void VeryHard()
-    {
-        GameManager.Instance.difficultyLevel = Caster.DifficultyLevel.VeryHard;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     

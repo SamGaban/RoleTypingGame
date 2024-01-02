@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Custom serializable class for saving purpose
+/// </summary>
 [System.Serializable]
 public class SaveableObjectData
 {
@@ -11,8 +14,7 @@ public class SaveableObjectData
     public Vector3 scale;
 
     // Custom data from the "Buildable" script or other components
-    public int buildIndex; // or prefabID or any other identifier
-    // ... add other fields as necessary
+    public int buildIndex;
 
     // Constructor to create save data from a GameObject
     public SaveableObjectData(GameObject obj)
@@ -27,8 +29,6 @@ public class SaveableObjectData
         if(buildable != null)
         {
             buildIndex = buildable.buildIndex;
-            // ... capture other relevant data from the script
         }
-        // ... capture data from other components if needed
     }
 }

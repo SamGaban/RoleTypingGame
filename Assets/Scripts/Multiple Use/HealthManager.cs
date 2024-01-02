@@ -31,12 +31,19 @@ public class HealthManager : MonoBehaviour
         _maxHealthPoints = _healthPoints;
     }
 
+    /// <summary>
+    /// Sets health of the entity to this new health
+    /// </summary>
+    /// <param name="newHealth">New health for the entity</param>
     public void SetHealth(int newHealth)
     {
         _healthPoints = newHealth;
         _maxHealthPoints = newHealth;
     }
     
+    /// <summary>
+    /// If healthpoints of the entity ever reach zero, kill it (if it's an enemy, player's death is handled differently in player script
+    /// </summary>
     private void Update()
     {
         if (isDeceased) return;
@@ -119,6 +126,9 @@ public class HealthManager : MonoBehaviour
         return isDeceased;
     }
 
+    /// <summary>
+    /// Sets entity's health to 0
+    /// </summary>
     public void Kill()
     {
         SetHealth(0);
