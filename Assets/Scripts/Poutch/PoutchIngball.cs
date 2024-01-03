@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,13 +11,34 @@ public class PoutchIngball : MonoBehaviour
     private int hpPointOne;
     private int hpPointTwo;
 
+    private Vector3 baseScale;
+    private Vector3 reversedScale;
 
+
+    
+ 
     private void Start()
     {
+        baseScale = new Vector3(feedBackCanvas.transform.localScale.x,
+            feedBackCanvas.transform.localScale.y, feedBackCanvas.transform.localScale.z);
+        
+        reversedScale = new Vector3(-feedBackCanvas.transform.localScale.x,
+            feedBackCanvas.transform.localScale.y, feedBackCanvas.transform.localScale.z);
+        
         hpPointOne = healthManager._healthPoints;
         hpPointTwo = healthManager._healthPoints;
         
         InvokeRepeating("Attribute", 1f, 1f);
+    }
+    
+    
+    /// <summary>
+    /// Reverses canvas based on poutch positioning so that text is always oriented nicely;
+    /// </summary>
+    private void Update()
+    {
+        feedBackCanvas.transform.localScale = Mathf.Sign(this.transform.localScale.x) == 1 ? baseScale :
+        reversedScale;
     }
 
     /// <summary>

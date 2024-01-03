@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
+/// <summary>
+/// Interact script for the spell book
+/// </summary>
 public class SlotSpellCanvas : MonoBehaviour
 {
     [TabGroup("references", "References")] [SerializeField]

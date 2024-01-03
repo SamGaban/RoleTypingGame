@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -18,6 +19,9 @@ public class Animation : MonoBehaviour
     [SerializeField] private Canvas QuestPanel;
     [SerializeField] private Canvas SpellBookPanel;
 
+    [TabGroup("references", "Data")] [ShowInInspector]
+    private GameSession sess;
+
     
     [SerializeField] private Canvas escapeMenu;
 
@@ -30,6 +34,7 @@ public class Animation : MonoBehaviour
 
     private void Start()
     {
+        sess = FindObjectOfType<GameSession>();
         _mainAnimator.runtimeAnimatorController = _spearAnimator;
     }
 
@@ -212,8 +217,6 @@ public class Animation : MonoBehaviour
     /// </summary>
     private void OnEscape()
     {
-        GameSession sess = FindObjectOfType<GameSession>();
-
         if (sess.inTown)
         {
             if (SmithPanel.gameObject.activeSelf)
@@ -253,8 +256,12 @@ public class Animation : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hides the "Press to interact" text when another menu is showing over it
+    /// </summary>
     public void HideInteractCanvas()
     {
+        if (!sess.inTown) return;
         
         if (BuildPanel.gameObject.activeSelf || SmithPanel.gameObject.activeSelf || QuestPanel.gameObject.activeSelf || SpellBookPanel.gameObject.activeSelf)
         {

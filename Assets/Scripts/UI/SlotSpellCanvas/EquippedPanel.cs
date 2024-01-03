@@ -101,6 +101,9 @@ public class EquippedPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Displays the "Equip" button on all slots that do not have an assigned ability
+    /// </summary>
     public void ShowFreeSlots()
     {
         HideFreeSlots();
@@ -138,6 +141,9 @@ public class EquippedPanel : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Hides/deletes the "Equip" buttons, to be used when a skill has been asigned just now
+    /// </summary>
     public void HideFreeSlots()
     {
         if (createdButtons.Count > 0)
