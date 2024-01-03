@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -10,11 +11,14 @@ using UnityEngine;
 /// </summary>
 public class Interractable : MonoBehaviour
 {
-
     public string interactName;
     public event Action OnInteract;
     public event Action OnStopInteract;
-    
+
+    private void Start()
+    {
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))

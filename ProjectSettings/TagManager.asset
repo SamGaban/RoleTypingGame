@@ -12,6 +12,7 @@ TagManager:
   - Spell
   - Saveable
   - TownParent
+  - InteractCanvas
   layers:
   - Default
   - TransparentFX

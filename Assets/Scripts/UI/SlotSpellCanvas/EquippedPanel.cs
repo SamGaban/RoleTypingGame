@@ -76,7 +76,7 @@ public class EquippedPanel : MonoBehaviour
                 script._spellLogo.sprite = caster.ReturnLogoList()[entry.Value - 1];
                 script._spellName.text = caster.spellNames[entry.Value];
                 
-                script._removeButton.onClick.AddListener(() =>
+                script._removeButton.onClick.AddListener(() => // Button to remove an equipped ability
                 {
                     GameManager.Instance.slotToSpellDic.Remove(entry.Key);
                     Display();
@@ -84,7 +84,7 @@ public class EquippedPanel : MonoBehaviour
                     _hud.WholeUpdate();
                 });
                 
-                script._switchButton.onClick.AddListener(() =>
+                script._switchButton.onClick.AddListener(() => // Button to switch an equipped ability
                 {
                     GameManager.Instance.slotToSpellDic.Remove(entry.Key);
                     

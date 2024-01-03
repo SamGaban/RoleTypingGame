@@ -16,7 +16,9 @@ public class Animation : MonoBehaviour
     [SerializeField] private Canvas BuildPanel;
     [SerializeField] private Canvas SmithPanel;
     [SerializeField] private Canvas QuestPanel;
+    [SerializeField] private Canvas SpellBookPanel;
 
+    
     [SerializeField] private Canvas escapeMenu;
 
     private bool isDead = false;
@@ -130,6 +132,8 @@ public class Animation : MonoBehaviour
     private void Update()
     {
         DeathCheck();
+     
+        HideInteractCanvas();
         
         PlayerEquippedCheck();
 
@@ -228,6 +232,12 @@ public class Animation : MonoBehaviour
                 QuestPanel.gameObject.SetActive(false);
                 return;
             }
+
+            if (SpellBookPanel.gameObject.activeSelf)
+            {
+                SpellBookPanel.gameObject.SetActive(false);
+                return;
+            }
         }
 
         
@@ -241,6 +251,21 @@ public class Animation : MonoBehaviour
             menuOpen = true;
             escapeMenu.gameObject.SetActive(true);
         }
+    }
+
+    public void HideInteractCanvas()
+    {
+        
+        if (BuildPanel.gameObject.activeSelf || SmithPanel.gameObject.activeSelf || QuestPanel.gameObject.activeSelf || SpellBookPanel.gameObject.activeSelf)
+        {
+            GameObject canvas = GameObject.FindGameObjectWithTag("InteractCanvas");
+
+            if (canvas != null)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+        }
+        
     }
     
 

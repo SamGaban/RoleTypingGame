@@ -574,6 +574,8 @@ public class Caster : MonoBehaviour
     private void OnSkill1()
     {
         if (!CanCast()) return;
+
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(1)) return; // If the slot isn't assigned to ability
         
         ExecuteSpellFromSlot(1);
     }
@@ -584,6 +586,8 @@ public class Caster : MonoBehaviour
     {
         if (!CanCast()) return;
         
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(2)) return;
+        
         ExecuteSpellFromSlot(2);
     }
     /// <summary>
@@ -592,6 +596,8 @@ public class Caster : MonoBehaviour
     private void OnSkill3()
     {
         if (!CanCast()) return;
+        
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(3)) return;
 
         ExecuteSpellFromSlot(3);
     }
@@ -602,6 +608,8 @@ public class Caster : MonoBehaviour
     {
         if (!CanCast()) return;
         
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(4)) return;
+
         ExecuteSpellFromSlot(4);
 
     }
@@ -612,6 +620,8 @@ public class Caster : MonoBehaviour
     {
         if (!CanCast()) return;
 
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(5)) return;
+
         ExecuteSpellFromSlot(5);
     }
     /// <summary>
@@ -620,6 +630,8 @@ public class Caster : MonoBehaviour
     private void OnSkill6()
     {
         if (!CanCast()) return;
+
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(6)) return;
 
         ExecuteSpellFromSlot(6);
     }
@@ -630,6 +642,8 @@ public class Caster : MonoBehaviour
     {
         if (!CanCast()) return;
 
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(7)) return;
+
         ExecuteSpellFromSlot(7);
     }
     /// <summary>
@@ -638,6 +652,8 @@ public class Caster : MonoBehaviour
     private void OnSkill8()
     {
         if (!CanCast()) return;
+
+        if (!GameManager.Instance.slotToSpellDic.ContainsKey(8)) return;
 
         ExecuteSpellFromSlot(8);
     }
