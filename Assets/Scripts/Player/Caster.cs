@@ -50,6 +50,20 @@ public class Caster : MonoBehaviour
     [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Goospell (id4)")]
     private int WordCount4;
 
+
+
+    [TabGroup("References", "Data")] [ShowInInspector]
+    public Dictionary<int, string> spellNames = new Dictionary<int, string>()
+    {
+        { 1, "Fireball" },
+        { 2, "Force Field" },
+        { 3, "Purifying Spell" },
+        { 4, "Goo Spell" }
+    };
+    
+
+    
+
     
     // Base word counts (set in editor)
 

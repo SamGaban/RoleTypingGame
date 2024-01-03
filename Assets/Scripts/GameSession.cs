@@ -218,12 +218,12 @@ public class GameSession : MonoBehaviour
             pressToInteractCanvasNameObject.text = interactName;
         }
 
-        if (!inEditMode)
+        if (!inEditMode && inTown)
         {
             buildUI.gameObject.SetActive(false);
             return;
         }
-        else
+        else if (inEditMode && inTown)
         {
             buildUI.gameObject.SetActive(true);
             

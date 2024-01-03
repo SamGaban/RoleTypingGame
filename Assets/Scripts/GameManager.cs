@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     
     public Caster.DifficultyLevel difficultyLevel = Caster.DifficultyLevel.Normal;
 
+    #if UNITY_EDITOR
     public Dictionary<int, int> slotToSpellDic = new Dictionary<int, int>()
     {
         {1,1},
@@ -63,6 +64,9 @@ public class GameManager : MonoBehaviour
         {3,4},
         {4,2}
     };
+    #else
+    public Dictionary<int, int> slotToSpellDic;
+    #endif
 
     
     // ################################# LAUNCHING A MISSION ###############################
@@ -213,6 +217,7 @@ public class GameManager : MonoBehaviour
     {
         SaveBuildables();
         SaveGold();
+        SaveSlotDico();
         SaveTown();
     }
     /// <summary>
@@ -222,6 +227,7 @@ public class GameManager : MonoBehaviour
     {
         LoadBuildables();
         LoadGold();
+        LoadSlotDico();
     }
     
     //Individual parts of game saving / To put in whole save / load
@@ -246,6 +252,17 @@ public class GameManager : MonoBehaviour
     {
         PlayerGold = ES3.Load("savedGold", 0);
     }
+
+    public void SaveSlotDico()
+    {
+        ES3.Save("slotDico", slotToSpellDic);
+    }
+
+    public void LoadSlotDico()
+    {
+        slotToSpellDic = ES3.Load("slotDico", new Dictionary<int, int>() {{1,3}});
+    }
+    
     
     //ONLY WORKS IN BUILD MODE
     public void SaveTown()

@@ -13,6 +13,9 @@ public class Animation : MonoBehaviour
     [SerializeField] RuntimeAnimatorController _spearAnimator;
     [SerializeField] RuntimeAnimatorController _magicAnimator;
     [SerializeField] private Hitter hitterScript;
+    [SerializeField] private Canvas BuildPanel;
+    [SerializeField] private Canvas SmithPanel;
+    [SerializeField] private Canvas QuestPanel;
 
     [SerializeField] private Canvas escapeMenu;
 
@@ -205,6 +208,29 @@ public class Animation : MonoBehaviour
     /// </summary>
     private void OnEscape()
     {
+        GameSession sess = FindObjectOfType<GameSession>();
+
+        if (sess.inTown)
+        {
+            if (SmithPanel.gameObject.activeSelf)
+            {
+                SmithPanel.gameObject.SetActive(false);
+                return;
+            }
+
+            if (BuildPanel.gameObject.activeSelf)
+            {
+                BuildPanel.gameObject.SetActive(false);
+                return;
+            }
+            if (QuestPanel.gameObject.activeSelf)
+            {
+                QuestPanel.gameObject.SetActive(false);
+                return;
+            }
+        }
+
+        
         if (menuOpen)
         {
             menuOpen = false;

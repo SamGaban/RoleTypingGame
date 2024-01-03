@@ -70,7 +70,7 @@ public class HUD : MonoBehaviour
     /// <summary>
     /// Whole sequence of update
     /// </summary>
-    private void WholeUpdate()
+    public void WholeUpdate()
     {
         Feed();
         UpdateLogos();
