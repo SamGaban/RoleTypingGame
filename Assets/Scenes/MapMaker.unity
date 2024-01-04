@@ -398,7 +398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60822067}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.317356, y: -60.43897, z: -10.318989}
+  m_LocalPosition: {x: 41.727356, y: -284.45895, z: -10.318989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1882,6 +1882,7 @@ MonoBehaviour:
   playerTransform: {fileID: 851840637}
   player: {fileID: 851840643}
   buildPanel: {fileID: 251499880}
+  buildUI: {fileID: 0}
   mainCamera: {fileID: 60822069}
   panelItemPrefab: {fileID: 4210140577714274466, guid: 29bc2f5d23e4338488169e55f8c93367, type: 3}
   contentPanel: {fileID: 667949715}
@@ -2779,7 +2780,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.317356, y: -60.43897, z: -10.318989}
+  m_LocalPosition: {x: 41.727356, y: -284.45895, z: -10.318989}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4563,7 +4564,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851840631}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.51, y: -61, z: 0.12105665}
+  m_LocalPosition: {x: 43.92, y: -285.02, z: 0.12105665}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4739,6 +4740,10 @@ MonoBehaviour:
   _spearAnimator: {fileID: 9100000, guid: 6132efd5cce3b1f4e839fc6ffd45ce90, type: 2}
   _magicAnimator: {fileID: 9100000, guid: 4df9dc48c17f8c84988056e048a76efc, type: 2}
   hitterScript: {fileID: 1151915797}
+  BuildPanel: {fileID: 0}
+  SmithPanel: {fileID: 0}
+  QuestPanel: {fileID: 0}
+  SpellBookPanel: {fileID: 0}
   escapeMenu: {fileID: 1946064043}
 --- !u!114 &851840646
 MonoBehaviour:
@@ -11033,7 +11038,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2128015125}
   m_CullTransparentMesh: 1
---- !u!1001 &182839127198821786
+--- !u!1001 &1854015437759415526
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11054,11 +11059,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5664195382136505573, guid: fb5fd177ca631084aa06f9631ecb6091, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.451675
+      value: -236.83171
       objectReference: {fileID: 0}
     - target: {fileID: 5664195382136505573, guid: fb5fd177ca631084aa06f9631ecb6091, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -191.57924
+      value: -143.35199
       objectReference: {fileID: 0}
     - target: {fileID: 5664195382136505573, guid: fb5fd177ca631084aa06f9631ecb6091, type: 3}
       propertyPath: m_LocalPosition.z

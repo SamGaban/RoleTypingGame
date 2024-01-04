@@ -25,21 +25,24 @@ public class JumpDetection : MonoBehaviour
 
     private float lastJumpTime; // Last moment where a jump was performed per the entity
 
-    
-    
+
+
     private void FixedUpdate()
     {
+
+        if (_healthManager.isDead()) return;
+
         if (_rb.velocity.y > jumpHeight)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, jumpHeight);
         }
-        
+
         if (_playerRb != null)
         {
             verticalDistance = _playerRb.position.y - _rb.position.y;
             horizontalDistance = Mathf.Abs(_playerRb.position.x - _rb.position.x);
         }
-        
+
         if (readyToJump && verticalDistance > 1f && horizontalDistance <= 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
@@ -47,14 +50,13 @@ public class JumpDetection : MonoBehaviour
         }
 
         if (readyToJump) return;
-        
+
         if (JumpCoolDown())
-        
-        if (_rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            readyToJump = true;
-            lastJumpTime = Time.time;
-        }
+
+            if (_rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                readyToJump = true;
+            }
     }
     /// <summary>
     /// Bool indicating if the jump has cooled down
@@ -74,13 +76,15 @@ public class JumpDetection : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (_healthManager.isDead()) return;
+
         if (!JumpCoolDown()) return;
-        
+
         if (collision.gameObject.CompareTag("Player")
             || collision.gameObject.CompareTag("Forcefield")
             || collision.gameObject.CompareTag("Omen")
             || collision.gameObject.CompareTag("Spell")) return;
-        
+
         if (_healthManager.isDead()) return;
 
         if (_ownMove.IsPatrolling() && readyToJump)
@@ -89,20 +93,22 @@ public class JumpDetection : MonoBehaviour
             {
                 _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 readyToJump = false;
+                lastJumpTime = Time.time;
             }
         }
 
         if (_playerRb != null && readyToJump)
         {
 
-            
 
-            if ((verticalDistance > 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")) 
+
+            if ((verticalDistance > 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground"))
                   || (_rb.velocity.x < 1 && horizontalDistance >= 4f)) && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
 
             {
                 _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
                 readyToJump = false;
+                lastJumpTime = Time.time;
             }
         }
     }

@@ -96,6 +96,8 @@ public class EnemyMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (_healthManager.isDead()) return;
+
         if (_playerRb != null)
         {
             Player script = _playerRb.gameObject.GetComponent<Player>();
@@ -185,13 +187,13 @@ public class EnemyMove : MonoBehaviour
 
         lastDirectionChange = Time.time;
         
-        if (_rb.velocity.x > Mathf.Epsilon)
+        if (_rb.velocity.x > 0.2f)
         {
             _transform.localScale = _baseOrientation;
 
             direction = 1;
         }
-        else
+        else if (_rb.velocity.x < -0.2f)
         {
             _transform.localScale = _reversedOrientation;
             direction = -1;
