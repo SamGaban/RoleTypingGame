@@ -145,10 +145,10 @@ public class Caster : MonoBehaviour
     private Dictionary<DifficultyLevel, float> difficultyMultipliers = new Dictionary<DifficultyLevel, float>()
     {
         { DifficultyLevel.VeryEasy, 0.35f },
-        { DifficultyLevel.Easy, 0.75f },
-        { DifficultyLevel.Normal, 1f },
-        { DifficultyLevel.Hard, 1.5f },
-        { DifficultyLevel.VeryHard, 2f }
+        { DifficultyLevel.Easy, 0.50f },
+        { DifficultyLevel.Normal, 0.75f },
+        { DifficultyLevel.Hard, 1f },
+        { DifficultyLevel.VeryHard, 1.75f }
     };
     
     public void AdjustDifficulty(DifficultyLevel newDifficulty)
