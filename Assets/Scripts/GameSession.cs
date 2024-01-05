@@ -199,6 +199,11 @@ public class GameSession : MonoBehaviour
 
         buildPanel.gameObject.SetActive(false);
 
+        Invoke("UpdateKillCount", 2f);
+    }
+
+    public void UpdateKillCount()
+    {
         KillCount killCountScript = FindObjectOfType<KillCount>();
 
         if (killCountScript != null)

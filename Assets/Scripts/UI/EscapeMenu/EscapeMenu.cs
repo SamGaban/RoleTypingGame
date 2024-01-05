@@ -47,7 +47,10 @@ public class EscapeMenu : MonoBehaviour
     public void QuitGame()
     {
         #if UNITY_EDITOR
-        
+
+            GameManager.Instance.WholeSave();
+            
+
             EditorApplication.isPlaying = false;
             
         #else

@@ -48,24 +48,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        /// <summary>
-        /// Load sequence (For things others than the town, which saves at every quest and return to town
-        /// </summary>
-
-
-        #if UNITY_EDITOR // INVENTORY WIPE AND 10000 GOLD IF IN EDITOR, SAVE / LOAD IN NORMAL MODE
-
-        Buildables = new Dictionary<int, int>();
-
-        AddGold(10000);
-
-        #else
-        
-        WholeLoad();
-        
-        #endif
-
-
     }
 
     #endregion
@@ -74,20 +56,6 @@ public class GameManager : MonoBehaviour
     
     public Caster.DifficultyLevel difficultyLevel = Caster.DifficultyLevel.Normal;
 
-    #if UNITY_EDITOR
-
-    public Dictionary<int, int> slotToSpellDic = new Dictionary<int, int>()
-    {
-        {1,1},
-        {2,3},
-        {3,4},
-        {4,2}
-    };
-
-    public long killCount = 0;
-
-
-    #else
 
 
     public Dictionary<int, int> slotToSpellDic;
@@ -95,7 +63,6 @@ public class GameManager : MonoBehaviour
     public long killCount;
 
 
-    #endif
 
     
     // ################################# LAUNCHING A MISSION ###############################
@@ -219,7 +186,15 @@ public class GameManager : MonoBehaviour
     {
         PlayerGold += amount;
     }
-    
+
+    /// <summary>
+    /// Load sequence (For things others than the town, which saves at every quest and return to town
+    /// </summary>
+    private void Start()
+    {
+        WholeLoad();
+    }
+
 
 
     /// <summary>
@@ -227,21 +202,38 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void WholeSave()
     {
-        SaveBuildables();
-        SaveGold();
-        SaveKillCount();
-        SaveSlotDico();
-        SaveTown();
+        try
+        {
+            SaveBuildables();
+            SaveGold();
+            SaveKillCount();
+            SaveSlotDico();
+            SaveTown();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Failed to save : {e.Message}");
+        }
+
+
     }
     /// <summary>
     /// Whole load sequence
     /// </summary>
     public void WholeLoad()
     {
-        LoadBuildables();
-        LoadGold();
-        LoadKillCount();
-        LoadSlotDico();
+        try
+        {
+            LoadBuildables();
+            LoadGold();
+            LoadKillCount();
+            LoadSlotDico();
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to load : {ex.Message}");
+        }
+
     }
     
     //Individual parts of game saving / To put in whole save / load
@@ -254,7 +246,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadBuildables()
     {
-        Buildables = ES3.Load("savedBuildables", new Dictionary<int, int>());
+        Buildables = ES3.Load<Dictionary<int, int>>("savedBuildables", new Dictionary<int, int>());
     }
 
     public void SaveGold()
@@ -264,7 +256,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadGold()
     {
-        PlayerGold = ES3.Load("savedGold", 0);
+        PlayerGold = ES3.Load<int>("savedGold", 0);
     }
 
     public void SaveKillCount()
@@ -274,7 +266,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadKillCount()
     {
-        killCount = ES3.Load("savedKillCount", 0);
+        killCount = ES3.Load<long>("savedKillCount", 0L);
     }
 
     public void SaveSlotDico()
@@ -284,25 +276,14 @@ public class GameManager : MonoBehaviour
 
     public void LoadSlotDico()
     {
-        //slotToSpellDic = ES3.Load("slotDico", new Dictionary<int, int>() {{1,3}});
-        if (ES3.KeyExists("slotDico"))
-        {
-            // If it exists, load it from Easy Save 3
-            slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico");
-        }
-        else
-        {
-            // If it doesn't exist, assign a default value (however you define it)
-            slotToSpellDic = new Dictionary<int, int>() { { 1, 3 } }; // Initializes with a default entry of {1, 3}
-        }
+        slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico", new Dictionary<int, int>() { { 1, 3 } });
     }
     
     
     //ONLY WORKS IN BUILD MODE
     public void SaveTown()
     {
-        #if UNITY_EDITOR
-        #else
+
         int counter = 0;
         GameObject[] saveableObjects = GameObject.FindGameObjectsWithTag("Saveable");
 
@@ -318,14 +299,13 @@ public class GameManager : MonoBehaviour
 
         // Save the total count of saveable objects
         ES3.Save("Saveable_Count", counter);
-        #endif
+
     }
 
     //ONLY WORKS IN BUILD MODE
     public void LoadTown()
     {
-        #if UNITY_EDITOR
-        #else
+
         int totalSaveables = ES3.Load<int>("Saveable_Count");
         GameObject townParent = GameObject.FindGameObjectWithTag("TownParent");
 
@@ -349,7 +329,7 @@ public class GameManager : MonoBehaviour
                 // Apply any other state or component data as necessary
             }
         }
-        #endif
+ 
     }
 
 

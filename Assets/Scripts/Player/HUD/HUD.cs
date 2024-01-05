@@ -30,8 +30,6 @@ public class HUD : MonoBehaviour
     [TabGroup("references", "data")] [ShowInInspector]
     private List<Sprite> logoList;
 
-    [TabGroup("references", "data")] [ShowInInspector]
-    private Dictionary<int, int> SlotSpellDictionary;
 
     [TabGroup("references", "data")] [ShowInInspector]
     private int omenCount = 0;
@@ -49,7 +47,6 @@ public class HUD : MonoBehaviour
     private void Feed()
     {
         logoList = casterScript.ReturnLogoList();
-        SlotSpellDictionary = casterScript.ReturnSlotDictionary();
     }
 
     /// <summary>
@@ -113,10 +110,10 @@ public class HUD : MonoBehaviour
     /// </summary>
     private void IndividualUpdate(int index)
     {
-        if (SlotSpellDictionary.ContainsKey(index))
+        if (GameManager.Instance.slotToSpellDic.ContainsKey(index))
         {
             logoSlotList[index - 1].enabled = true;
-            logoSlotList[index - 1].sprite = logoList[SlotSpellDictionary[index] - 1];
+            logoSlotList[index - 1].sprite = logoList[GameManager.Instance.slotToSpellDic[index] - 1];
         }
         else
         {
@@ -127,9 +124,8 @@ public class HUD : MonoBehaviour
     private void Start()
     {
         logoList = new List<Sprite>();
-        SlotSpellDictionary = new Dictionary<int, int>();
-        
-        Invoke("WholeUpdate", 1f);
+
+        Invoke("WholeUpdate", 1.5f);
     }
     
 }
