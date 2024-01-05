@@ -97,6 +97,9 @@ public class EnemyMove : MonoBehaviour
     private void FixedUpdate()
     {
         if (_healthManager.isDead()) return;
+       
+        // If the enemy is not patrolling, is activated, and is immobile, give him a little push in the direction he's facing
+        if (Mathf.Abs(_rb.velocity.x) < Mathf.Epsilon && !deactivated && !isPatrolling) _rb.AddForce(new Vector2(1f * Mathf.Sign(_rb.velocity.x), 1f), ForceMode2D.Impulse);
 
         if (_playerRb != null)
         {
