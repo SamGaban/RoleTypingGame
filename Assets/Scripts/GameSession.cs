@@ -198,6 +198,13 @@ public class GameSession : MonoBehaviour
         }
 
         buildPanel.gameObject.SetActive(false);
+
+        KillCount killCountScript = FindObjectOfType<KillCount>();
+
+        if (killCountScript != null)
+        {
+            killCountScript.UpdateDisplay();
+        }
     }
 
     /// <summary>

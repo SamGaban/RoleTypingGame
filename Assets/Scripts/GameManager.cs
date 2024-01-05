@@ -47,9 +47,27 @@ public class GameManager : MonoBehaviour
             // This enforces our singleton pattern, meaning there can only ever be one instance of this GameObject
             Destroy(gameObject);
         }
+
+        /// <summary>
+        /// Load sequence (For things others than the town, which saves at every quest and return to town
+        /// </summary>
+
+
+        #if UNITY_EDITOR // INVENTORY WIPE AND 10000 GOLD IF IN EDITOR, SAVE / LOAD IN NORMAL MODE
+
+        Buildables = new Dictionary<int, int>();
+
+        AddGold(10000);
+
+        #else
         
+        WholeLoad();
+        
+        #endif
+
+
     }
-    
+
     #endregion
 
     [SerializeField] private GameObject TestBuildable;
@@ -57,6 +75,7 @@ public class GameManager : MonoBehaviour
     public Caster.DifficultyLevel difficultyLevel = Caster.DifficultyLevel.Normal;
 
     #if UNITY_EDITOR
+
     public Dictionary<int, int> slotToSpellDic = new Dictionary<int, int>()
     {
         {1,1},
@@ -64,8 +83,18 @@ public class GameManager : MonoBehaviour
         {3,4},
         {4,2}
     };
+
+    public long killCount = 0;
+
+
     #else
+
+
     public Dictionary<int, int> slotToSpellDic;
+
+    public long killCount;
+
+
     #endif
 
     
@@ -191,24 +220,7 @@ public class GameManager : MonoBehaviour
         PlayerGold += amount;
     }
     
-    /// <summary>
-    /// Load sequence (For things others than the town, which saves at every quest and return to town
-    /// </summary>
-    private void Start()
-    {
-        #if UNITY_EDITOR // INVENTORY WIPE AND 10000 GOLD IF IN EDITOR, SAVE / LOAD IN NORMAL MODE
-        
-        Buildables = new Dictionary<int, int>();
-    
-        AddGold(10000);
-        
-        #else
-        
-        WholeLoad();
-        
-        #endif
 
-    }
 
     /// <summary>
     /// Whole save sequences
@@ -217,6 +229,7 @@ public class GameManager : MonoBehaviour
     {
         SaveBuildables();
         SaveGold();
+        SaveKillCount();
         SaveSlotDico();
         SaveTown();
     }
@@ -227,6 +240,7 @@ public class GameManager : MonoBehaviour
     {
         LoadBuildables();
         LoadGold();
+        LoadKillCount();
         LoadSlotDico();
     }
     
@@ -253,6 +267,16 @@ public class GameManager : MonoBehaviour
         PlayerGold = ES3.Load("savedGold", 0);
     }
 
+    public void SaveKillCount()
+    {
+        ES3.Save("savedKillCount", killCount);
+    }
+
+    public void LoadKillCount()
+    {
+        killCount = ES3.Load("savedKillCount", 0);
+    }
+
     public void SaveSlotDico()
     {
         ES3.Save("slotDico", slotToSpellDic);
@@ -260,7 +284,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadSlotDico()
     {
-        slotToSpellDic = ES3.Load("slotDico", new Dictionary<int, int>() {{1,3}});
+        //slotToSpellDic = ES3.Load("slotDico", new Dictionary<int, int>() {{1,3}});
+        if (ES3.KeyExists("slotDico"))
+        {
+            // If it exists, load it from Easy Save 3
+            slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico");
+        }
+        else
+        {
+            // If it doesn't exist, assign a default value (however you define it)
+            slotToSpellDic = new Dictionary<int, int>() { { 1, 3 } }; // Initializes with a default entry of {1, 3}
+        }
     }
     
     

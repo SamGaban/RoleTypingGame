@@ -73,6 +73,8 @@ public class EndOfMission : MonoBehaviour
         killsText.text = $"{_killCount} Kills";
 
         goldText.text = $"+{_goldCount} Gold";
+
+        GameManager.Instance.killCount += _killCount;
     }
 
     /// <summary>
