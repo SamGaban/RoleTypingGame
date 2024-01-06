@@ -6,6 +6,7 @@ using UnityEngine;
 using TypingComparator;
 using System.Text;
 using Sirenix.OdinInspector;
+using JetBrains.Annotations;
 #if UNITY_EDITOR
 using UnityEditor.Experimental.GraphView;
 #endif
@@ -50,6 +51,14 @@ public class Caster : MonoBehaviour
     [TabGroup("References", "Spells")] [ShowInInspector] [FoldoutGroup("Goospell (id4)")]
     private int WordCount4;
 
+    [TabGroup("References", "Spells")]
+    [ShowInInspector]
+    [FoldoutGroup("TimeBend(id5)")]
+    private int WordCount5 = 5;
+
+
+    private SpellEffectsCanvas _spellEffectsCanvas;
+
 
 
     [TabGroup("References", "Data")] [ShowInInspector]
@@ -58,7 +67,8 @@ public class Caster : MonoBehaviour
         { 1, "Fireball" },
         { 2, "Force Field" },
         { 3, "Purifying Spell" },
-        { 4, "Goo Spell" }
+        { 4, "Goo Spell" },
+        { 5, "Time Bend" }
     };
     
 
@@ -75,16 +85,18 @@ public class Caster : MonoBehaviour
     private int baseWordCount3;
     [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
     private int baseWordCount4;
-    
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount5;
+
     // ################################
 
-    
-    
+
+
     #region FeedbackCanvas
 
-    
 
-    
+
+
     [TabGroup("References", "Feedback Canvas")]
     [SerializeField] private Canvas feedBackCanvas;
     [TabGroup("References", "Feedback Canvas")]
@@ -132,11 +144,22 @@ public class Caster : MonoBehaviour
     {
         actualGoospell = null;
     }
-    
-    
+
+
     // ##########################################################################################
 
-    
+    // ######################### ID 5 : TimeSlow ################################################
+
+    private bool isTimeSlowed = false;
+
+    private float timeSlowEnd = 0f;
+
+
+
+    // ##########################################################################################
+
+
+
     #endregion
 
     #region Difficulty Related
@@ -193,6 +216,7 @@ public class Caster : MonoBehaviour
     
     private void Start()
     {
+        _spellEffectsCanvas = FindObjectOfType<SpellEffectsCanvas>();
 
         SlotToSpellIdDictionary = GameManager.Instance.slotToSpellDic;
 
@@ -200,6 +224,7 @@ public class Caster : MonoBehaviour
         WordCount2 = baseWordCount2;
         WordCount3 = baseWordCount3;
         WordCount4 = baseWordCount4;
+        WordCount5 = baseWordCount5;
         
         AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
@@ -260,6 +285,15 @@ public class Caster : MonoBehaviour
 
     private void Update() // Typing Cast Logic in Here
     {
+        if (isTimeSlowed)
+        {
+            if (timeSlowEnd - Time.time <= 0)
+            {
+                isTimeSlowed = false;
+                Time.timeScale = 1;
+            }
+        }
+
         if (isDead) return;
         
         if (_player.IsDead())
@@ -381,6 +415,10 @@ public class Caster : MonoBehaviour
                 break;
             default:
                 break;
+            case 5:
+                SkillFive(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                break;
+
         }
     }
     
@@ -458,6 +496,9 @@ public class Caster : MonoBehaviour
                 break;
             case 4:
                 SpellId4();
+                break;
+            case 5:
+                SpellId5();
                 break;
         }
     }
@@ -661,6 +702,11 @@ public class Caster : MonoBehaviour
     // KEYPRESS REGION
 
     // SPELL HELPER REGION
+
+
+
+
+
     #region Spell Helper Region
 
     /// <summary>
@@ -719,13 +765,39 @@ public class Caster : MonoBehaviour
         Goospell script = actualGoospell.GetComponent<Goospell>();
         script.Init(precision, wpm); // Initializes
     }
-    
-    
-    
+
+    /// <summary>
+    /// Slows time
+    /// </summary>
+    /// <param name="precision">Precision of the typing in percentage</param>
+    /// <param name="wpm">words per minute of typing</param>
+    private void SkillFive(int precision, int wpm)
+    {
+        if (isTimeSlowed) return;
+
+        float maxSlowFactor = 0.6f;
+
+        maxSlowFactor = (maxSlowFactor / 100f) * precision;
+
+        maxSlowFactor += (wpm > 80) ? 0.1f : -0.1f;
+
+        Time.timeScale = (1f - maxSlowFactor);
+
+        isTimeSlowed = true;
+
+        timeSlowEnd = Time.time + ((6f / 100f) * precision);
+
+        float totalDuration = timeSlowEnd - Time.time;
+
+        _spellEffectsCanvas.CreateNewItem(totalDuration, logoList[4]);
+    }
+
+
+
     #endregion
     // SPELL HELPER REGION
 
-    
+
     //SPELL WRAPPER REGION
     #region Spells Region Wrap Spell Here When Done
 
@@ -766,6 +838,12 @@ public class Caster : MonoBehaviour
     {
         LaunchSkill(WordCount4, 4);
     }
+    private void SpellId5()
+    {
+        LaunchSkill(WordCount5, 5);
+    }
+
+
     
 
     #endregion

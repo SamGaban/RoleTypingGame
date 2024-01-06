@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+
+    private bool _alreadyLoaded = false;
     
     
     void Awake()
@@ -41,6 +43,13 @@ public class GameManager : MonoBehaviour
 
             // Make sure that it won't be destroyed when loading a new scene
             DontDestroyOnLoad(gameObject);
+
+            if (_alreadyLoaded) return;
+
+            _alreadyLoaded = true;
+
+            WholeLoad();
+
         }
         else if (instance != this)
         {
@@ -192,7 +201,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        WholeLoad();
     }
 
 

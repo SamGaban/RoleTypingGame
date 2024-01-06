@@ -85,7 +85,7 @@ public class EndOfMission : MonoBehaviour
     {
         _killCount = KillCount;
         
-        Invoke("LoseHelper", 2.5f);
+        Invoke("LoseHelper", 0.5f);
     }
 
     /// <summary>
