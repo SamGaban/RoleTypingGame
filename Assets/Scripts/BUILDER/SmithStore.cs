@@ -27,6 +27,7 @@ public class SmithStore : MonoBehaviour
     // Define what should happen when the event is triggered
     private void OnInteractableInteract()
     {
+        SoundMaster.Instance.OpenPanel();
         PopulateCanvas();
         smithStoreCanvas.gameObject.SetActive(true);
     }

@@ -196,6 +196,7 @@ public class Omen : MonoBehaviour
 
     private void LifeDownHelper()
     {
+        SoundMaster.Instance.OmenLifeDown();
         Destroy(livesList[^1].gameObject);
         livesList.RemoveAt(livesList.Count -1);
         livesCount -= 1;

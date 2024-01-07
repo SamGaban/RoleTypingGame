@@ -22,6 +22,7 @@ public class SlotSpellCanvas : MonoBehaviour
 
     private void OnInteract()
     {
+        SoundMaster.Instance.OpenPanel();
         _spellBookCanvas.gameObject.SetActive(true);
     }
     

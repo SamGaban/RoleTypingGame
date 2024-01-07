@@ -2439,6 +2439,8 @@ MonoBehaviour:
   buildPanelOpen: 0
   inEditMode: 0
   inTown: 0
+  inTutorial: 0
+  inMission: 1
 --- !u!4 &435265886
 Transform:
   m_ObjectHideFlags: 0
@@ -7098,6 +7100,8 @@ MonoBehaviour:
   TestBuildable: {fileID: 5810212039040523000, guid: d87a858bb7c8efb4c9c33f9130b9df10, type: 3}
   difficultyLevel: 0
   killCount: 0
+  musicVolume: 0
+  effectsVolume: 0
 --- !u!1 &1101426558
 GameObject:
   m_ObjectHideFlags: 0

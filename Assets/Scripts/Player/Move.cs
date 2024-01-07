@@ -26,6 +26,10 @@ public class Move : MonoBehaviour
 
     Vector2 moveInput;
     float idleMoveTreshold = 1.5f;
+
+    private bool startedMoving = false;
+    private bool stoppedMoving = false;
+    private bool jumping = false;
     
 
 
@@ -66,7 +70,9 @@ public class Move : MonoBehaviour
         if (_player.IsDead()) return;
         
         if (allowExternalForces) return;
-        
+
+        SoundCheck();
+
         if (PlayerIsCasting())
         {
             _rb.velocity = new Vector2(0f, _rb.velocity.y);
@@ -79,6 +85,53 @@ public class Move : MonoBehaviour
         IdleCheck();
     }
 
+
+    /// <summary>
+    /// Method related to checks to player state for sound management
+    /// </summary>
+    public void SoundCheck()
+    {
+        if (_player.IsDead())
+        {
+            SoundMaster.Instance.PlayerFootstepsLoopEnd();
+            return;
+        }
+
+        if (Mathf.Abs(_rb.velocity.x) > Mathf.Epsilon)
+        {
+            if (!startedMoving)
+            {
+                stoppedMoving = false;
+                startedMoving = true;
+                SoundMaster.Instance.PlayerFootStepsLoopStart();
+            }
+            else if (!_rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                if (!jumping)
+                {
+                    jumping = true;
+                    SoundMaster.Instance.PlayerFootstepsLoopEnd();
+                }
+            }
+            else if (_rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                if (jumping)
+                {
+                    jumping = false;
+                    SoundMaster.Instance.PlayerFootStepsLoopStart();
+                }
+            }
+        }
+        else if (Mathf.Abs(_rb.velocity.x) <= Mathf.Epsilon)
+        {
+            if (!stoppedMoving)
+            {
+                startedMoving = false;
+                stoppedMoving = true;
+                SoundMaster.Instance.PlayerFootstepsLoopEnd();
+            }
+        }
+    }
     /// <summary>
     /// Allows external forces to apply on the player and deactivates his movement for a little time while
     /// <para> applying knockback

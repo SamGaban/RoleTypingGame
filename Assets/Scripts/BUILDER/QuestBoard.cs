@@ -19,6 +19,7 @@ public class QuestBoard : MonoBehaviour
 
     private void OnInteract()
     {
+        SoundMaster.Instance.OpenPanel();
         questBoardPanel.gameObject.SetActive(true);
     }
 

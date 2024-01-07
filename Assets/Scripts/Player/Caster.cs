@@ -291,6 +291,7 @@ public class Caster : MonoBehaviour
             {
                 isTimeSlowed = false;
                 Time.timeScale = 1;
+                SoundMaster.Instance.TimeWarpOut();
             }
         }
 
@@ -398,25 +399,35 @@ public class Caster : MonoBehaviour
         TurnFeedBackCanvasOn();
         Invoke("TurnFeedBackCanvasOff", 2f);
         _player.ToggleCasting();
+
+        if (_sentence.TypePrecision() == 100)
+        {
+            SoundMaster.Instance.OneHundredPercent();
+        }
+
         switch (_skillToLaunch) // CASES ARE SKILL IDs
         {
             case 1: // FIREBALL
                 SkillOne(_sentence.TypePrecision(), _sentence.WordsPerMinute(), charPerWord);
+                SoundMaster.Instance.Fireball();
                 break;
             case 2: // FORCEFIELD
                 actuallyCasting = null;
                 forceFieldActuallyCasting = false;
                 break;
             case 3: // PURIFY
+                SoundMaster.Instance.PurifySpell();
                 SkillThree();
                 break;
-            case 4:
+            case 4: // GOOSPELL
                 SkillFour(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                SoundMaster.Instance.GooSpell();
                 break;
             default:
                 break;
-            case 5:
+            case 5: //TIME SLOW
                 SkillFive(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                SoundMaster.Instance.TimeWarpIn();
                 break;
 
         }
@@ -814,6 +825,8 @@ public class Caster : MonoBehaviour
         if (forceFieldActuallyCasting) return;
 
         forceFieldActuallyCasting = true;
+
+        SoundMaster.Instance.ShieldSpell();
 
         Forcefield actuallyExistingForcefield = FindObjectOfType<Forcefield>();
         if (actuallyExistingForcefield != null)

@@ -106,6 +106,11 @@ public class GameSession : MonoBehaviour
 
     [TabGroup("references", "Data")] [SerializeField]
     public bool inTown;
+    [TabGroup("references", "Data")]
+    [SerializeField] public bool inTutorial;
+    [TabGroup("references", "Data")]
+    [SerializeField]
+    public bool inMission;
 
     private float countdown;
     
@@ -183,6 +188,13 @@ public class GameSession : MonoBehaviour
         if (inTown)
         {
             GameManager.Instance.LoadTown();
+            SoundMaster.Instance.StopMissionLoop();
+            SoundMaster.Instance.PlayVillageLoop();
+        }
+        else if (inMission)
+        {
+            SoundMaster.Instance.StopVillageLoop();
+            SoundMaster.Instance.PlayMissionLoop();
         }
         #if UNITY_EDITOR
         #else

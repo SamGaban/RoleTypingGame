@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     // Static variable that holds the instance
     private static GameManager instance = null;
 
-    // Public static means it can be accessed from anywhere
     public static GameManager Instance
     {
         get
@@ -50,6 +49,10 @@ public class GameManager : MonoBehaviour
 
             WholeLoad();
 
+            musicVolume = ES3.Load<float>("musicVolume", 1.0f);
+
+            effectsVolume = ES3.Load<float>("effectsVolume", 1.0f);
+
         }
         else if (instance != this)
         {
@@ -73,9 +76,9 @@ public class GameManager : MonoBehaviour
 
     // ################################# SOUND RELATED  ###################################
 
-    public float musicVolume = ES3.Load<float>("musicVolume", 1.0f);
+    public float musicVolume;
 
-    public float effectsVolume = ES3.Load<float>("effectsVolume", 1.0f);
+    public float effectsVolume;
 
     // ################################# LAUNCHING A MISSION ###############################
 
@@ -204,6 +207,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
+
     }
 
 

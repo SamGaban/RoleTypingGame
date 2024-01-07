@@ -58,7 +58,10 @@ public class EndOfMission : MonoBehaviour
     /// </summary>
     private void WinHelper()
     {
-        Time.timeScale = 0.005f;
+        SoundMaster.Instance.StopMissionLoop();
+        SoundMaster.Instance.PlayMissionEnding();
+
+        Time.timeScale = 0f;
         
         HUD hud = FindObjectOfType<HUD>();
         if (hud != null)
@@ -93,7 +96,10 @@ public class EndOfMission : MonoBehaviour
     /// </summary>
     private void LoseHelper()
     {
-        Time.timeScale = 0.005f;
+        SoundMaster.Instance.StopMissionLoop();
+        SoundMaster.Instance.PlayMissionEnding();
+
+        Time.timeScale = 0f;
         
         HUD hud = FindObjectOfType<HUD>();
         if (hud != null)
