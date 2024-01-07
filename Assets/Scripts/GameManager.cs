@@ -71,12 +71,15 @@ public class GameManager : MonoBehaviour
 
     public long killCount;
 
+    // ################################# SOUND RELATED  ###################################
 
+    public float musicVolume = ES3.Load<float>("musicVolume", 1.0f);
 
-    
+    public float effectsVolume = ES3.Load<float>("effectsVolume", 1.0f);
+
     // ################################# LAUNCHING A MISSION ###############################
-    
-    
+
+
     /// <summary>
     /// Parameter set on selection of a game contract, to set the number of omens in said game
     /// </summary>

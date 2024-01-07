@@ -16,6 +16,16 @@ public class MainMenuScript : MonoBehaviour
     [TabGroup("references", "References")][SerializeField] private GameObject _mainPanel;
     [TabGroup("references", "References")][SerializeField] private GameObject _confirmPanel;
 
+    [TabGroup("references", "References")][SerializeField] private GameObject _soundOptionsPanel;
+    [TabGroup("references", "References")][SerializeField] private Slider _musicSlider;
+    [TabGroup("references", "References")][SerializeField] private Slider _effectsSlider;
+
+
+
+    [TabGroup("references", "References")][SerializeField] private AudioSource _audioSource;
+
+    private SoundManager _soundManager;
+
 
     private bool _hasLoadData;
 
@@ -35,6 +45,19 @@ public class MainMenuScript : MonoBehaviour
         {
             _continueGameButton.gameObject.SetActive(false);
         }
+
+
+        _soundManager = FindObjectOfType<SoundManager>();
+
+
+        _audioSource.volume = _soundManager.musicVolume;
+        _audioSource.Play();
+
+    }
+
+    public void AdjustVolume(float nmb)
+    {
+        _audioSource.volume = nmb;
     }
 
     public void ActivateMainCanvas()
@@ -54,25 +77,49 @@ public class MainMenuScript : MonoBehaviour
 
     public void DeactivateConfirmPanel()
     {
+
         _confirmPanel.SetActive(false);
     }
 
 
     public void ToConfirmPanel()
     {
+        _soundManager.OpenPanel();
+
         _confirmPanel.SetActive(true);
         _mainPanel.SetActive(false);
     }
 
     public void ToMainMenu()
     {
+        _soundManager.ClosePanel();
+
         _confirmPanel.SetActive(false);
         _mainPanel.SetActive(true);
+    }
+
+    public void FromOptionsToMenu()
+    {
+        _soundManager.ClosePanel();
+        _soundOptionsPanel.SetActive(false);
+        _mainPanel.SetActive(true);
+    }
+
+    public void ToOptionsPanel()
+    {
+        DeactivateMainCanvas();
+        _soundManager.OpenPanel();
+        _soundOptionsPanel.SetActive(true);
+
+        _musicSlider.value = _soundManager.musicVolume;
+        _effectsSlider.value = _soundManager.effectsVolume;
     }
 
 
     public void ExitGame()
     {
+        _soundManager.MenuClick();
+
         #if UNITY_EDITOR
 
                 EditorApplication.isPlaying = false;
@@ -113,7 +160,7 @@ public class MainMenuScript : MonoBehaviour
     public void NewGame()
     {
 
-
+        _soundManager.MenuClick();
 
         Dictionary<int, int> _buildables = new Dictionary<int, int>();
         int _playerGold = 0;
@@ -137,17 +184,20 @@ public class MainMenuScript : MonoBehaviour
     {
         if (_hasLoadData)
         {
+            _soundManager.OpenPanel();
             DeactivateMainCanvas();
             ActivateConfirmPanel();
         }
         else
         {
+            _soundManager.MenuClick();
             NewGame();
         }
     }
 
     public void Continue()
     {
+        _soundManager.MenuClick();
         SceneManager.LoadScene(1);
     }
 
