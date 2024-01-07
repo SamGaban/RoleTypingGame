@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Whole load sequence
     /// </summary>
-    public void WholeLoad()
+    public void WholeLoad() // WHEN ADDING DATA, DON'T FORGET TO ADD IT IN THE NEW GAME METHOD IN MAIN MENU FOR A CLEAN WIPE OF NEW GAME
     {
         try
         {
@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadSlotDico()
     {
-        slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico", new Dictionary<int, int>() { { 1, 3 } });
+        slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico", new Dictionary<int, int>() { { 1, 1 }, {2, 3 } });
     }
     
     
