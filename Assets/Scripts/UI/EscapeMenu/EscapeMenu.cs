@@ -28,6 +28,7 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void CloseTab()
     {
+
         this.gameObject.SetActive(false);
     }
 
@@ -68,6 +69,8 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void Abandon()
     {
+        SoundMaster.Instance.MenuClick();
+
         if (session.inTown) return;
 
         Player player = FindObjectOfType<Player>();

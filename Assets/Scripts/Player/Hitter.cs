@@ -58,7 +58,9 @@ public class Hitter : MonoBehaviour
     private void AttackEnemy(Collider2D enemy)
     {
         if (playerScript.IsDead()) return;
-        
+
+        //MELEE ACTUALLY HIT
+
         HealthManager healthScript = enemy.GetComponent<HealthManager>();
         healthScript.DownHp(15);
 

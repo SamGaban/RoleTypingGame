@@ -43,6 +43,10 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Player")][SerializeField] private AudioSource _playerFootsteps;
 
+    [TabGroup("references", "Player")][SerializeField] private AudioSource _toggleEquippped;
+
+    [TabGroup("references", "Player")][SerializeField] private AudioSource _meleeHit;
+
     [TabGroup("references", "Spells")][SerializeField] private AudioSource _oneHundredPercent;
 
     [TabGroup("references", "Spells")][SerializeField] private AudioSource _fireballSpell;
@@ -60,6 +64,8 @@ public class SoundMaster : MonoBehaviour
     [TabGroup("references", "Enemies")][SerializeField] private AudioSource _omenLifeDown;
 
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _openPanel;
+
+    [TabGroup("references", "Effects")][SerializeField] private AudioSource _menuClick;
 
 
 
@@ -170,5 +176,23 @@ public class SoundMaster : MonoBehaviour
     {
         _openPanel.volume = GameManager.Instance.effectsVolume;
         _openPanel.Play();
+    }
+
+    public void MenuClick()
+    {
+        _menuClick.volume = GameManager.Instance.effectsVolume;
+        _menuClick.Play();
+    }
+
+    public void ToggleEquipped()
+    {
+        _toggleEquippped.volume = GameManager.Instance.effectsVolume;
+        _toggleEquippped.Play();
+    }
+
+    public void MeleeHit()
+    {
+        _meleeHit.volume = GameManager.Instance.effectsVolume;
+        _meleeHit.Play();
     }
 }

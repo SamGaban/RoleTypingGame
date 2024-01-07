@@ -172,7 +172,9 @@ public class Animation : MonoBehaviour
         _player.canSwitchEquipped = false;
 
         canAttack = false;
-        
+
+        SoundMaster.Instance.MeleeHit();
+
         _mainAnimator.SetBool("isHitting", true);
         
         Invoke("ActivateSpear", 0.4f);

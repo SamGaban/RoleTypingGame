@@ -67,6 +67,7 @@ public class AvailablePanel : MonoBehaviour
                     script._spellName.text = caster.spellNames[entry.Key];
                     script._equipButton.onClick.AddListener(() =>
                     {
+                        SoundMaster.Instance.MenuClick();
                         _switchPanel.Display(caster.ReturnLogoList()[entry.Key - 1], caster.spellNames[entry.Key], entry.Key);
                     });
                 }

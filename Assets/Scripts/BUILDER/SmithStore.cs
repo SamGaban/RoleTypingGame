@@ -17,11 +17,27 @@ public class SmithStore : MonoBehaviour
 
     [TabGroup("references", "References")] [SerializeField]
     private GameObject smithStoreItemPrefab;
-    
+
+    [TabGroup("references", "Sound")]
+    [SerializeField]
+    private AudioSource _smithingSound;
+
+    private Player _player;
+
+
     private void Start()
     {
+        _player = FindObjectOfType<Player>();
+        _smithingSound.Play();
         interactScript.OnInteract += OnInteractableInteract;
         interactScript.OnStopInteract += OnInteractableStop;
+    }
+
+    private void Update()
+    {
+        float distance = Vector2.Distance(_player.transform.position, this.transform.position);
+
+        _smithingSound.volume = GameManager.Instance.effectsVolume / (GameManager.Instance.effectsVolume + (distance));
     }
 
     // Define what should happen when the event is triggered
@@ -63,6 +79,8 @@ public class SmithStore : MonoBehaviour
                 
                 script.button.onClick.AddListener(() =>
                 {
+                    SoundMaster.Instance.MenuClick();
+
                     if (GameManager.Instance.SubstractGold(buildable.goldValue))
                     {
                         HUD hud = FindObjectOfType<HUD>();

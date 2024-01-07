@@ -272,6 +272,8 @@ public class Player : MonoBehaviour
     public void ToggleEquipped()
     {
         if (!canSwitchEquipped) return;
+
+        SoundMaster.Instance.ToggleEquipped();
         
         if (_equipped == equipped.Spear)
         {

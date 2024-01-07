@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
@@ -53,7 +54,15 @@ public class BaseEnemy : MonoBehaviour
     [TabGroup("References")] [SerializeField]
     private EnemyAnimation animationScript;
 
+    [TabGroup("Sounds")] [SerializeField]
+    private AudioSource _deathSound;
 
+    [TabGroup("Sounds")]
+    [SerializeField]
+    private AudioSource _walkSound;
+
+    private float distance;
+    
     private float lastAttackTime;
 
     private bool hasDied = false;
@@ -122,10 +131,15 @@ public class BaseEnemy : MonoBehaviour
     
     private void Update()
     {
+        distance = Vector2.Distance(_player.transform.position, this.transform.position);
+
         if (hasDied) return;
-        
+
+
         if (_healthManager.isDead())
         {
+            _deathSound.volume = GameManager.Instance.effectsVolume / (GameManager.Instance.effectsVolume + (distance / 10));
+            _deathSound.Play();
             hasDied = true;
             Invoke("DestroySelf", 2.5f);
         }

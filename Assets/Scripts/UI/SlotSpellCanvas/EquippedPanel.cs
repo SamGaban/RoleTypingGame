@@ -78,6 +78,8 @@ public class EquippedPanel : MonoBehaviour
                 
                 script._removeButton.onClick.AddListener(() => // Button to remove an equipped ability
                 {
+                    SoundMaster.Instance.MenuClick();
+
                     GameManager.Instance.slotToSpellDic.Remove(entry.Key);
                     Display();
                     _availablePanel.Display();
@@ -86,6 +88,8 @@ public class EquippedPanel : MonoBehaviour
                 
                 script._switchButton.onClick.AddListener(() => // Button to switch an equipped ability
                 {
+                    SoundMaster.Instance.MenuClick();
+
                     GameManager.Instance.slotToSpellDic.Remove(entry.Key);
                     
                     _switchPanel.Display(caster.ReturnLogoList()[entry.Value - 1], caster.spellNames[entry.Value], entry.Value);
@@ -129,6 +133,8 @@ public class EquippedPanel : MonoBehaviour
             Button newButton = Instantiate(_equipSpellButton, _slots[entry - 1].transform);
             newButton.onClick.AddListener(() =>
             {
+                SoundMaster.Instance.MenuClick();
+
                 GameManager.Instance.slotToSpellDic.Add(entry, _switchPanel.currentID);
                 HideFreeSlots();
                 _switchPanel.Hide();

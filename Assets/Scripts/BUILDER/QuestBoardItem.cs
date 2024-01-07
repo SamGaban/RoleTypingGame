@@ -59,6 +59,8 @@ public class QuestBoardItem : MonoBehaviour
         
         button.onClick.AddListener(() =>
         {
+            SoundMaster.Instance.MenuClick();
+
             GameManager.Instance.difficultyLevel = _difficultyLevel;
             GameManager.Instance.SetGoldReward(_goldAmount);
             GameManager.Instance.SetOmenAmount(_omenAmount);

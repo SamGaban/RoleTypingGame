@@ -58,6 +58,7 @@ public class EndOfMission : MonoBehaviour
     /// </summary>
     private void WinHelper()
     {
+        SoundMaster.Instance.PlayerFootstepsLoopEnd();
         SoundMaster.Instance.StopMissionLoop();
         SoundMaster.Instance.PlayMissionEnding();
 
@@ -96,6 +97,7 @@ public class EndOfMission : MonoBehaviour
     /// </summary>
     private void LoseHelper()
     {
+        SoundMaster.Instance.PlayerFootstepsLoopEnd();
         SoundMaster.Instance.StopMissionLoop();
         SoundMaster.Instance.PlayMissionEnding();
 
