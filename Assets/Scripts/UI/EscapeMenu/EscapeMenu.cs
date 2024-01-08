@@ -63,6 +63,13 @@ public class EscapeMenu : MonoBehaviour
         #endif
     }
 
+    public void BackToMainMenu()
+    {
+        SoundMaster.Instance.MenuClick();
+        GameManager.Instance.WholeSave();
+        SceneManager.LoadScene(0);
+    }
+
     
     /// <summary>
     /// Triggers the lose screen to the current mission directly
