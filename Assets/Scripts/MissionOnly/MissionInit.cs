@@ -45,7 +45,7 @@ public class MissionInit : MonoBehaviour
         for (i = 0; i < GameManager.Instance.OmenAmount(); i++)
         {
             GameObject map = Instantiate(mapBlocksPrefabs[Random.Range(0, mapBlocksPrefabs.Count)]);
-            map.transform.position = new Vector3(0, 0 - (i * 170.00f), 0);
+            map.transform.position = new Vector3(0 + (i * 200.00f), 0, 0);
 
             MapBlockScript script = map.GetComponent<MapBlockScript>();
 
@@ -60,13 +60,21 @@ public class MissionInit : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// First teleport of the game after loading mission
+    /// </summary>
     public void TeleportToIndexZero()
     {
         mapBlocks[0].Teleport();
     }
 
+    /// <summary>
+    /// For player use on clearing a stage of a map
+    /// </summary>
     public void TeleportForPlayerInput()
     {
+        SoundMaster.Instance.TeleportZap();
+
         _flashAnimator.Play("Flash", -1, 0f);
 
         doneCheck = false;
@@ -78,7 +86,7 @@ public class MissionInit : MonoBehaviour
 
     private void Update()
     {
-        if (mapBlocks[0].isDone && !doneCheck)
+        if (mapBlocks[0].isDone && !doneCheck && mapBlocks.Count > 1)
         {
             doneCheck = true;
             readyToJump = true;

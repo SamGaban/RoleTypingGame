@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+/// <summary>
+/// Mission Map teleporter
+/// </summary>
 public class TeleporterScript : MonoBehaviour
 {
     private Player _player;

@@ -24,6 +24,16 @@ public class Buildable : MonoBehaviour
 
     public int goldValue;
 
+    public enum Category
+    {
+        Buildings,
+        Utility,
+        Furniture,
+        Fire
+    }
+
+    public Category category;
+
 
 
     private void Start()

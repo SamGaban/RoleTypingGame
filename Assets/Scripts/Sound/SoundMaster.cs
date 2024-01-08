@@ -67,6 +67,9 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _menuClick;
 
+    [TabGroup("references", "Effects")][SerializeField] private AudioSource _teleportZap;
+
+
 
 
 
@@ -194,5 +197,11 @@ public class SoundMaster : MonoBehaviour
     {
         _meleeHit.volume = GameManager.Instance.effectsVolume;
         _meleeHit.Play();
+    }
+
+    public void TeleportZap()
+    {
+        _teleportZap.volume = GameManager.Instance.effectsVolume;
+        _teleportZap.Play();
     }
 }

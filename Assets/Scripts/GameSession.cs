@@ -35,6 +35,9 @@ public class GameSession : MonoBehaviour
     [TabGroup("references", "references")] [SerializeField]
     private Canvas buildPanel;
 
+    [TabGroup("references", "references")] [ShowInInspector]
+    private Buildable.Category currentBuildableCategory = Buildable.Category.Buildings;
+
     [TabGroup("references", "references")] [SerializeField]
     private Canvas buildUI;
 
@@ -332,13 +335,59 @@ public class GameSession : MonoBehaviour
 
                 foreach (KeyValuePair<int, int> entry in GameManager.Instance.Buildables)
                 {
-                    CreateBuildList(entry.Key, entry.Value, counter);
-                    counter++;
+                    Buildable script = BuildDico.Instance.dico[entry.Key].GetComponent<Buildable>();
+
+                    if (script != null)
+                    {
+                        if (script.category == currentBuildableCategory)
+                        {
+                            CreateBuildList(entry.Key, entry.Value, counter);
+                            counter++;
+                        }
+                    }
+
                 }
                 
             }
         }
     }
+
+    public void ChangeBuildableCategory1()
+    {
+        SoundMaster.Instance.MenuClick();
+
+        currentBuildableCategory = Buildable.Category.Buildings;
+        CloseBuildPanel();
+        OnBuild();
+    }
+
+    public void ChangeBuildableCategory2()
+    {
+        SoundMaster.Instance.MenuClick();
+
+        currentBuildableCategory = Buildable.Category.Utility;
+        CloseBuildPanel();
+        OnBuild();
+    }
+
+    public void ChangeBuildableCategory3()
+    {
+        SoundMaster.Instance.MenuClick();
+
+        currentBuildableCategory = Buildable.Category.Furniture;
+        CloseBuildPanel();
+        OnBuild();
+    }
+
+    public void ChangeBuildableCategory4()
+    {
+        SoundMaster.Instance.MenuClick();
+
+        currentBuildableCategory = Buildable.Category.Fire;
+        CloseBuildPanel();
+        OnBuild();
+    }
+
     /// <summary>
     /// Triggers the interaction event handler
     /// </summary>
@@ -378,7 +427,7 @@ public class GameSession : MonoBehaviour
     public void CreateBuildList(int itemIndex, int itemAmount, int spaceModifier)
     {
         GameObject item = Instantiate(panelItemPrefab, contentPanel.transform);
-        item.transform.localPosition = new Vector3(-250, 2675 - (125 * spaceModifier), 0);
+        item.transform.localPosition = new Vector3(-250, 2575 - (125 * spaceModifier), 0);
         PanelItem panelItem = item.GetComponent<PanelItem>();
         panelItem.itemImage.sprite = BuildDico.Instance.dico[itemIndex].GetComponent<SpriteRenderer>().sprite;
         panelItem.amount.text = $"X{itemAmount}";
@@ -391,6 +440,8 @@ public class GameSession : MonoBehaviour
     /// </summary>
     public void OnPanelItemButtonClick(int buildIndex)
     {
+        SoundMaster.Instance.MenuClick();
+
         CloseBuildPanel();
         GameObject itemToPlace = Instantiate(BuildDico.Instance.dico[buildIndex], TownParent);
 

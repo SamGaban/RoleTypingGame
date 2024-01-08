@@ -397,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildIndex: 3
   goldValue: 40
+  category: 1
 --- !u!1 &8604827147988385696
 GameObject:
   m_ObjectHideFlags: 0

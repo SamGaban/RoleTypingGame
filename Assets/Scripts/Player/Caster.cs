@@ -183,6 +183,7 @@ public class Caster : MonoBehaviour
         WordCount2 = baseWordCount2;
         WordCount3 = baseWordCount3;
         WordCount4 = baseWordCount4;
+        WordCount5 = baseWordCount5;
         
         float multiplier = difficultyMultipliers[newDifficulty];
     
@@ -190,6 +191,7 @@ public class Caster : MonoBehaviour
         WordCount2 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount2 * multiplier));
         WordCount3 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount3 * multiplier));
         WordCount4 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount4 * multiplier));
+        WordCount5 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount5 * multiplier));
 
         // Update any other related game settings or UI here
     }
@@ -279,6 +281,8 @@ public class Caster : MonoBehaviour
 *                                                             EachGoodKeyPress() - EndOfSpellCast() - OnCast()
 *
 * 6. Do not forget to add the wordCount(SPELL_ID) and basewordcount(in start method) props 
+*
+* 7. Finally, Add the spell references in AdjustDifficulty for it to scale relative to difficulty
 =====================================================================================================================*/
     
 
@@ -608,12 +612,12 @@ public class Caster : MonoBehaviour
     {
         if (_player.transform.localScale.x == 1)
         {
-            _canvas.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+            _canvas.transform.localScale = new Vector3(0.025f, 0.025f, 0.025f);
             feedBackCanvas.transform.localScale = new Vector3(0.0045f, 0.0045f, 0.0045f);
         }
         else
         {
-            _canvas.transform.localScale = new Vector3(-0.01f, 0.01f, 0.01f);
+            _canvas.transform.localScale = new Vector3(-0.025f, 0.025f, 0.025f);
             feedBackCanvas.transform.localScale = new Vector3(-0.0045f, 0.0045f, 0.0045f);
         }
     }

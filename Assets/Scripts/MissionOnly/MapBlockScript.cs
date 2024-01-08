@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+/// <summary>
+/// New map system instance script
+/// </summary>
 public class MapBlockScript : MonoBehaviour
 {
     [TabGroup("references", "References")][SerializeField] private TeleporterScript _teleportScript;
