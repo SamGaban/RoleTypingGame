@@ -298,6 +298,18 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+    private void OnNextIsland()
+    {
+        MissionInit script = FindObjectOfType<MissionInit>();
+        if (script != null )
+        {
+            if (script.readyToJump)
+            {
+                script.TeleportForPlayerInput();
+            }
+        }
+    }
     
 
 }

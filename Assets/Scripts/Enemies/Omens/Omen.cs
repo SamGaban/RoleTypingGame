@@ -51,7 +51,7 @@ public class Omen : MonoBehaviour
     private int livesCount = 3;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
-    private bool isDestroying = false;
+    public bool isDestroying = false;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
     private bool hasTimerBegun = false;
