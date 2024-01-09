@@ -159,6 +159,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void NewGame()
     {
+        DBMaster.Instance.CreateTableGameLogs();
 
         _soundManager.MenuClick();
 

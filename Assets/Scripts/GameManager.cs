@@ -307,6 +307,7 @@ public class GameManager : MonoBehaviour
             // Create save data from the GameObject
             SaveableObjectData data = new SaveableObjectData(obj);
 
+
             // Save the data with a unique key
             string key = "Saveable_" + counter++;
             ES3.Save(key, data);
@@ -329,9 +330,10 @@ public class GameManager : MonoBehaviour
             string key = "Saveable_" + counter;
             if (ES3.KeyExists(key))
             {
+
                 // Load saved data
                 SaveableObjectData data = ES3.Load<SaveableObjectData>(key);
-
+                
                 // Use the saved data to instantiate and set up the object
                 GameObject prefab = BuildDico.Instance.dico[data.buildIndex];
                 GameObject newInstance = Instantiate(prefab, data.position, data.rotation, townParent.transform);
@@ -348,6 +350,11 @@ public class GameManager : MonoBehaviour
     }
 
 
+    [ButtonGroup]
+    public void Motherlode()
+    {
+        PlayerGold += 1000;
+    }
 
 
     

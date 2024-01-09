@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1970547799}
   m_Layer: 6
   m_Name: platform
-  m_TagString: Saveable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildIndex: 2
   goldValue: 65
+  category: 0
 --- !u!60 &7289363798990896641
 PolygonCollider2D:
   m_ObjectHideFlags: 0

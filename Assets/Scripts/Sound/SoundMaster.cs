@@ -41,6 +41,8 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Music")][SerializeField] private AudioSource _missionMusicEnding;
 
+    [TabGroup("references", "Music")][SerializeField] private AudioSource _tutorialLoop;
+
     [TabGroup("references", "Player")][SerializeField] private AudioSource _playerFootsteps;
 
     [TabGroup("references", "Player")][SerializeField] private AudioSource _toggleEquippped;
@@ -102,6 +104,16 @@ public class SoundMaster : MonoBehaviour
     {
         _missionMusicEnding.volume = GameManager.Instance.musicVolume;
         _missionMusicEnding.Play();
+    }
+
+    public void PlayTutorialLoop()
+    {
+        _tutorialLoop.volume = GameManager.Instance.musicVolume;
+        _tutorialLoop.Play();
+    }
+    public void StopTutorialLoop()
+    {
+        _tutorialLoop?.Stop();
     }
 
 

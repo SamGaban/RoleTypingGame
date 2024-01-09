@@ -65,6 +65,7 @@ public class EscapeMenu : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        SoundMaster.Instance.StopVillageLoop();
         SoundMaster.Instance.MenuClick();
         GameManager.Instance.WholeSave();
         SceneManager.LoadScene(0);

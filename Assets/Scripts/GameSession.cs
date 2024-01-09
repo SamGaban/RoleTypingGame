@@ -195,22 +195,28 @@ public class GameSession : MonoBehaviour
     {
         if (inTown)
         {
-            GameManager.Instance.LoadTown();
+            Invoke("LoadTownHelper", 1f);
+            SoundMaster.Instance.StopTutorialLoop();
             SoundMaster.Instance.StopMissionLoop();
             SoundMaster.Instance.PlayVillageLoop();
         }
         else if (inMission)
         {
+            SoundMaster.Instance.StopTutorialLoop();
             SoundMaster.Instance.StopVillageLoop();
             SoundMaster.Instance.PlayMissionLoop();
-
-
         }
-        #if UNITY_EDITOR
-        #else
+        else if (inTutorial)
+        {
+            SoundMaster.Instance.StopVillageLoop();
+            SoundMaster.Instance.StopMissionLoop();
+            SoundMaster.Instance.PlayTutorialLoop();
+        }
+#if UNITY_EDITOR
+#else
         loadingScreen.gameObject.SetActive(true);
         Invoke("LoadingScreenOff", 3.5f);
-        #endif
+#endif
         countdown = Time.time;
         
         foreach (Omen omen in FindObjectsOfType<Omen>())
@@ -223,6 +229,13 @@ public class GameSession : MonoBehaviour
 
         Invoke("UpdateKillCount", 2f);
     }
+
+
+    private void LoadTownHelper()
+    {
+        GameManager.Instance.LoadTown();
+    }
+
 
     public void UpdateKillCount()
     {
