@@ -27,6 +27,8 @@ public class Caster : MonoBehaviour
     [TabGroup("References", "Base")]
     [SerializeField] TMP_Text _text;
 
+    private EndOfMission _mission;
+
     private bool isDead = false;
     
     [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Logo List")]
@@ -218,6 +220,8 @@ public class Caster : MonoBehaviour
     
     private void Start()
     {
+        _mission = FindObjectOfType<EndOfMission>();
+
         _spellEffectsCanvas = FindObjectOfType<SpellEffectsCanvas>();
 
         SlotToSpellIdDictionary = GameManager.Instance.slotToSpellDic;
@@ -435,6 +439,17 @@ public class Caster : MonoBehaviour
                 break;
 
         }
+
+        // #################################### SENDING TO DATABASE ############################
+
+        if (_mission != null)
+        {
+            _mission.AddToPrecision(_sentence.TypePrecision());
+            _mission.AddToWpm(_sentence.WordsPerMinute());
+        }
+
+        // #####################################################################################
+
     }
     
     /// <summary>

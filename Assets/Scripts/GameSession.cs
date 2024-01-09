@@ -116,6 +116,11 @@ public class GameSession : MonoBehaviour
     public bool inMission;
 
     private float countdown;
+
+
+
+
+
     
     /// <summary>
     /// Sets the clicked item as the focused subject for the interactions
@@ -198,6 +203,8 @@ public class GameSession : MonoBehaviour
         {
             SoundMaster.Instance.StopVillageLoop();
             SoundMaster.Instance.PlayMissionLoop();
+
+
         }
         #if UNITY_EDITOR
         #else

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -24,11 +25,36 @@ public class EndOfMission : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private Button button;
 
+
+    // DATABASE VARIABLES
+
+    private List<int> wpmOfMission;
+    private List<int> precisionOfMission;
+
+    public void AddToWpm(int wpm)
+    {
+        wpmOfMission.Add(wpm);
+    }
+
+    public void AddToPrecision(int precision)
+    {
+        precisionOfMission.Add(precision);
+    }
+
+    private DateTime _startTime;
+
+
     /// <summary>
     /// Setting the main button to put the timescale back to normal and load the town
     /// </summary>
     private void Start()
     {
+        _startTime = DateTime.Now;
+
+        wpmOfMission = new List<int>();
+        precisionOfMission = new List<int>();
+
+
         button.onClick.AddListener(() =>
         {
             Time.timeScale = 1f;
@@ -79,6 +105,14 @@ public class EndOfMission : MonoBehaviour
         goldText.text = $"+{_goldCount} Gold";
 
         GameManager.Instance.killCount += _killCount;
+
+        // ####################### DATABASE ############################
+        DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, true, _goldCount, _killCount);
+
+        Debug.Log("Inserted won Game in DB");
+        // #############################################################
+
+
     }
 
     /// <summary>
@@ -116,6 +150,11 @@ public class EndOfMission : MonoBehaviour
         killsText.text = $"{_killCount} Kills";
 
         goldText.text = $"+0 Gold";
+
+        // ####################### DATABASE ############################
+        DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, false, _goldCount, _killCount);
+
+        Debug.Log("Inserted lost Game in DB");
     }
 
 }
