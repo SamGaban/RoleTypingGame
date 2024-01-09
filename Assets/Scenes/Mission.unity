@@ -1189,6 +1189,7 @@ MonoBehaviour:
   mapBlocksPrefabs:
   - {fileID: 6967250514400549080, guid: 5979e1098d35daf44aeb3e97699aa15f, type: 3}
   - {fileID: 3932305651831115670, guid: c5288c2cf5d26d44d8cff0e14f96447e, type: 3}
+  - {fileID: 416498167265125124, guid: 17a041ef765ce124eb06f7553605869e, type: 3}
   _nextIslandCanvas: {fileID: 492142692}
   _flashAnimator: {fileID: 870210970}
   readyToJump: 0
