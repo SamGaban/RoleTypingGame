@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -50,6 +51,11 @@ public class EnemyMove : MonoBehaviour
     [TabGroup("references", "Data")]
     private float stoppedMovingTime;
 
+    private int _currentWaypointIndex;
+
+    [TabGroup("references", "Data")]
+    private WaypointScript[] _waypoints;
+
 
     private float RandomPatrolTimeGenerator()
     {
@@ -58,6 +64,13 @@ public class EnemyMove : MonoBehaviour
     
     private void Start()
     {
+        _waypoints = FindObjectsOfType<WaypointScript>()
+         .Where(waypoint => Vector2.Distance(waypoint.transform.position, this.transform.position) <= 200)
+         .OrderBy(waypoint => waypoint.index)
+         .ToArray();
+
+        _currentWaypointIndex = _waypoints[0].index;
+
         int randomNumber = Random.Range(0, 2);
         
         InvokeRepeating("RightLeftToggle", 1f, RandomPatrolTimeGenerator());
@@ -175,6 +188,23 @@ public class EnemyMove : MonoBehaviour
         
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (deactivated) return;
+
+        if (collision.gameObject.CompareTag("Waypoint"))
+        {
+            WaypointScript script = collision.gameObject.GetComponent<WaypointScript>();
+
+            if (script != null && script.index == _currentWaypointIndex)
+            {
+                //Debug.Log($"Reached waypoint {_currentWaypointIndex}, now going to waypoint {(_currentWaypointIndex + 1) % _waypoints.Length}");
+                _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
+            }
+        }
+    }
+
     public float Direction()
     {
         return direction;
@@ -194,9 +224,13 @@ public class EnemyMove : MonoBehaviour
 
     private void Patrol()
     {
+        if (deactivated) return;
+
         if (_healthManager.isDead()) return;
 
-        _moveInput = new Vector2((goingRight ? 1 : -1) * speed, _rb.velocity.y);
+
+        _moveInput = new Vector2(Mathf.Sign(_waypoints[_currentWaypointIndex].transform.position.x - _rb.position.x) * speed, _rb.velocity.y);
+        
     }
 
     private void RightLeftToggle()

@@ -13,6 +13,7 @@ TagManager:
   - Saveable
   - TownParent
   - InteractCanvas
+  - Waypoint
   layers:
   - Default
   - TransparentFX

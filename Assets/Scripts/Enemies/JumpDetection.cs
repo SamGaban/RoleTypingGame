@@ -47,6 +47,7 @@ public class JumpDetection : MonoBehaviour
         {
             _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
             readyToJump = false;
+            lastJumpTime = Time.time;
         }
 
         if (readyToJump) return;
