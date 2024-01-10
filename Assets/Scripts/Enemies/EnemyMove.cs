@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -42,6 +43,13 @@ public class EnemyMove : MonoBehaviour
 
     private bool deactivated = true;
 
+    private bool notMoving = false;
+
+    private bool stoppedMovingCheck = false;
+
+    [TabGroup("references", "Data")]
+    private float stoppedMovingTime;
+
 
     private float RandomPatrolTimeGenerator()
     {
@@ -63,7 +71,7 @@ public class EnemyMove : MonoBehaviour
         speed = baseScript.MoveSpeed();
         originalSpeed = baseScript.MoveSpeed();
     }
-    [Button]
+    [ButtonGroup]
     /// <summary>
     /// Gives out the player location and stores it in the predeclared variable
     /// </summary>
@@ -78,6 +86,29 @@ public class EnemyMove : MonoBehaviour
     public bool IsPatrolling()
     {
         return isPatrolling;
+    }
+
+    /// <summary>
+    /// Checks if the enemy has been immobilized for more than 3 seconds and gives him a push if so, fixed the enemy getting stuck in stairs bug
+    /// </summary>
+    public void DebugPushCheck()
+    {
+        if (Mathf.Abs(_rb.velocity.x) > 1f)
+        {
+            notMoving = false;
+            stoppedMovingCheck = true;
+        }
+        else if (stoppedMovingCheck)
+        {
+            stoppedMovingCheck = false;
+            notMoving = true;
+            stoppedMovingTime = Time.time;
+        }
+
+        if (notMoving && Time.time - stoppedMovingTime >= 3f)
+        {
+            DebugPush();
+        }
     }
     
     /// <summary>
@@ -97,7 +128,13 @@ public class EnemyMove : MonoBehaviour
     private void FixedUpdate()
     {
         if (_healthManager.isDead()) return;
-       
+
+
+
+        DebugPushCheck();
+
+
+
         // If the enemy is not patrolling, is activated, and is immobile, give him a little push in the direction he's facing
         if (Mathf.Abs(_rb.velocity.x) < Mathf.Epsilon && !deactivated && !isPatrolling) _rb.AddForce(new Vector2(1f * Mathf.Sign(_rb.velocity.x), 1f), ForceMode2D.Impulse);
 
@@ -143,6 +180,18 @@ public class EnemyMove : MonoBehaviour
         return direction;
     }
 
+    [ButtonGroup]
+    public void TurnAround()
+    {
+        this.gameObject.transform.localScale = new Vector3(-this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
+    }
+
+    [ButtonGroup]
+    public void DebugPush()
+    {
+        _rb.AddForce(new Vector2(20f * Mathf.Sign(this.transform.localPosition.x), 20f), ForceMode2D.Impulse); // HEEEEEEEEEEEEEEEEEEEEEEEEEEEERE
+    }
+
     private void Patrol()
     {
         if (_healthManager.isDead()) return;
@@ -168,6 +217,7 @@ public class EnemyMove : MonoBehaviour
         Invoke("DisableExternalForces", duration);
     }
 
+    [ButtonGroup]
     public void ActivateEnemy()
     {
         _rb.bodyType = RigidbodyType2D.Dynamic;

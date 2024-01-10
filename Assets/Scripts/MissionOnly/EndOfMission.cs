@@ -43,6 +43,8 @@ public class EndOfMission : MonoBehaviour
 
     private DateTime _startTime;
 
+    private bool _aborted = false;
+
 
     /// <summary>
     /// Setting the main button to put the timescale back to normal and load the town
@@ -119,9 +121,14 @@ public class EndOfMission : MonoBehaviour
     /// Sets the monster kill count ready for lose screen
     /// </summary>
     /// <param name="KillCount">Actual monster kill count</param>
-    public void Lose(int KillCount)
+    public void Lose(int KillCount, bool aborted)
     {
         _killCount = KillCount;
+
+        if (aborted)
+        {
+            _aborted = true;
+        }
         
         Invoke("LoseHelper", 0.5f);
     }
@@ -144,14 +151,17 @@ public class EndOfMission : MonoBehaviour
         }
         
         canvas.gameObject.SetActive(true);
-        
-        winLoseText.text = "You Lose !";
+
+        winLoseText.text = _aborted ? "Abandoned" : "You Failed!";
 
         killsText.text = $"{_killCount} Kills";
 
         goldText.text = $"+0 Gold";
 
         // ####################### DATABASE ############################
+
+        if (_aborted) return;
+
         DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, false, _goldCount, _killCount);
 
         Debug.Log("Inserted lost Game in DB");

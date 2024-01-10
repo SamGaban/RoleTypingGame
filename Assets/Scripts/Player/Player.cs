@@ -198,7 +198,7 @@ public class Player : MonoBehaviour
             {
                 if (!session.inTown) // LOSE CONDITION
                 {
-                    LoseCurrentMission();
+                    LoseCurrentMission(false);
                 }
             }
         }
@@ -207,7 +207,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Triggers the lose screen
     /// </summary>
-    public void LoseCurrentMission()
+    public void LoseCurrentMission(bool aborted)
     {
         GameSession sess = FindObjectOfType<GameSession>();
 
@@ -217,7 +217,7 @@ public class Player : MonoBehaviour
 
             if (end != null)
             {
-                end.Lose(sess.KillCount);
+                end.Lose(sess.KillCount, aborted);
             }
         }
     }

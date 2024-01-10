@@ -203,4 +203,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildIndex: 1
-  goldValue: 50
+  goldValue: 250
+  category: 0

@@ -85,7 +85,7 @@ public class EscapeMenu : MonoBehaviour
 
         if (player != null)
         {
-            player.LoseCurrentMission();
+            player.LoseCurrentMission(true);
         }
 
     }

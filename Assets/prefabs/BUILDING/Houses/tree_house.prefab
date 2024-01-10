@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildIndex: 2
-  goldValue: 65
+  goldValue: 300
   category: 0
 --- !u!60 &7289363798990896641
 PolygonCollider2D:
