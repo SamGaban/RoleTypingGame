@@ -85,7 +85,8 @@ public class JumpDetection : MonoBehaviour
             || collision.gameObject.CompareTag("Forcefield")
             || collision.gameObject.CompareTag("Omen")
             || collision.gameObject.CompareTag("Spell")
-            || collision.gameObject.CompareTag("Waypoint")) return;
+            || collision.gameObject.CompareTag("Waypoint")
+            || collision.gameObject.CompareTag("JumpPad")) return;
 
         if (_healthManager.isDead()) return;
 

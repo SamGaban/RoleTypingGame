@@ -9,7 +9,14 @@ public class DetectionScript : MonoBehaviour
 
     [SerializeField] EnemyMove scriptMove;
 
+    private Player _player;
+
     private float _lastSeen;
+
+    private void Start()
+    {
+        _player = FindObjectOfType<Player>();
+    }
 
     /// <summary>
     /// Triggers the enemy detection script on entering
@@ -46,7 +53,7 @@ public class DetectionScript : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        if ((Time.time - _lastSeen) >= 10f)
+        if ((Time.time - _lastSeen) >= 10f && Vector2.Distance(this.transform.position, _player.transform.position) > 10)
         {
             scriptMove.GoBackToPatrol();
         }

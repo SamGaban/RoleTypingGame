@@ -39,6 +39,8 @@ public class EnemyMove : MonoBehaviour
 
     private float direction;
 
+    private int patrolDirection;
+
     private bool deactivated = true;
 
     private bool notMoving = false;
@@ -57,15 +59,17 @@ public class EnemyMove : MonoBehaviour
     
     private void Start()
     {
+        patrolDirection = Random.Range(0, 2);
+
         _waypoints = FindObjectsOfType<WaypointScript>()
          .Where(waypoint => Vector2.Distance(waypoint.transform.position, this.transform.position) <= 200)
          .OrderBy(waypoint => waypoint.index)
          .ToArray();
 
-        _currentWaypointIndex = _waypoints[Random.Range(0,_waypoints.Length - 1)].index;
-
         int randomNumber = Random.Range(0, 2);
-        
+
+        _currentWaypointIndex = _waypoints[randomNumber == 0 ? 0 : _waypoints.Length - 1].index;
+
         
         _transform = this.gameObject.transform;
         _baseOrientation = _transform.localScale;
@@ -76,6 +80,23 @@ public class EnemyMove : MonoBehaviour
         speed = baseScript.MoveSpeed();
         originalSpeed = baseScript.MoveSpeed();
     }
+
+    public int CurrentWaypointIndex()
+    {
+        return _currentWaypointIndex;
+    }
+
+    public void JumpPadJump(float horizontalforce, float verticalforce, float reactivationtimeout)
+    {
+        allowExternalForces = true;
+        _rb.AddForce(new Vector2(Mathf.Sign(this.transform.localScale.x) * horizontalforce, verticalforce), ForceMode2D.Impulse);
+        Invoke("JumpPadJumpHelper", reactivationtimeout);
+    }
+    private void JumpPadJumpHelper()
+    {
+        allowExternalForces = false;
+    }
+
     [ButtonGroup]
     /// <summary>
     /// Gives out the player location and stores it in the predeclared variable
@@ -189,10 +210,14 @@ public class EnemyMove : MonoBehaviour
         {
             WaypointScript script = collision.gameObject.GetComponent<WaypointScript>();
 
-            if (script != null && script.index == _currentWaypointIndex)
+            if (script != null && script.index == _currentWaypointIndex && patrolDirection == 0)
             {
                 //Debug.Log($"Reached waypoint {_currentWaypointIndex}, now going to waypoint {(_currentWaypointIndex + 1) % _waypoints.Length}");
                 _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
+            }
+            else if (script != null && script.index == _currentWaypointIndex && patrolDirection == 1)
+            {
+                _currentWaypointIndex = (_currentWaypointIndex - 1 + _waypoints.Length) % _waypoints.Length;
             }
         }
     }

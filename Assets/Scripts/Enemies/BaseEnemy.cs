@@ -68,6 +68,13 @@ public class BaseEnemy : MonoBehaviour
     private bool hasDied = false;
 
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 10);
+    }
+
+
     [ButtonGroup]
     private void Kill()
     {

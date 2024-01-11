@@ -1191,6 +1191,7 @@ MonoBehaviour:
   - {fileID: 3932305651831115670, guid: c5288c2cf5d26d44d8cff0e14f96447e, type: 3}
   - {fileID: 416498167265125124, guid: 17a041ef765ce124eb06f7553605869e, type: 3}
   - {fileID: 8710903025695992746, guid: 20bf768c49fe0124782bef66cdf7edda, type: 3}
+  - {fileID: 1657793753197736542, guid: a7b0f59c85005f64bab9efd76612a60c, type: 3}
   _nextIslandCanvas: {fileID: 492142692}
   _flashAnimator: {fileID: 870210970}
   readyToJump: 0
