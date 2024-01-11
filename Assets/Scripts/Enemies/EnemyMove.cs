@@ -34,9 +34,6 @@ public class EnemyMove : MonoBehaviour
     
     private bool allowExternalForces = false;
 
-    private bool goingRight = true;
-
-    private bool goingLeft = false;
 
     Vector2 _moveInput;
 
@@ -57,10 +54,6 @@ public class EnemyMove : MonoBehaviour
     private WaypointScript[] _waypoints;
 
 
-    private float RandomPatrolTimeGenerator()
-    {
-        return Random.Range(2f, 6f);
-    }
     
     private void Start()
     {
@@ -69,11 +62,10 @@ public class EnemyMove : MonoBehaviour
          .OrderBy(waypoint => waypoint.index)
          .ToArray();
 
-        _currentWaypointIndex = _waypoints[0].index;
+        _currentWaypointIndex = _waypoints[Random.Range(0,_waypoints.Length - 1)].index;
 
         int randomNumber = Random.Range(0, 2);
         
-        InvokeRepeating("RightLeftToggle", 1f, RandomPatrolTimeGenerator());
         
         _transform = this.gameObject.transform;
         _baseOrientation = _transform.localScale;
@@ -205,23 +197,37 @@ public class EnemyMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns the sign representing the direction the enemy is facingz
+    /// </summary>
+    /// <returns></returns>
     public float Direction()
     {
         return direction;
     }
 
+    /// <summary>
+    /// Forces the entity to turn the other way (debug)
+    /// </summary>
     [ButtonGroup]
     public void TurnAround()
     {
         this.gameObject.transform.localScale = new Vector3(-this.gameObject.transform.localScale.x, this.gameObject.transform.localScale.y, this.gameObject.transform.localScale.z);
     }
 
+    /// <summary>
+    /// Sends a little force push on the entity after having been stuck for some seconds
+    /// </summary>
     [ButtonGroup]
     public void DebugPush()
     {
         _rb.AddForce(new Vector2(20f * Mathf.Sign(this.transform.localPosition.x), 20f), ForceMode2D.Impulse); // HEEEEEEEEEEEEEEEEEEEEEEEEEEEERE
     }
 
+
+    /// <summary>
+    /// Makes the entity go from one patrol waypoint to the other
+    /// </summary>
     private void Patrol()
     {
         if (deactivated) return;
@@ -233,11 +239,15 @@ public class EnemyMove : MonoBehaviour
         
     }
 
-    private void RightLeftToggle()
+    /// <summary>
+    /// Sends the entity back to patrol mode after having lost sight of the player for too long
+    /// </summary>
+    public void GoBackToPatrol()
     {
-        goingRight = !goingRight;
-        goingLeft = !goingLeft;
+        isPatrolling = true;
+        _playerRb = null;
     }
+
     
     /// <summary>
     /// Enables external forces to impact the RB of the enemy

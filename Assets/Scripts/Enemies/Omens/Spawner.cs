@@ -98,7 +98,7 @@ public class Spawner : MonoBehaviour
         GoUp();
         StopGoingUp();
         DeathCheck();
-        DetectionCheck();
+        //DetectionCheck();
     }
 
     /// <summary>

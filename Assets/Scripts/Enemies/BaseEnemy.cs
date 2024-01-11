@@ -74,12 +74,18 @@ public class BaseEnemy : MonoBehaviour
         _healthManager.Kill();
     }
     
+    /// <summary>
+    /// Makes the entity able to move
+    /// </summary>
     [ButtonGroup]
     public void ActivateEnemy()
     {
         moveScript.ActivateEnemy();
     }
 
+    /// <summary>
+    /// Activates the move script to feed the player's rb to the entity
+    /// </summary>
     public void DetectPlayer()
     {
         moveScript.Detect();

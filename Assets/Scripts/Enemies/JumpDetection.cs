@@ -84,7 +84,8 @@ public class JumpDetection : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")
             || collision.gameObject.CompareTag("Forcefield")
             || collision.gameObject.CompareTag("Omen")
-            || collision.gameObject.CompareTag("Spell")) return;
+            || collision.gameObject.CompareTag("Spell")
+            || collision.gameObject.CompareTag("Waypoint")) return;
 
         if (_healthManager.isDead()) return;
 
@@ -114,6 +115,10 @@ public class JumpDetection : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Retrives the jump height from the global settings
+    /// </summary>
+    /// <param name="njumpHeight"></param>
     public void SetJumpHeight(float njumpHeight)
     {
         jumpHeight = njumpHeight;
