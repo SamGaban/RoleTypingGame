@@ -10,12 +10,24 @@ using UnityEngine;
 /// </summary>
 public class Buildable : MonoBehaviour
 {
+    /// <summary>
+    /// Represents a game session.
+    /// </summary>
     private GameSession session;
 
+    /// <summary>
+    /// Represents the current editing state.
+    /// </summary>
     private bool editing = false;
 
+    /// <summary>
+    /// The sensitivity of the building feature
+    /// </summary>
     private float sensitivity = 1.0f;
 
+    /// <summary>
+    /// The original color of the buildable to call back after editing it
+    /// </summary>
     private Color originalColor;
 
     private float coolDownClick = 0f;
@@ -69,6 +81,9 @@ public class Buildable : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Updates the position of the buildable game object based on mouse input.
+    /// </summary>
     private void Update()
     {
         if (!editing) return;

@@ -25,6 +25,9 @@ public class SmithStore : MonoBehaviour
     private Player _player;
 
 
+    /// <summary>
+    /// Initiates the starting sequence.
+    /// </summary>
     private void Start()
     {
         _player = FindObjectOfType<Player>();
@@ -33,6 +36,10 @@ public class SmithStore : MonoBehaviour
         interactScript.OnStopInteract += OnInteractableStop;
     }
 
+    /// Calculates the distance between the player and the current object, and updates the volume of the _smithingSound based on the distance and the effects volume set in the game manager
+    /// .
+    /// The method is private and does not return any value.
+    /// /
     private void Update()
     {
         float distance = Vector2.Distance(_player.transform.position, this.transform.position);
@@ -41,6 +48,9 @@ public class SmithStore : MonoBehaviour
     }
 
     // Define what should happen when the event is triggered
+    /// <summary>
+    /// Handles the interaction event for the interactable object.
+    /// </summary>
     private void OnInteractableInteract()
     {
         SoundMaster.Instance.OpenPanel();
@@ -48,12 +58,19 @@ public class SmithStore : MonoBehaviour
         smithStoreCanvas.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// This method is called when the interaction with the object is stopped.
+    /// It empties the canvas and deactivates the Smith Store canvas.
+    /// </summary>
     private void OnInteractableStop()
     {
         EmptyCanvas();
         smithStoreCanvas.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// Performs necessary cleanup from the event subscription before the object is destroyed.
+    /// </summary>
     void OnDestroy()
     {
         // Unsubscribe to ensure no memory leaks
@@ -61,6 +78,9 @@ public class SmithStore : MonoBehaviour
         interactScript.OnStopInteract -= OnInteractableStop;
     }
 
+    /// <summary>
+    /// Populates the smith store canvas with items based on the dictionary of buildables.
+    /// </summary>
     private void PopulateCanvas()
     {
         int counter = 0;
@@ -95,6 +115,9 @@ public class SmithStore : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Empties the canvas by destroying all child game objects.
+    /// </summary>
     private void EmptyCanvas()
     {
         // Collect all children first

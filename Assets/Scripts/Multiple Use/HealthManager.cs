@@ -24,6 +24,9 @@ public class HealthManager : MonoBehaviour
 
     private bool isDeceased = false;
 
+    /// <summary>
+    /// Initializes the object by setting the default and reversed scales and calculating the maximum health points.
+    /// </summary>
     private void Start()
     {
         defaultScale = _canvasTransform.localScale;

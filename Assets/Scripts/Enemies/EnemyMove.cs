@@ -6,6 +6,9 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls the movement and behavior of an enemy character.
+/// </summary>
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField]
@@ -17,7 +20,7 @@ public class EnemyMove : MonoBehaviour
     private float originalSpeed;
     
     [SerializeField] HealthManager _healthManager;
-
+    
     private Rigidbody2D _playerRb;
     private Transform _transform;
 
@@ -39,6 +42,7 @@ public class EnemyMove : MonoBehaviour
 
     private float direction;
 
+    [ShowInInspector]
     private int patrolDirection;
 
     private bool deactivated = true;
@@ -50,11 +54,16 @@ public class EnemyMove : MonoBehaviour
     [TabGroup("references", "Data")]
     private float stoppedMovingTime;
 
+    [TabGroup("references", "Data")]
+    [ShowInInspector]
     private int _currentWaypointIndex;
+    
+    
 
     [TabGroup("references", "Data")]
     private WaypointScript[] _waypoints;
 
+    private float jumpHeight;
 
     
     private void Start()
@@ -68,7 +77,7 @@ public class EnemyMove : MonoBehaviour
 
         int randomNumber = Random.Range(0, 2);
 
-        _currentWaypointIndex = _waypoints[randomNumber == 0 ? 0 : _waypoints.Length - 1].index;
+        _currentWaypointIndex = randomNumber == 0 ? 0 : _waypoints.Length - 1;
 
         
         _transform = this.gameObject.transform;
@@ -81,19 +90,47 @@ public class EnemyMove : MonoBehaviour
         originalSpeed = baseScript.MoveSpeed();
     }
 
+    /// <summary>
+    /// Returns the current waypoint index of the enemy.
+    /// </summary>
+    /// <returns>The current waypoint index as an integer.</returns>
     public int CurrentWaypointIndex()
     {
         return _currentWaypointIndex;
     }
 
+    /// <summary>
+    /// Applies a jump force to the object using a jump pad.
+    /// </summary>
+    /// <param name="horizontalforce">The horizontal force to be applied to the object.</param>
+    /// <param name="verticalforce">The vertical force to be applied to the object.</param>
+    /// <param name="reactivationtimeout">The time in seconds until the jump pad can be activated again.</param>
     public void JumpPadJump(float horizontalforce, float verticalforce, float reactivationtimeout)
     {
         allowExternalForces = true;
-        _rb.AddForce(new Vector2(Mathf.Sign(this.transform.localScale.x) * horizontalforce, verticalforce), ForceMode2D.Impulse);
+        _rb.velocity = new Vector2(Mathf.Sign(this.transform.localScale.x) * horizontalforce, Mathf.Sqrt(verticalforce * -2f * Physics2D.gravity.y));
+
+        jumpHeight = jumpScript.ActualJumpHeight();
+        
+        jumpScript.SetJumpHeight(1000f);
+
         Invoke("JumpPadJumpHelper", reactivationtimeout);
     }
+    
+    // public void JumpPadJump(float horizontalforce, float verticalforce, float reactivationtimeout)
+    // {
+    //     allowExternalForces = true;
+    //     _rb.AddForce(new Vector2(Mathf.Sign(this.transform.localScale.x) * horizontalforce, verticalforce), ForceMode2D.Impulse);
+    //     Invoke("JumpPadJumpHelper", reactivationtimeout);
+    // }
+
+    /// <summary>
+    /// This method is used to disable the application of external forces on an object after jumping on a jump pad.
+    /// <para>Called with a delay after the jump pad jump</para>
+    /// </summary>
     private void JumpPadJumpHelper()
     {
+        jumpScript.SetJumpHeight(jumpHeight);
         allowExternalForces = false;
     }
 
@@ -109,6 +146,11 @@ public class EnemyMove : MonoBehaviour
         _playerRb = FindObjectOfType<Player>().gameObject.GetComponent<Rigidbody2D>();
         jumpScript.FeedRb(_playerRb);
     }
+
+    /// <summary>
+    /// Determines if the object is currently patrolling.
+    /// </summary>
+    /// <returns>True if the object is patrolling; otherwise, false.</returns>
     public bool IsPatrolling()
     {
         return isPatrolling;
@@ -151,6 +193,20 @@ public class EnemyMove : MonoBehaviour
             _moveInput = new Vector2(Mathf.Sign(_playerRb.position.x - _rb.position.x) * speed, _rb.velocity.y);
         }
     }
+
+    /// This method is called every fixed frame-rate frame. It is used to update the behavior of the enemy character.
+    /// If the enemy is dead, the method exits immediately.
+    /// The method then checks for any debug push, which is used for testing purposes.
+    /// If the enemy is not patrolling, activated, and immobile, a small push is applied in the direction the enemy is facing.
+    /// If there is a player character in the scene, the method checks if the player is dead, and deactivates the enemy if true.
+    /// If the enemy is deactivated, the Rigidbody2D component is set to Kinematic, and the velocity is set to zero.
+    /// If the enemy is not deactivated, the method checks for the player character in the scene. If the player character is not present,
+    /// the enemy patrols.
+    /// If the enemy is dead, the velocity is set to zero and the method exits.
+    /// If external forces are not allowed, the enemy moves according to the input received from the Move() method,
+    /// flips the sprite if necessary, and sets the Rigidbody2D velocity to the move input calculated.
+    /// @return void
+    /// /
     private void FixedUpdate()
     {
         if (_healthManager.isDead()) return;
@@ -202,6 +258,10 @@ public class EnemyMove : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Redirects the enemy to a new waypoint index on contact with his previous index
+    /// </summary>
+    /// <param name="collision">The collider that entered the trigger zone.</param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (deactivated) return;
@@ -286,6 +346,9 @@ public class EnemyMove : MonoBehaviour
         Invoke("DisableExternalForces", duration);
     }
 
+    /// <summary>
+    /// Activates the enemy.
+    /// </summary>
     [ButtonGroup]
     public void ActivateEnemy()
     {

@@ -19,6 +19,10 @@ public class Interractable : MonoBehaviour
     {
     }
 
+    /// <summary>
+    /// Called when a Collider2D enters a trigger.
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -31,6 +35,10 @@ public class Interractable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Turns the interract canvas off
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -44,11 +52,17 @@ public class Interractable : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calls the <see cref="OnInteract"/> event.
+    /// </summary>
     public void Interact()
     {
         OnInteract?.Invoke();
     }
 
+    /// <summary>
+    /// Stops the interaction process.
+    /// </summary>
     public void StopInteract()
     {
         OnStopInteract?.Invoke();

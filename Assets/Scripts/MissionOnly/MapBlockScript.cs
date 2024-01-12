@@ -17,12 +17,19 @@ public class MapBlockScript : MonoBehaviour
     public bool isDone = false;
 
 
+    /// Teleport method.
+    /// This method is used to trigger the teleportation process.
+    /// It calls the GoTo method from the _teleportScript object.
+    /// /
     [ButtonGroup]
     public void Teleport()
     {
         _teleportScript.GoTo();
     }
 
+    /// <summary>
+    /// Updates the state of the object.
+    /// </summary>
     private void Update()
     {
         if (isDone) return;

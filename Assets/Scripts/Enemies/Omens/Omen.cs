@@ -173,10 +173,10 @@ public class Omen : MonoBehaviour
     #region Lives Related
 
     private float startTime;
-    
+
     /// <summary>
-    /// Begins the countdown live down of an omen
-    /// <para>If countdown already started, deduct 10 seconds
+    /// Begins the countdown live down of an omen.
+    /// If countdown has already started, deducts 10 seconds from the start time.
     /// </summary>
     [ButtonGroup("TestButtons")]
     public void LivesDown()
@@ -194,6 +194,9 @@ public class Omen : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Helper method for decreasing life count.
+    /// </summary>
     private void LifeDownHelper()
     {
         SoundMaster.Instance.OmenLifeDown();
@@ -202,6 +205,14 @@ public class Omen : MonoBehaviour
         livesCount -= 1;
     }
 
+    /// <summary>
+    /// Checks the time elapsed since the timer has begun and triggers an action if it exceeds a threshold. </summary>
+    /// <remarks>
+    /// This method checks if the timer has begun using the hasTimerBegun variable. If it hasn't, the method returns without performing any further actions.
+    /// If the timer has begun, the method calculates the time elapsed since the startTime (using the Time.time property) and compares it with the timeToDestroyLife threshold.
+    /// If the elapsed time is less than the threshold, the method returns without performing any further actions.
+    /// If the elapsed time exceeds the threshold, the method sets hasTimerBegun to false and calls the LifeDownHelper method. </remarks>
+    /// /
     private void TimeCheck()
     {
         if (!hasTimerBegun) return;
@@ -212,6 +223,13 @@ public class Omen : MonoBehaviour
         LifeDownHelper();
     }
 
+    /// <summary>
+    /// Checks the state of the canvas and updates the value of the slider. </summary>
+    /// <remarks>
+    /// If the timer has not yet begun, it deactivates the canvas game object.
+    /// Otherwise, it activates the canvas game object and updates the value of the slider based on the current time.
+    /// The value of the slider is calculated as the remaining time until the life is destroyed divided by the total time to destroy life. </remarks>
+    /// /
     private void CanvasCheck()
     {
         if (!hasTimerBegun)
@@ -269,7 +287,11 @@ public class Omen : MonoBehaviour
     }
 
     #endregion
-    
+
+    /// <summary>
+    /// Initializes the spawning process by populating the spawn list,
+    /// selecting a random sprite for attributes, and initializing the spawn point dictionary.
+    /// </summary>
     private void Start()
     {
         PopulateSpawnList();
@@ -278,6 +300,9 @@ public class Omen : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// This method updates the game state by calling various helper methods.
+    /// </summary>
     private void Update()
     {
         SpawnEnemy();
@@ -286,6 +311,11 @@ public class Omen : MonoBehaviour
         CanvasCheck();
     }
 
+    /// <summary>
+    /// This method is called when a 2D collider enters the trigger area.
+    /// If the collision happens with a player, feeds the omen to the player
+    /// </summary>
+    /// <param name="col">The collider that enters the trigger area.</param>
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.CompareTag("Player"))
@@ -295,6 +325,11 @@ public class Omen : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Event called when a collider exits triggering with this object.
+    /// Makes the player forget the omen
+    /// </summary>
+    /// <param name="col">The collider that exited the trigger.</param>
     private void OnTriggerExit2D(Collider2D col)
     {
 

@@ -9,6 +9,9 @@ using UnityEngine;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 #endif
 
+/// <summary>
+/// This class is responsible for managing the game database.
+/// </summary>
 public class DBMaster : MonoBehaviour
 {
     #region SingletonInit
@@ -19,6 +22,11 @@ public class DBMaster : MonoBehaviour
         get { return instance; }
     }
 
+    /// <summary>
+    /// This method is called when the object is initialized.
+    /// It checks if an instance of the object already exists. If not, it sets the instance to this object and marks it to not be destroyed when loading a new scene.
+    /// If an instance already exists and it's not the same as this object, it destroys this object.
+    /// </summary>
     void Awake()
     {
         if (instance == null)

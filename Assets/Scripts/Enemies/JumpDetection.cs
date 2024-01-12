@@ -26,7 +26,13 @@ public class JumpDetection : MonoBehaviour
     private float lastJumpTime; // Last moment where a jump was performed per the entity
 
 
-
+    /// <summary>
+    /// This method is called every fixed frame-rate frame. It is used for applying physics-based updates.
+    /// </summary>
+    /// <remarks>
+    /// This method is responsible for handling the logic of jumping and checking if the character is ready to jump.
+    /// It also calculates the vertical and horizontal distance between the player and the character.
+    /// </remarks>
     private void FixedUpdate()
     {
 
@@ -59,6 +65,16 @@ public class JumpDetection : MonoBehaviour
                 readyToJump = true;
             }
     }
+
+
+    /// <summary>
+    /// Gets the actual jump height.
+    /// </summary>
+    /// <returns>The actual jump height.</returns>
+    public float ActualJumpHeight()
+    {
+        return jumpHeight;
+    }
     /// <summary>
     /// Bool indicating if the jump has cooled down
     /// </summary>
@@ -75,6 +91,12 @@ public class JumpDetection : MonoBehaviour
     {
         _playerRb = playerRb;
     }
+
+    /// <summary>
+    /// Checks for collision of the jump check bar with a wall in front, and for tags also
+    /// If the checks are good, makes the entity initiate its jump sequence
+    /// </summary>
+    /// <param name="collision">The Collider2D that this GameObject is colliding with.</param>
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (_healthManager.isDead()) return;

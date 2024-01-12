@@ -27,7 +27,10 @@ public class MissionInit : MonoBehaviour
     private bool doneCheck = false;
 
     private Player _player;
-    
+
+    /// <summary>
+    /// Initializes the map blocks, player, and builds the map.
+    /// </summary>
     void Start()
     {
         mapBlocks = new List<MapBlockScript>();
@@ -84,6 +87,9 @@ public class MissionInit : MonoBehaviour
         mapBlocks[0].Teleport();
     }
 
+    /// <summary>
+    /// Checks if one of the challenges is done, and if so, readies the jump to the next one
+    /// </summary>
     private void Update()
     {
         if (mapBlocks[0].isDone && !doneCheck && mapBlocks.Count > 1)

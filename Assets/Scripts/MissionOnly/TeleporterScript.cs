@@ -12,11 +12,20 @@ public class TeleporterScript : MonoBehaviour
 {
     private Player _player;
 
+    /// <summary>
+    /// Starts the method by finding and assigning the Player instance in the scene
+    /// </summary>
     private void Start()
     {
         _player = FindObjectOfType<Player>();
     }
 
+    /// <summary>
+    /// Moves the player to a new position.
+    /// </summary>
+    /// <remarks>
+    /// This method is used to move the player to a new position based on the current object's position.
+    /// </remarks>
     [ButtonGroup]
     public void GoTo()
     {

@@ -92,7 +92,17 @@ public class Spawner : MonoBehaviour
             currentlySpawnedEnemy = baseScript;
         }
     }
-    
+
+    /// <summary>
+    /// Updates the object state by calling various methods.
+    /// </summary>
+    /// <remarks>
+    /// This method is responsible for updating the object state by invoking other methods.
+    /// The order of method invocations is as follows:
+    /// 1. GoUp(): Moves the object up with its capsule
+    /// 2. StopGoingUp(): Stops the capsule object from moving up.
+    /// 3. DeathCheck(): Checks if the object is dead.
+    /// </remarks>
     private void Update()
     {
         GoUp();

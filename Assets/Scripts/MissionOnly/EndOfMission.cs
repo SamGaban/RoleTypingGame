@@ -31,11 +31,19 @@ public class EndOfMission : MonoBehaviour
     private List<int> wpmOfMission;
     private List<int> precisionOfMission;
 
+    /// <summary>
+    /// Adds a value to the list of words per minute (wpm) for the mission.
+    /// </summary>
+    /// <param name="wpm">The value to add to the list.</param>
     public void AddToWpm(int wpm)
     {
         wpmOfMission.Add(wpm);
     }
 
+    /// <summary>
+    /// Adds a value to the list of precision logs for the mission.
+    /// </summary>
+    /// <param name="precision">The value to be added to the precision of the mission.</param>
     public void AddToPrecision(int precision)
     {
         precisionOfMission.Add(precision);

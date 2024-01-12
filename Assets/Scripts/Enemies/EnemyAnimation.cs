@@ -47,13 +47,19 @@ public class EnemyAnimation : MonoBehaviour
         _animator.SetBool("isAttacking", true);
         Invoke("TurnAttackOff", 0.4f);
     }
+
     /// <summary>
-    /// Turns the animator bool isAttacking off
+    /// Turns off the attack animation in the animator.
     /// </summary>
     private void TurnAttackOff()
     {
         _animator.SetBool("isAttacking", false);
     }
+
+    /// <summary>
+    /// Sets the runtime Animator Controller for the Feed Animator.
+    /// </summary>
+    /// <param name="control">The desired RuntimeAnimatorController to set.</param>
     public void FeedAnimator(RuntimeAnimatorController control)
     {
         _controller = control;

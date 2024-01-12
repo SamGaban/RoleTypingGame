@@ -13,6 +13,10 @@ public class BuildDico : SerializedMonoBehaviour
     [ShowInInspector]
     public Dictionary<int, GameObject> dico;
 
+    /// <summary>
+    /// The Awake method is called when the script instance is being loaded. It is used to initialize the script before any other method is called.
+    /// <para> Singleton pattern initialization</para>
+    /// </summary>
     private void Awake()
     {
         if (Instance == null)
