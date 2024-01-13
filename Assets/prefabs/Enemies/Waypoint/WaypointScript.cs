@@ -19,6 +19,6 @@ public class WaypointScript : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 200);
+        Gizmos.DrawWireSphere(transform.position, 500);
     }
 }

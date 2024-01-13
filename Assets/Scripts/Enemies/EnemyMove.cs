@@ -71,7 +71,7 @@ public class EnemyMove : MonoBehaviour
         patrolDirection = Random.Range(0, 2);
 
         _waypoints = FindObjectsOfType<WaypointScript>()
-         .Where(waypoint => Vector2.Distance(waypoint.transform.position, this.transform.position) <= 200)
+         .Where(waypoint => Vector2.Distance(waypoint.transform.position, this.transform.position) <= 500)
          .OrderBy(waypoint => waypoint.index)
          .ToArray();
 
@@ -278,6 +278,9 @@ public class EnemyMove : MonoBehaviour
             else if (script != null && script.index == _currentWaypointIndex && patrolDirection == 1)
             {
                 _currentWaypointIndex = (_currentWaypointIndex - 1 + _waypoints.Length) % _waypoints.Length;
+            }
+            else if (script != null && script.index != _currentWaypointIndex)
+            {
             }
         }
     }
