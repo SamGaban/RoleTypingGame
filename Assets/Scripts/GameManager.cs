@@ -72,6 +72,10 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<int, int> slotToSpellDic;
 
+    public Dictionary<int, int> spellBuyState;
+
+    public int omenCleansed;
+
     public long killCount;
 
     // ################################# SOUND RELATED  ###################################
@@ -221,7 +225,9 @@ public class GameManager : MonoBehaviour
         {
             SaveBuildables();
             SaveGold();
+            SaveOmenCleansed();
             SaveKillCount();
+            SaveSpellBuyState();
             SaveSlotDico();
             SaveTown();
         }
@@ -241,7 +247,9 @@ public class GameManager : MonoBehaviour
         {
             LoadBuildables();
             LoadGold();
+            LoadOmenCleansed();
             LoadKillCount();
+            LoadSpellBuyState();
             LoadSlotDico();
         }
         catch (Exception ex)
@@ -293,6 +301,43 @@ public class GameManager : MonoBehaviour
     {
         slotToSpellDic = ES3.Load<Dictionary<int, int>>("slotDico", new Dictionary<int, int>() { { 1, 1 }, {2, 3 } });
     }
+
+    public void SaveSpellBuyState()
+    {
+        ES3.Save("SpellBuyState", spellBuyState);
+    }
+
+    private Dictionary<int, int> SpellValues = new Dictionary<int, int>()
+    {
+        {2, 15}, // FORCEFIELD
+        {4, 25}, // GOOSPELL
+        {5, 40} // TIME BEND
+    };
+
+    public void LoadSpellBuyState()
+    {
+        spellBuyState = ES3.Load<Dictionary<int, int>>("SpellBuyState", new Dictionary<int, int>() {{1, 0}, {3, 0}});
+
+        foreach (KeyValuePair<int,int> entry in SpellValues)
+        {
+            if (!spellBuyState.ContainsKey(entry.Key))
+            {
+                spellBuyState.Add(entry.Key, entry.Value);
+            }
+        }
+    }
+
+    public void SaveOmenCleansed()
+    {
+        ES3.Save("omenCleansed", omenCleansed);
+    }
+
+    public void LoadOmenCleansed()
+    {
+        omenCleansed = ES3.Load<int>("omenCleansed", 0);
+    }
+    
+    
     
     
     //ONLY WORKS IN BUILD MODE

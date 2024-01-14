@@ -167,11 +167,15 @@ public class MainMenuScript : MonoBehaviour
         int _playerGold = 0;
         long _killCount = 0;
         Dictionary<int, int> _slotToSpell = new Dictionary<int, int>() { { 1, 1 }, { 2, 3 } };
+        Dictionary<int, int> spellBuyState = new Dictionary<int, int>() { { 1, 0 }, { 3, 0 } };
 
         ES3.Save("savedBuildables", _buildables);
         ES3.Save("savedGold", _playerGold);
         ES3.Save("savedKillCount", _killCount);
         ES3.Save("slotDico", _slotToSpell);
+        ES3.Save("slotDico", _slotToSpell);
+        ES3.Save("SpellBuyState", spellBuyState);
+        
         ResetAllSaveables();
 
         _hasLoadData = true;

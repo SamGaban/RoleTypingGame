@@ -9673,6 +9673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestBuildable: {fileID: 5810212039040523000, guid: d87a858bb7c8efb4c9c33f9130b9df10, type: 3}
   difficultyLevel: 0
+  omenCleansed: 0
   killCount: 0
   musicVolume: 0.2824715
   effectsVolume: 0.38845396
@@ -25652,7 +25653,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe2925fd13a0ace4f82c518343024105, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4150979a3daf94947b29eeaf160be489, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

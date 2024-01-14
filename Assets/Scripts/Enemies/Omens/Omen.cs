@@ -48,6 +48,9 @@ public class Omen : MonoBehaviour
     private Dictionary<int, bool> hasItSpawnDictionary;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
+    private GameSession _sess;
+
+    [TabGroup("testing", "Data")] [ShowInInspector]
     private int livesCount = 3;
 
     [TabGroup("testing", "Data")] [ShowInInspector]
@@ -155,6 +158,8 @@ public class Omen : MonoBehaviour
     private void SpawnEnemy()
     {
         if (isDestroying) return;
+
+        if (_sess.inTutorial) return;
         
         foreach (GameObject spawn in spawnList)
         {
@@ -281,7 +286,7 @@ public class Omen : MonoBehaviour
     }
     private void DestroyHelper()
     {
-
+        GameManager.Instance.omenCleansed += 1;
         
         Destroy(this.gameObject);
     }
@@ -294,6 +299,8 @@ public class Omen : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        _sess = FindObjectOfType<GameSession>();
+        
         PopulateSpawnList();
         AttributeRandomSpriteMain();
         SpawnPointDictionaryInit();

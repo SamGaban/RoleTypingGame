@@ -65,11 +65,41 @@ public class AvailablePanel : MonoBehaviour
                 {
                     script._spellLogo.sprite = caster.ReturnLogoList()[entry.Key - 1];
                     script._spellName.text = caster.spellNames[entry.Key];
-                    script._equipButton.onClick.AddListener(() =>
+
+                    script._spellName.text = caster.spellNames[entry.Key];
+
+                    if (GameManager.Instance.spellBuyState[entry.Key] > 0)
                     {
-                        SoundMaster.Instance.MenuClick();
-                        _switchPanel.Display(caster.ReturnLogoList()[entry.Key - 1], caster.spellNames[entry.Key], entry.Key);
-                    });
+                        script._equipButtonText.text = GameManager.Instance.spellBuyState[entry.Key].ToString();
+                        
+                        script.ChangeImageOfButtonNotBought();
+                        
+                        script._equipButton.onClick.AddListener(() =>
+                        {
+                            if (GameManager.Instance.omenCleansed >= GameManager.Instance.spellBuyState[entry.Key])
+                            {
+                                GameManager.Instance.omenCleansed -= GameManager.Instance.spellBuyState[entry.Key];
+                                KillCount killCountScript = FindObjectOfType<KillCount>();
+                                if (killCountScript != null)
+                                {
+                                    killCountScript.UpdateDisplay();
+                                }
+
+                                GameManager.Instance.spellBuyState[entry.Key] = 0;
+                                
+                                Display();
+                            }
+                            
+                        });
+                    }
+                    else
+                    {
+                        script._equipButton.onClick.AddListener(() =>
+                        {
+                            SoundMaster.Instance.MenuClick();
+                            _switchPanel.Display(caster.ReturnLogoList()[entry.Key - 1], caster.spellNames[entry.Key], entry.Key);
+                        });
+                    }
                 }
                 
                 createdItems.Add(newItem);

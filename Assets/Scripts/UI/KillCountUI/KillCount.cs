@@ -12,6 +12,6 @@ public class KillCount : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        killCountText.text = string.Format("{0:0000000}", GameManager.Instance.killCount);
+        killCountText.text = string.Format("{0:0000000}", GameManager.Instance.omenCleansed);
     }
 }

@@ -286,7 +286,9 @@ public class Caster : MonoBehaviour
 *
 * 6. Do not forget to add the wordCount(SPELL_ID) and basewordcount(in start method) props 
 *
-* 7. Finally, Add the spell references in AdjustDifficulty for it to scale relative to difficulty
+* 7. Add the spell references in AdjustDifficulty for it to scale relative to difficulty
+*
+* 8. Finally, add the reference to the spell and its skull price in the GameManager Singleton (SpellValues in save/load)
 =====================================================================================================================*/
     
 
