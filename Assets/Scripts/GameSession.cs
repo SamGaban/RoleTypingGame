@@ -228,7 +228,7 @@ public class GameSession : MonoBehaviour
         buildPanel.gameObject.SetActive(false);
 
         Invoke("UpdateKillCount", 2f);
-    }
+    } // START
 
 
     private void LoadTownHelper()

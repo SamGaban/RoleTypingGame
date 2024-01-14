@@ -111,6 +111,8 @@ public class EnemyMove : MonoBehaviour
         _rb.velocity = new Vector2(Mathf.Sign(this.transform.localScale.x) * horizontalforce, Mathf.Sqrt(verticalforce * -2f * Physics2D.gravity.y));
 
         jumpHeight = jumpScript.ActualJumpHeight();
+
+        jumpScript.deactivatedJump = true;
         
         jumpScript.SetJumpHeight(1000f);
 
@@ -132,6 +134,7 @@ public class EnemyMove : MonoBehaviour
     {
         jumpScript.SetJumpHeight(jumpHeight);
         allowExternalForces = false;
+        jumpScript.deactivatedJump = false;
     }
 
     [ButtonGroup]

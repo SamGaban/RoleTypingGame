@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Parameter set on selection of a game contract, to set the number of omens in said game
     /// </summary>
-    private int numberOfOmen = 2;
+    private int numberOfOmen = 12;
 
     private int goldReward = 0;
 

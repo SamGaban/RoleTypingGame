@@ -1244,6 +1244,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapBlocksPrefabs:
+  - {fileID: 6967250514400549080, guid: 5979e1098d35daf44aeb3e97699aa15f, type: 3}
+  - {fileID: 3932305651831115670, guid: c5288c2cf5d26d44d8cff0e14f96447e, type: 3}
+  - {fileID: 416498167265125124, guid: 17a041ef765ce124eb06f7553605869e, type: 3}
+  - {fileID: 8710903025695992746, guid: 20bf768c49fe0124782bef66cdf7edda, type: 3}
+  - {fileID: 1657793753197736542, guid: a7b0f59c85005f64bab9efd76612a60c, type: 3}
   - {fileID: 3203121310692803576, guid: e1c918f562868a346a5f6186a99d8065, type: 3}
   _nextIslandCanvas: {fileID: 492142692}
   _flashAnimator: {fileID: 870210970}
@@ -6658,7 +6663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948201256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 701, y: -251, z: -8.397121}
+  m_LocalPosition: {x: 8500, y: -657, z: -8.397121}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

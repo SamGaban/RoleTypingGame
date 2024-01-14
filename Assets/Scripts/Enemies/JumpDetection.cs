@@ -20,6 +20,8 @@ public class JumpDetection : MonoBehaviour
     [SerializeField] float jumpHeight;
     public float maxVerticalVelocity = 5f;
 
+    public bool deactivatedJump = false;
+
     private float verticalDistance; // Vertical distance with the player (not null if player is detected)
     private float horizontalDistance;
 
@@ -49,7 +51,7 @@ public class JumpDetection : MonoBehaviour
             horizontalDistance = Mathf.Abs(_playerRb.position.x - _rb.position.x);
         }
 
-        if (readyToJump && verticalDistance > 1f && horizontalDistance <= 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (!deactivatedJump && readyToJump && verticalDistance > 1f && horizontalDistance <= 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             _rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
             readyToJump = false;
@@ -111,6 +113,8 @@ public class JumpDetection : MonoBehaviour
             || collision.gameObject.CompareTag("JumpPad")) return;
 
         if (_healthManager.isDead()) return;
+
+        if (deactivatedJump) return;
 
         if (_ownMove.IsPatrolling() && readyToJump)
         {
