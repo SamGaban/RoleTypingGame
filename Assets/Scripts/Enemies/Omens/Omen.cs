@@ -256,6 +256,8 @@ public class Omen : MonoBehaviour
         
         if (livesCount <= 0)
         {
+            GameManager.Instance.omenCleansed += 1;
+            
             animator.SetTrigger("isGoingDown");
             
             isDestroying = true;
@@ -286,8 +288,6 @@ public class Omen : MonoBehaviour
     }
     private void DestroyHelper()
     {
-        GameManager.Instance.omenCleansed += 1;
-        
         Destroy(this.gameObject);
     }
 
