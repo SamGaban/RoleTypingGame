@@ -314,6 +314,21 @@ public class GameManager : MonoBehaviour
         {5, 40} // TIME BEND
     };
 
+    [ButtonGroup] // CHEATCODES
+    private void UnlockAllSpellsForFree()
+    {
+        spellBuyState = new Dictionary<int, int>()
+        {
+            {1, 0},
+            {2, 0},
+            {3, 0},
+            {4, 0},
+            {5, 0}
+        };
+        
+        SaveSpellBuyState();
+    }
+
     public void LoadSpellBuyState()
     {
         spellBuyState = ES3.Load<Dictionary<int, int>>("SpellBuyState", new Dictionary<int, int>() {{1, 0}, {3, 0}});

@@ -289,6 +289,7 @@ public class Caster : MonoBehaviour
 * 7. Add the spell references in AdjustDifficulty for it to scale relative to difficulty
 *
 * 8. Finally, add the reference to the spell and its skull price in the GameManager Singleton (SpellValues in save/load)
+*                           (And eventually in the cheatcode to unlock all easily just under it) 
 =====================================================================================================================*/
     
 
