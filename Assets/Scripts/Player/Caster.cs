@@ -70,7 +70,8 @@ public class Caster : MonoBehaviour
         { 2, "Force Field" },
         { 3, "Purifying Spell" },
         { 4, "Goo Spell" },
-        { 5, "Time Bend" }
+        { 5, "Time Bend" },
+        {6, "Clock Teleport"}
     };
     
 
@@ -89,6 +90,8 @@ public class Caster : MonoBehaviour
     private int baseWordCount4;
     [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
     private int baseWordCount5;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount6 = 1;
 
     // ################################
 
@@ -158,6 +161,18 @@ public class Caster : MonoBehaviour
 
 
 
+    // ######################### ID 6 : Teleport ################################################
+
+    public bool isTeleporting = false;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Teleport (id6)")]
+    private GameObject _clockTeleportPrefab;
+    
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Teleport (id6)")]
+    private int WordCount6 = 1;
+
+    
+    // ##########################################################################################
     // ##########################################################################################
 
 
@@ -186,6 +201,7 @@ public class Caster : MonoBehaviour
         WordCount3 = baseWordCount3;
         WordCount4 = baseWordCount4;
         WordCount5 = baseWordCount5;
+        WordCount6 = baseWordCount6;
         
         float multiplier = difficultyMultipliers[newDifficulty];
     
@@ -194,6 +210,7 @@ public class Caster : MonoBehaviour
         WordCount3 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount3 * multiplier));
         WordCount4 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount4 * multiplier));
         WordCount5 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount5 * multiplier));
+        WordCount6 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount6 * multiplier));
 
         // Update any other related game settings or UI here
     }
@@ -231,6 +248,7 @@ public class Caster : MonoBehaviour
         WordCount3 = baseWordCount3;
         WordCount4 = baseWordCount4;
         WordCount5 = baseWordCount5;
+        WordCount6 = baseWordCount6;
         
         AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
@@ -280,6 +298,7 @@ public class Caster : MonoBehaviour
 * 3. Add the entry in "ExecuteSpellFromSlot" for the ID you just created;
 * 
 * 4. Add entry in SlotToSpellDictionary (SLOT_NUMBER , SKILL_ID) To change/Add the slots using the skills + LOGOLIST
+*                               (GameManager)
 * 
 * 5. Logic related to start / during / after / cancelation  spell must be inserted inside the CASES vvv
 *                                                             EachGoodKeyPress() - EndOfSpellCast() - OnCast()
@@ -289,7 +308,9 @@ public class Caster : MonoBehaviour
 * 7. Add the spell references in AdjustDifficulty for it to scale relative to difficulty
 *
 * 8. Finally, add the reference to the spell and its skull price in the GameManager Singleton (SpellValues in save/load)
-*                           (And eventually in the cheatcode to unlock all easily just under it) 
+*                           (And eventually in the cheatcode to unlock all easily just under it)
+*
+* 9. PLUS SPELLNAME IN THIS SCRIPT
 =====================================================================================================================*/
     
 
@@ -320,6 +341,7 @@ public class Caster : MonoBehaviour
         }
         
         FlipCanvas();
+        
 
         if (_player.ActualState() == Player.state.Casting)
         { // 1. GOING INTO SPELL CAST MODE
@@ -441,6 +463,9 @@ public class Caster : MonoBehaviour
                 SkillFive(_sentence.TypePrecision(), _sentence.WordsPerMinute());
                 SoundMaster.Instance.TimeWarpIn();
                 break;
+            case 6: // TELEPORT
+                SkillSix();
+                break;
 
         }
 
@@ -533,6 +558,9 @@ public class Caster : MonoBehaviour
                 break;
             case 5:
                 SpellId5();
+                break;
+            case 6:
+                SpellId6();
                 break;
         }
     }
@@ -827,6 +855,20 @@ public class Caster : MonoBehaviour
     }
 
 
+    private void SkillSix() // TELEPORT
+    {
+        if (isTeleporting) return;
+
+        isTeleporting = true;
+
+        GameObject tpClock = Instantiate(_clockTeleportPrefab);
+
+        ClockTeleportScript script = tpClock.GetComponent<ClockTeleportScript>();
+        
+        script.Init(_player.transform, Vector2.zero);
+    }
+
+
 
     #endregion
     // SPELL HELPER REGION
@@ -879,6 +921,10 @@ public class Caster : MonoBehaviour
         LaunchSkill(WordCount5, 5);
     }
 
+    private void SpellId6()
+    {
+        LaunchSkill(WordCount6, 6);
+    }
 
     
 

@@ -73,6 +73,8 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _teleportZap;
 
+    [TabGroup("references", "Effects")] [SerializeField] private AudioSource _teleportSpell;
+
 
 
 
@@ -224,5 +226,11 @@ public class SoundMaster : MonoBehaviour
         AudioSource sound = _keyboardClicks[Random.Range(0, _keyboardClicks.Length - 1)];
         sound.volume = GameManager.Instance.effectsVolume;
         sound.Play();
+    }
+
+    public void TeleportSpell()
+    {
+        _teleportSpell.volume = GameManager.Instance.effectsVolume;
+        _teleportSpell.Play();
     }
 }

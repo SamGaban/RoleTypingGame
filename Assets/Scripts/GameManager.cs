@@ -311,7 +311,8 @@ public class GameManager : MonoBehaviour
     {
         {2, 15}, // FORCEFIELD
         {4, 25}, // GOOSPELL
-        {5, 40} // TIME BEND
+        {5, 40}, // TIME BEND
+        {6, 45} // TELEPORT
     };
 
     [ButtonGroup] // CHEATCODES
@@ -323,7 +324,8 @@ public class GameManager : MonoBehaviour
             {2, 0},
             {3, 0},
             {4, 0},
-            {5, 0}
+            {5, 0},
+            {6, 0}
         };
         
         SaveSpellBuyState();

@@ -5791,6 +5791,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8c69cc980fb50ab4fb826f766712414a, type: 3}
   - {fileID: 21300000, guid: b69d4c690a67fc249ad8fd8aebfb3385, type: 3}
   - {fileID: 21300000, guid: c99c2fc9f71529044bd6dc11390c42cb, type: 3}
+  - {fileID: 21300000, guid: 6f302c4f9a4aa184996090b0fd5f28e2, type: 3}
   FireBall: {fileID: 2543858390535105975, guid: dc4fa85a5021b504d91c66244fa66609, type: 3}
   ForceField: {fileID: 3615866255215623054, guid: 8a50325902fc6414c9bdb7dce396172e, type: 3}
   GoospelPrefab: {fileID: 5073966482427429185, guid: 369fee894a23d5d41a137b3a4e57aef1, type: 3}
@@ -5799,10 +5800,14 @@ MonoBehaviour:
   baseWordCount3: 2
   baseWordCount4: 5
   baseWordCount5: 6
+  baseWordCount6: 1
   feedBackCanvas: {fileID: 746108830}
   precisionText: {fileID: 474736796}
   wpmText: {fileID: 1989079316}
   fbCanvasAnimator: {fileID: 746108831}
+  isTeleporting: 0
+  _clockTeleportPrefab: {fileID: 3907004964910691091, guid: 423d8009f44e13b4cbafecf96f69d8e4, type: 3}
+  WordCount6: 1
   difficultyLevel: 2
 --- !u!114 &851840647
 MonoBehaviour:
@@ -7587,6 +7592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TestBuildable: {fileID: 5810212039040523000, guid: d87a858bb7c8efb4c9c33f9130b9df10, type: 3}
   difficultyLevel: 0
+  omenCleansed: 0
   killCount: 0
   musicVolume: 0
   effectsVolume: 0
