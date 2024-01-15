@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     private state _state = state.Idling;
     
     [TabGroup("references", "Data")]
-    private equipped _equipped = equipped.Spear;
+    private equipped _equipped = equipped.Magic;
 
     [TabGroup("references", "Data")] [ShowInInspector]
     private bool canBeHurt = true;

@@ -67,6 +67,8 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _openPanel;
 
+    [TabGroup("references", "Effects")] [SerializeField] private AudioSource[] _keyboardClicks;
+
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _menuClick;
 
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _teleportZap;
@@ -215,5 +217,12 @@ public class SoundMaster : MonoBehaviour
     {
         _teleportZap.volume = GameManager.Instance.effectsVolume;
         _teleportZap.Play();
+    }
+
+    public void KeyboardClick()
+    {
+        AudioSource sound = _keyboardClicks[Random.Range(0, _keyboardClicks.Length - 1)];
+        sound.volume = GameManager.Instance.effectsVolume;
+        sound.Play();
     }
 }

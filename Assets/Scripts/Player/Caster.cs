@@ -339,6 +339,7 @@ public class Caster : MonoBehaviour
                 {
                     if (IsRelevantKey(kcode))
                     {
+                        SoundMaster.Instance.KeyboardClick();
                         char keyChar;
 
                         if (kcode == KeyCode.Alpha6)
