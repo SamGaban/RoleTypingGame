@@ -86,8 +86,33 @@ public class EnemyMove : MonoBehaviour
         _transform.localScale = _baseOrientation;
         _startPosition = _rb.position;
 
-        speed = baseScript.MoveSpeed();
-        originalSpeed = baseScript.MoveSpeed();
+        float speedModifier;
+        
+        switch (GameManager.Instance.difficultyLevel)
+        {
+            case Caster.DifficultyLevel.VeryEasy:
+                speedModifier = 0.45f;
+                break;
+            case Caster.DifficultyLevel.Easy:
+                speedModifier = 0.60f;
+                break;
+            case Caster.DifficultyLevel.Normal:
+                speedModifier = 0.75f;
+                break;
+            case Caster.DifficultyLevel.Hard:
+                speedModifier = 0.90f;
+                break;
+            case Caster.DifficultyLevel.VeryHard:
+                speedModifier = 1f;
+                break;
+            default:
+                speedModifier = 1f;
+                break;
+        }
+        
+        
+        speed = baseScript.MoveSpeed() * speedModifier;
+        originalSpeed = baseScript.MoveSpeed() * speedModifier;
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class TpSpotScript : MonoBehaviour
@@ -11,6 +12,7 @@ public class TpSpotScript : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private TMP_Text letterText;
 
+    private Collider2D _ownCollider;
     
 
     private KeyCode _keyCode;
@@ -22,6 +24,8 @@ public class TpSpotScript : MonoBehaviour
     private Caster _casterScript;
 
     private ClockTeleportScript clockScript;
+
+    private List<Tilemap> tilemaps;
 
     public void Initialize(Transform newParent, KeyCode kcode, Vector2 position)
     {
@@ -38,16 +42,43 @@ public class TpSpotScript : MonoBehaviour
 
     private void Start()
     {
+        // Find all GameObjects with the tag "Ground" and get their Tilemap components
+        tilemaps = new List<Tilemap>();
+        GameObject[] tilemapObjects = GameObject.FindGameObjectsWithTag("Ground");
+        foreach (GameObject tmObject in tilemapObjects) {
+            Tilemap tm = tmObject.GetComponent<Tilemap>();
+            if (tm != null) {
+                tilemaps.Add(tm);
+            }
+        }
+        
+        
+        _ownCollider = GetComponent<Collider2D>();
+        
         _player = FindObjectOfType<Player>();
 
         clockScript = FindObjectOfType<ClockTeleportScript>();
         
         _casterScript = FindObjectOfType<Caster>();
+        
     }
 
     private void Update()
     {
         CheckForPress();
+        
+        foreach (Tilemap tilemap in tilemaps) {
+            // Convert the object's world position to a cell position in the tilemap
+            Vector3Int cellPosition = tilemap.WorldToCell(this.transform.position);
+
+            // Check if there is a tile at the given cell position
+            if (tilemap.HasTile(cellPosition)) {
+                Destroy(this.gameObject);
+                break;
+            }
+        }
+        
+        
     }
 
     private void CheckForPress()

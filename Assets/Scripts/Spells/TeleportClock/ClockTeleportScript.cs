@@ -48,7 +48,7 @@ public class ClockTeleportScript : MonoBehaviour
                     position = new Vector2(distance, distance);
                     break;
                 case 2:
-                    position = new Vector2(distance, 0);
+                    position = new Vector2(distance * 1.25f, 0);
                     break;
                 case 3:
                     position = new Vector2(distance, -distance);
@@ -60,7 +60,7 @@ public class ClockTeleportScript : MonoBehaviour
                     position = new Vector2(-distance, -distance);
                     break;
                 case 6:
-                    position = new Vector2(-distance, 0);
+                    position = new Vector2(-distance * 1.25f, 0);
                     break;
                 case 7:
                     position = new Vector2(-distance, distance);
