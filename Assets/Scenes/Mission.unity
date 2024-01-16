@@ -5808,6 +5808,7 @@ MonoBehaviour:
   isTeleporting: 0
   _clockTeleportPrefab: {fileID: 3907004964910691091, guid: 423d8009f44e13b4cbafecf96f69d8e4, type: 3}
   WordCount6: 1
+  tpParticlesPrefab: {fileID: 274259514272526894, guid: cbee4a3ea6388ab438a8f321b8a7174d, type: 3}
   difficultyLevel: 2
 --- !u!114 &851840647
 MonoBehaviour:

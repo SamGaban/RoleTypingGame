@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -26,6 +27,9 @@ public class TpSpotScript : MonoBehaviour
     private ClockTeleportScript clockScript;
 
     private List<Tilemap> tilemaps;
+
+    [SerializeField]
+    private GameObject tpParticlesPrefab;
 
     public void Initialize(Transform newParent, KeyCode kcode, Vector2 position)
     {
@@ -93,6 +97,7 @@ public class TpSpotScript : MonoBehaviour
 
     private void Teleport()
     {
+        GameObject particles = Instantiate(tpParticlesPrefab, this.transform.position, Quaternion.identity);
         SoundMaster.Instance.TeleportSpell();
         _player.transform.position = this.transform.position;
         _casterScript.isTeleporting = false;

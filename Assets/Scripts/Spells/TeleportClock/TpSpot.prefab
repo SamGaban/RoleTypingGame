@@ -235,6 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   letterText: {fileID: 4190178099907385196}
+  tpParticlesPrefab: {fileID: 274259514272526894, guid: cbee4a3ea6388ab438a8f321b8a7174d, type: 3}
 --- !u!58 &1854666173
 CircleCollider2D:
   m_ObjectHideFlags: 0
