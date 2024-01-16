@@ -24,6 +24,12 @@ public class EndOfMission : MonoBehaviour
 
     [TabGroup("references", "References")] [SerializeField]
     private Button button;
+    
+    [TabGroup("references", "References")] [SerializeField]
+    private TMP_Text wpmText;
+
+    [TabGroup("references", "References")] [SerializeField]
+    private TMP_Text precisionText;
 
 
     // DATABASE VARIABLES
@@ -112,7 +118,11 @@ public class EndOfMission : MonoBehaviour
 
         killsText.text = $"{_killCount} Kills";
 
-        goldText.text = $"+{_goldCount} Gold";
+        goldText.text = $"{_goldCount} Gold Earned";
+        
+        wpmText.text = $"{Convert.ToInt32(wpmOfMission.Average())} WPM";
+
+        precisionText.text = $"{Convert.ToInt32(precisionOfMission.Average())}% Precision";
 
         GameManager.Instance.killCount += _killCount;
 
@@ -164,7 +174,11 @@ public class EndOfMission : MonoBehaviour
 
         killsText.text = $"{_killCount} Kills";
 
-        goldText.text = $"+0 Gold";
+        goldText.text = $"0 Gold Earned";
+
+        wpmText.text = $"{Convert.ToInt32(wpmOfMission.Average())} WPM";
+
+        precisionText.text = $"{Convert.ToInt32(precisionOfMission.Average())}% Precision";
 
         // ####################### DATABASE ############################
 
