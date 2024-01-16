@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionRadius: 2.75
+  explosionParticlePrefab: {fileID: 5127295046794323860, guid: 6f7bcd1ce72f1924eb3a41b711fe6513, type: 3}

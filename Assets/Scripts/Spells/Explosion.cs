@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 /// <summary>
@@ -12,12 +13,39 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float explosionRadius = 5.0f; // Example radius
     private Collider2D[] hitColliders;
 
+    [TabGroup("references", "References")] [SerializeField]
+    private GameObject explosionParticlePrefab;
+
+    private Player _playerScript;
+
     /// <summary>
     /// Passes the damage of the explosion and makes it go boom
     /// </summary>
     /// <param name="damage"></param>
     public void Initialize(int damage)
     {
+        _playerScript = FindObjectOfType<Player>();
+
+        Vector3 playerPosition = Vector3.zero;
+        
+        if (_playerScript != null)
+        {
+            playerPosition = _playerScript.transform.position;
+        }
+        
+        //Initializing the particle effect prefab
+
+        GameObject explosionParticles =
+            Instantiate(explosionParticlePrefab, this.transform.position, Quaternion.identity);
+
+        ExploScript exploScript = explosionParticles.GetComponent<ExploScript>();
+        
+        exploScript.Init(Mathf.Sign(this.transform.position.x - playerPosition.x));
+        
+        
+        // #####################################
+        
+        
         hitColliders = Physics2D.OverlapCircleAll(this.gameObject.transform.position, explosionRadius);
 
         if (hitColliders.Length <= 0) return;
