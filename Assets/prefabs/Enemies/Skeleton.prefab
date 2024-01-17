@@ -106,9 +106,9 @@ GameObject:
   - component: {fileID: 4592348085000386289}
   - component: {fileID: 4592348085000386294}
   - component: {fileID: 4592348085000386295}
-  - component: {fileID: 4592348085000386292}
   - component: {fileID: 544273245}
   - component: {fileID: 1168011176}
+  - component: {fileID: 2787247690771585488}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Enemy
@@ -226,7 +226,7 @@ MonoBehaviour:
   healthPoints: 55
   jumpHeight: 13
   Controller: {fileID: 9100000, guid: bd66993ed59789342a2a9e1e206c5380, type: 2}
-  _collider: {fileID: 4592348085000386292}
+  _collider: {fileID: 2787247690771585488}
   jumpScript: {fileID: 4592348085221665791}
   _rb: {fileID: 4592348085000386290}
   _transform: {fileID: 4592348085000386284}
@@ -304,76 +304,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!60 &4592348085000386292
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4592348085000386293}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.9, y: 1.8}
-    newSize: {x: 2, y: 1.28}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.42, y: -0.37}
-      - {x: 0.76, y: -0.06}
-      - {x: 0.78999996, y: 0.07}
-      - {x: 0.78999996, y: 0.25}
-      - {x: 0.71999997, y: 0.35}
-      - {x: 0.68, y: 0.35}
-      - {x: 0.52, y: 0.17999999}
-      - {x: 0.22, y: -0.17999999}
-      - {x: 0.13, y: -0.17999999}
-      - {x: 0.14999999, y: -0.17999999}
-      - {x: 0.22, y: -0.14999999}
-      - {x: 0.32, y: -0.01}
-      - {x: 0.29, y: 0.48999998}
-      - {x: 0.17999999, y: 0.61}
-      - {x: 0.06, y: 0.69}
-      - {x: -0.06, y: 0.71999997}
-      - {x: -0.32999998, y: 0.71999997}
-      - {x: -0.51, y: 0.64}
-      - {x: -0.64, y: 0.42}
-      - {x: -0.64, y: 0.28}
-      - {x: -0.59, y: 0.089999996}
-      - {x: -0.51, y: 0}
-      - {x: -0.48, y: -0.13}
-      - {x: -0.47, y: -0.19}
-      - {x: -0.52, y: -0.29999998}
-      - {x: -0.64, y: -0.41}
-      - {x: -0.64, y: -0.42999998}
-      - {x: -0.62, y: -0.53}
-      - {x: -0.47, y: -0.65999997}
-      - {x: -0.38, y: -0.66999996}
-      - {x: -0.32, y: -0.78}
-      - {x: -0.31, y: -0.78}
-      - {x: -0.25, y: -0.75}
-      - {x: -0.21, y: -0.65999997}
-      - {x: -0.08, y: -0.76}
-      - {x: -0.04, y: -0.78}
-      - {x: -0.01, y: -0.78}
-      - {x: 0.13, y: -0.65999997}
-      - {x: 0.35, y: -0.55}
-      - {x: 0.42999998, y: -0.47}
-    - - {x: -0.089999996, y: -0.42999998}
-      - {x: -0.089999996, y: -0.39999998}
-      - {x: -0.089999996, y: -0.42999998}
-      - {x: -0.08, y: -0.44}
-      - {x: -0.099999994, y: -0.44}
 --- !u!82 &544273245
 AudioSource:
   m_ObjectHideFlags: 0
@@ -566,6 +496,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!70 &2787247690771585488
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4592348085000386293}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.09780884, y: -0.018928528}
+  m_Size: {x: 0.76885986, y: 1.3855743}
+  m_Direction: 0
 --- !u!1 &4592348085221665788
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,6 +588,7 @@ MonoBehaviour:
   _ownMove: {fileID: 4592348085000386289}
   jumpHeight: 13
   maxVerticalVelocity: 13
+  deactivatedJump: 0
 --- !u!1 &4592348085432784827
 GameObject:
   m_ObjectHideFlags: 0

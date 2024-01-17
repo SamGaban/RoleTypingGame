@@ -79,6 +79,8 @@ public class SoundMaster : MonoBehaviour
 
     [TabGroup("references", "Effects")] [SerializeField] private AudioSource _explosionSound;
 
+    [TabGroup("references", "Effects")] [SerializeField] private AudioSource _coinPickUp;
+
 
 
 
@@ -242,5 +244,11 @@ public class SoundMaster : MonoBehaviour
     {
         _explosionSound.volume = GameManager.Instance.effectsVolume;
         _explosionSound.Play();
+    }
+
+    public void CoinPickUp()
+    {
+        _coinPickUp.volume = GameManager.Instance.effectsVolume;
+        _coinPickUp.Play();
     }
 }

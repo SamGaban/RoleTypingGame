@@ -26,6 +26,9 @@ public class HUD : MonoBehaviour
 
     [TabGroup("references", "references")] [SerializeField]
     private TMP_Text goldText;
+
+    [TabGroup("references", "references")] [SerializeField]
+    private TMP_Text streakText;
     
     [TabGroup("references", "data")] [ShowInInspector]
     private List<Sprite> logoList;
@@ -85,6 +88,10 @@ public class HUD : MonoBehaviour
     public void UpdateGoldCount()
     {
         goldText.text = GameManager.Instance.PlayerGold.ToString();
+        
+        string formattedNumber = GameManager.Instance.streakModifier.ToString("F2");
+
+        streakText.text = $"+{formattedNumber}%";
     }
 
     public void UpdateOmenLogos()

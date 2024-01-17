@@ -31,6 +31,9 @@ public class EndOfMission : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private TMP_Text precisionText;
 
+    [TabGroup("references", "References")] [SerializeField]
+    private TMP_Text streakText;
+
 
     // DATABASE VARIABLES
 
@@ -81,16 +84,18 @@ public class EndOfMission : MonoBehaviour
 
     private int _killCount = 0;
     private int _goldCount = 0;
+    private int _streakReward = 0;
 
     /// <summary>
     /// Gives the gold to the player and displays the "win" screen at the end of the mission
     /// </summary>
     /// <param name="killCount">monster kill count</param>
     /// <param name="goldCount">mission's final gold reward</param>
-    public void Win(int killCount, int goldCount)
+    public void Win(int killCount, int goldCount, int streak)
     {
         _killCount = killCount;
         _goldCount = goldCount;
+        _streakReward = streak;
         
         Invoke("WinHelper", 2.5f);
     }
@@ -119,15 +124,29 @@ public class EndOfMission : MonoBehaviour
         killsText.text = $"{_killCount} Kills";
 
         goldText.text = $"{_goldCount} Gold Earned";
-        
-        wpmText.text = $"{Convert.ToInt32(wpmOfMission.Average())} WPM";
 
-        precisionText.text = $"{Convert.ToInt32(precisionOfMission.Average())}% Precision";
+        streakText.text = $"+{_streakReward} Bonus";
+        
+        wpmText.text = wpmOfMission.Count > 0 ? $"{Convert.ToInt32(wpmOfMission.Average())} WPM" : "0 WPM";
+
+        precisionText.text = precisionOfMission.Count > 0
+            ? $"{Convert.ToInt32(precisionOfMission.Average())}% Precision"
+            : "0% Precision";
 
         GameManager.Instance.killCount += _killCount;
 
         // ####################### DATABASE ############################
-        DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, true, _goldCount, _killCount);
+
+        if (wpmOfMission.Count <= 0)
+        {
+            DBMaster.Instance.InsertIntoGameLogs(_startTime, 0, 0, (int)GameManager.Instance.difficultyLevel, true, _goldCount, _killCount);
+        }
+        else
+        {
+            DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, true, _goldCount, _killCount);
+        }
+        
+        
 
         Debug.Log("Inserted won Game in DB");
         // #############################################################
@@ -176,15 +195,31 @@ public class EndOfMission : MonoBehaviour
 
         goldText.text = $"0 Gold Earned";
 
-        wpmText.text = $"{Convert.ToInt32(wpmOfMission.Average())} WPM";
+        streakText.text = "Streak Reset !";
 
-        precisionText.text = $"{Convert.ToInt32(precisionOfMission.Average())}% Precision";
+        wpmText.text = wpmOfMission.Count > 0 ? $"{Convert.ToInt32(wpmOfMission.Average())} WPM" : "0 WPM";
+
+        precisionText.text = precisionOfMission.Count > 0
+            ? $"{Convert.ToInt32(precisionOfMission.Average())}% Precision"
+            : "0% Precision";
+        
+        GameManager.Instance.streakModifier = 0;
+        GameManager.Instance.SaveStreakModifier();
 
         // ####################### DATABASE ############################
 
         if (_aborted) return;
 
-        DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, false, _goldCount, _killCount);
+        if (wpmOfMission.Count <= 0)
+        {
+            DBMaster.Instance.InsertIntoGameLogs(_startTime, 0, 0, (int)GameManager.Instance.difficultyLevel, false, _goldCount, _killCount);
+        }
+        else
+        {
+            DBMaster.Instance.InsertIntoGameLogs(_startTime, Convert.ToInt32(wpmOfMission.Average()), Convert.ToInt32(precisionOfMission.Average()), (int)GameManager.Instance.difficultyLevel, false, _goldCount, _killCount);
+        }
+        
+        
 
         Debug.Log("Inserted lost Game in DB");
     }

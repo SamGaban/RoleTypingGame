@@ -160,9 +160,11 @@ public class GameSession : MonoBehaviour
 
                 float multiplier = (killCount / 100f) + 1f;
 
-                int finalGold = Convert.ToInt32(goldReward * multiplier);
+                int streakReward = Convert.ToInt32(((goldReward * multiplier) / 100f) * GameManager.Instance.streakModifier);
 
-                end.Win(killCount, finalGold);
+                int finalGold = Convert.ToInt32(goldReward * multiplier + streakReward);
+
+                end.Win(killCount, Convert.ToInt32(goldReward * multiplier), streakReward);
                 
                 GameManager.Instance.AddGold(finalGold);
             }

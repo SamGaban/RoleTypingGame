@@ -57,6 +57,8 @@ public class DBMaster : MonoBehaviour
     /// </summary>
     public void CreateTableGameLogs()
     {
+#if !UNITY_WEBGL
+
         try
         {
             string deleteString = "DROP TABLE GameLogs";
@@ -69,18 +71,19 @@ public class DBMaster : MonoBehaviour
         }
 
         string commandString = "CREATE TABLE GameLogs (ID INTEGER PRIMARY KEY," +
-                                                        "StartTime DATETIME NOT NULL," +
-                                                        "EndTime DATETIME NOT NULL," +
-                                                        "AvgWPM INT NOT NULL," +
-                                                        "AvgPrecision INT NOT NULL," +
-                                                        "Difficulty INT NOT NULL," +
-                                                        "Won BIT NOT NULL," +
-                                                        "GoldWon INT NOT NULL," +
-                                                        "KillCount INT NOT NULL)";
+                               "StartTime DATETIME NOT NULL," +
+                               "EndTime DATETIME NOT NULL," +
+                               "AvgWPM INT NOT NULL," +
+                               "AvgPrecision INT NOT NULL," +
+                               "Difficulty INT NOT NULL," +
+                               "Won BIT NOT NULL," +
+                               "GoldWon INT NOT NULL," +
+                               "KillCount INT NOT NULL)";
         _manager.Execute(commandString);
         Debug.Log("Created Table GameLogs");
+#endif
     }
-   
+
     /// <summary>
     /// Method inserting a log into the game log table
     /// </summary>
@@ -90,22 +93,28 @@ public class DBMaster : MonoBehaviour
     /// <param name="won"></param>
     public void InsertIntoGameLogs(DateTime starttime, int avgwpm, int avgprecision, int difficulty, bool won, int goldwon, int killcount)
     {
+#if !UNITY_WEBGL
         string sqlCommand = $"INSERT INTO GameLogs (StartTime, EndTime, AvgWPM, AvgPrecision, Difficulty, Won, GoldWon, KillCount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         _manager.Execute(sqlCommand, starttime, DateTime.Now, avgwpm, avgprecision, difficulty, won, goldwon, killcount);
-
+#endif
     }
+
     /// <summary>
     /// Method querying the DB and returning the list of all GameLogs
     /// </summary>
     /// <returns></returns>
     public List<GameLogs> QueryAllGameLogs()
     {
+#if !UNITY_WEBGL
         string sqlCommand = "SELECT * FROM GameLogs";
 
         List<GameLogs> list = _manager.Query<GameLogs>(sqlCommand);
 
         return list;
+#else
+        return new List<GameLogs>();
+#endif
     }
    
 

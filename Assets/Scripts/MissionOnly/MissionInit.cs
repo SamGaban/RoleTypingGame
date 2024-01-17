@@ -94,6 +94,7 @@ public class MissionInit : MonoBehaviour
     {
         if (mapBlocks[0].isDone && !doneCheck && mapBlocks.Count > 1)
         {
+            mapBlocks[0].ClearAllCoins();
             doneCheck = true;
             readyToJump = true;
             _nextIslandCanvas.gameObject.SetActive(true);

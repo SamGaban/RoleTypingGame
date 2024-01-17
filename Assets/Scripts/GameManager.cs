@@ -78,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public long killCount;
 
+    public float streakModifier;
+
     // ################################# SOUND RELATED  ###################################
 
     public float musicVolume;
@@ -229,6 +231,7 @@ public class GameManager : MonoBehaviour
             SaveKillCount();
             SaveSpellBuyState();
             SaveSlotDico();
+            SaveStreakModifier();
             SaveTown();
         }
         catch (Exception e)
@@ -251,6 +254,7 @@ public class GameManager : MonoBehaviour
             LoadKillCount();
             LoadSpellBuyState();
             LoadSlotDico();
+            LoadStreakModifier();
         }
         catch (Exception ex)
         {
@@ -352,6 +356,16 @@ public class GameManager : MonoBehaviour
     public void LoadOmenCleansed()
     {
         omenCleansed = ES3.Load<int>("omenCleansed", 0);
+    }
+
+    public void SaveStreakModifier()
+    {
+        ES3.Save("streakModifier", streakModifier);
+    }
+
+    public void LoadStreakModifier()
+    {
+        streakModifier = ES3.Load<float>("streakModifier", 0f);
     }
     
     
