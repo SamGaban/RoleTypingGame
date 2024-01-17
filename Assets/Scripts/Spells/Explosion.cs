@@ -22,7 +22,7 @@ public class Explosion : MonoBehaviour
     /// Passes the damage of the explosion and makes it go boom
     /// </summary>
     /// <param name="damage"></param>
-    public void Initialize(int damage)
+    public void Initialize(int damage, bool sound)
     {
         _playerScript = FindObjectOfType<Player>();
 
@@ -42,13 +42,23 @@ public class Explosion : MonoBehaviour
         
         exploScript.Init(Mathf.Sign(this.transform.position.x - playerPosition.x));
         
-        
         // #####################################
+        
+
         
         
         hitColliders = Physics2D.OverlapCircleAll(this.gameObject.transform.position, explosionRadius);
 
         if (hitColliders.Length <= 0) return;
+
+        if (sound)
+        {
+            // ############## SOUND  ###############
+        
+            SoundMaster.Instance.Fireball();
+        
+            // #####################################
+        }
         
         foreach (var hitCollider in hitColliders)
         {

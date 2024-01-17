@@ -1,7 +1,9 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 
 /// <summary>
@@ -74,6 +76,8 @@ public class SoundMaster : MonoBehaviour
     [TabGroup("references", "Effects")][SerializeField] private AudioSource _teleportZap;
 
     [TabGroup("references", "Effects")] [SerializeField] private AudioSource _teleportSpell;
+
+    [TabGroup("references", "Effects")] [SerializeField] private AudioSource _explosionSound;
 
 
 
@@ -232,5 +236,11 @@ public class SoundMaster : MonoBehaviour
     {
         _teleportSpell.volume = GameManager.Instance.effectsVolume;
         _teleportSpell.Play();
+    }
+
+    public void ExplosionSound()
+    {
+        _explosionSound.volume = GameManager.Instance.effectsVolume;
+        _explosionSound.Play();
     }
 }

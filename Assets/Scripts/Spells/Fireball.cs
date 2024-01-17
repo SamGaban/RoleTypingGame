@@ -97,7 +97,7 @@ public class Fireball : MonoBehaviour
 
             Explosion exploScript = explosion.GetComponent<Explosion>();
             
-            exploScript.Initialize(resultDamage);
+            exploScript.Initialize(resultDamage, true);
 
             Launch(rb);
             Destroy(gameObject);

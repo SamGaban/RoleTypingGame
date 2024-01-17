@@ -40,7 +40,7 @@ public class TeleporterScript : MonoBehaviour
 
         if (script != null)
         {
-            script.Initialize(1000);
+            script.Initialize(1000, false);
         }
         
         _player.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1.5f);
