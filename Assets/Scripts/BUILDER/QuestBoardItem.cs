@@ -65,7 +65,7 @@ public class QuestBoardItem : MonoBehaviour
             GameManager.Instance.SetGoldReward(_goldAmount);
             GameManager.Instance.SetOmenAmount(_omenAmount);
             
-            GameManager.Instance.SaveTown();
+            GameManager.Instance.WholeSave();
 
             SceneManager.LoadScene(2);
         });

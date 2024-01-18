@@ -83,6 +83,11 @@ public class GameSession : MonoBehaviour
         private set => omenKillCount = value;
     }
 
+
+    public float streakStorage = 0f;
+    
+    
+
     [TabGroup("references", "Data")] [ShowInInspector]
     private List<Omen> omenList = new List<Omen>();
 
@@ -160,6 +165,10 @@ public class GameSession : MonoBehaviour
 
                 float multiplier = (killCount / 100f) + 1f;
 
+                GameManager.Instance.streakModifier = streakStorage;
+                
+                GameManager.Instance.SaveStreakModifier();
+
                 int streakReward = Convert.ToInt32(((goldReward * multiplier) / 100f) * GameManager.Instance.streakModifier);
 
                 int finalGold = Convert.ToInt32(goldReward * multiplier + streakReward);
@@ -167,6 +176,8 @@ public class GameSession : MonoBehaviour
                 end.Win(killCount, Convert.ToInt32(goldReward * multiplier), streakReward);
                 
                 GameManager.Instance.AddGold(finalGold);
+                
+                GameManager.Instance.SaveGold();
             }
         }
         
@@ -207,6 +218,11 @@ public class GameSession : MonoBehaviour
             SoundMaster.Instance.StopTutorialLoop();
             SoundMaster.Instance.StopVillageLoop();
             SoundMaster.Instance.PlayMissionLoop();
+
+            streakStorage = GameManager.Instance.streakModifier;
+            GameManager.Instance.streakModifier = 0;
+            GameManager.Instance.SaveStreakModifier();
+
         }
         else if (inTutorial)
         {

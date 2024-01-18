@@ -8,11 +8,14 @@ public class CoinScript : MonoBehaviour
 {
     private HUD _hud;
 
+    private GameSession _sess;
+
     public bool _toKeep = false;
 
     private void Start()
     {
         _hud = FindObjectOfType<HUD>();
+        _sess = FindObjectOfType<GameSession>();
     }
 
 
@@ -26,9 +29,8 @@ public class CoinScript : MonoBehaviour
         if (other.gameObject.layer == LayerMask.NameToLayer("CoinPicker"))
         {
             SoundMaster.Instance.CoinPickUp();
-            GameManager.Instance.streakModifier += 0.33f;
+            _sess.streakStorage += 0.33f;
             if (_hud != null) _hud.UpdateGoldCount();
-            GameManager.Instance.SaveStreakModifier();
             Destroy(this.gameObject);
         }
     }

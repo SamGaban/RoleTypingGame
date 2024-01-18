@@ -88,8 +88,11 @@ public class HUD : MonoBehaviour
     public void UpdateGoldCount()
     {
         goldText.text = GameManager.Instance.PlayerGold.ToString();
+
+        float numberToConsider =
+            gameSession.inMission ? gameSession.streakStorage : GameManager.Instance.streakModifier;
         
-        string formattedNumber = GameManager.Instance.streakModifier.ToString("F2");
+        string formattedNumber = numberToConsider.ToString("F2");
 
         streakText.text = $"+{formattedNumber}%";
     }

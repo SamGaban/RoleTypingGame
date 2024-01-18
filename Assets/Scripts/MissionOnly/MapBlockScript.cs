@@ -57,6 +57,8 @@ public class MapBlockScript : MonoBehaviour
 
     public void ClearAllCoins()
     {
+        coinList.RemoveAll(item => item == null);
+        
         foreach (CoinScript coin in coinList)
         {
             if (coin._toKeep) coin.Throw();
