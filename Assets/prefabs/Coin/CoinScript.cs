@@ -28,6 +28,13 @@ public class CoinScript : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("CoinPicker"))
         {
+            Player playerScript = other.transform.parent.gameObject.GetComponent<Player>();
+
+            if (playerScript != null)
+            {
+                playerScript.Heal(10);
+            }
+            
             SoundMaster.Instance.CoinPickUp();
             _sess.streakStorage += 0.33f;
             if (_hud != null) _hud.UpdateGoldCount();
