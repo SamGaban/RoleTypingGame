@@ -317,7 +317,8 @@ public class GameManager : MonoBehaviour
         {4, 25}, // GOOSPELL
         {5, 40}, // TIME BEND
         {6, 45}, // TELEPORT
-        {7, 50} // PACIFIER
+        {7, 50}, // PACIFIER
+        {8, 30}
     };
 
     [ButtonGroup] // CHEATCODES
@@ -331,7 +332,8 @@ public class GameManager : MonoBehaviour
             {4, 0},
             {5, 0},
             {6, 0},
-            {7, 0}
+            {7, 0},
+            {8, 0}
         };
         
         SaveSpellBuyState();

@@ -23,6 +23,51 @@ public class HealthManager : MonoBehaviour
     private Vector3 reversedScale;
 
     private bool isDeceased = false;
+    
+    // ################################ DOT RELATED ###################################
+
+    private int _dotDamageValue = 0;
+    
+    private bool isTakingDot = false;
+
+    private Coroutine damageCoroutine;
+
+    public void updateDotDamage(int newValue)
+    {
+        _dotDamageValue = newValue;
+    }
+
+    public void ToggleDot(bool activator)
+    {
+        isTakingDot = activator;
+    }
+    
+    IEnumerator DamageOverTimeCoroutine()
+    {
+        while (isTakingDot)
+        {
+            // apply damage here, e.g.,
+            DownHp(_dotDamageValue); // assuming you have a method like this in your HealthManager
+        
+            yield return new WaitForSeconds(1f); // wait for 1 second
+        }
+    }
+
+    private void DotCoroutineCheck()
+    {
+        if (isTakingDot && damageCoroutine == null)
+        {
+            damageCoroutine = StartCoroutine(DamageOverTimeCoroutine());
+        }
+        else if (!isTakingDot && damageCoroutine != null)
+        {
+            StopCoroutine(damageCoroutine);
+            damageCoroutine = null;
+        }
+    }
+    
+    
+    // ################################ DOT RELATED ###################################
 
     /// <summary>
     /// Initializes the object by setting the default and reversed scales and calculating the maximum health points.
@@ -50,6 +95,8 @@ public class HealthManager : MonoBehaviour
     private void Update()
     {
         if (isDeceased) return;
+        
+        DotCoroutineCheck();
 
         if (_healthPoints <= 0)
         {

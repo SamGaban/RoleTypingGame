@@ -72,7 +72,8 @@ public class Caster : MonoBehaviour
         { 4, "Goo Spell" },
         { 5, "Time Bend" },
         {6, "Clock Teleport"},
-        {7, "Pacifier"}
+        {7, "Pacifier"},
+        {8, "Earth Anger"}
     };
     
 
@@ -95,6 +96,8 @@ public class Caster : MonoBehaviour
     private int baseWordCount6 = 1;
     [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
     private int baseWordCount7 = 4;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount8 = 3;
 
     // ################################
 
@@ -183,7 +186,23 @@ public class Caster : MonoBehaviour
         isPacified = false;
     }
     
-    // ##########################################################################################
+    // ######################### ID 8 : Spike Zone ##############################################
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Spike Zone (id8)")]
+    private GameObject spikeZonePrefab;
+
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Spike Zone (id8)")]
+    private int WordCount8 = 3;
+    
+    
+    private GameObject _actualSpikeZone;
+
+    public void ForgetSpikeZone()
+    {
+        _actualSpikeZone = null;
+    }
+    
+    
     // ##########################################################################################
     // ##########################################################################################
 
@@ -215,6 +234,7 @@ public class Caster : MonoBehaviour
         WordCount5 = baseWordCount5;
         WordCount6 = baseWordCount6;
         //Skipping Spell 7 Since it's the difficulty modifier spell
+        WordCount8 = baseWordCount8;
         
         float multiplier = difficultyMultipliers[newDifficulty];
     
@@ -227,6 +247,7 @@ public class Caster : MonoBehaviour
         //Skipping Spell 7 Since it's the difficulty modifier spell
 
         // Update any other related game settings or UI here
+        WordCount8 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount8 * multiplier));
     }
 
     public DifficultyLevel difficultyLevel = DifficultyLevel.Normal;
@@ -264,6 +285,7 @@ public class Caster : MonoBehaviour
         WordCount5 = baseWordCount5;
         WordCount6 = baseWordCount6;
         WordCount7 = baseWordCount7;
+        WordCount8 = baseWordCount8;
         
         AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
@@ -499,6 +521,9 @@ public class Caster : MonoBehaviour
             case 7: // PACIFIER
                 SkillSeven(_sentence.TypePrecision(), _sentence.WordsPerMinute());
                 break;
+            case 8:
+                SkillEight(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                break;
             default:
                 break;
 
@@ -599,6 +624,9 @@ public class Caster : MonoBehaviour
                 break;
             case 7:
                 SpellId7();
+                break;
+            case 8:
+                SpellId8();
                 break;
         }
     }
@@ -922,6 +950,20 @@ public class Caster : MonoBehaviour
         _spellEffectsCanvas.CreateNewItem(easyMaxDuration, logoList[6]);
         Invoke("StopEasyTime", easyMaxDuration);
     }
+    
+    private void SkillEight(int precision, int wpm)
+    {
+        if (_actualSpikeZone != null) // Destroy the possibly existing spike zone
+        {
+            Destroy(_actualSpikeZone.gameObject);
+        }
+
+        _actualSpikeZone = Instantiate(spikeZonePrefab); // Instantiates and sets the position in front of the player
+        _actualSpikeZone.transform.position = new Vector3(_player.transform.position.x + (10f * _player.direction),
+            _player.transform.position.y - 0.4f, _player.transform.position.z);
+        SpikeZoneScript script = _actualSpikeZone.GetComponent<SpikeZoneScript>();
+        script.Init(precision, wpm); // Initializes
+    }
 
 
     #endregion
@@ -983,6 +1025,11 @@ public class Caster : MonoBehaviour
     private void SpellId7()
     {
         LaunchSkill(WordCount7, 7);
+    }
+
+    private void SpellId8()
+    {
+        LaunchSkill(WordCount8, 8);
     }
     
 
