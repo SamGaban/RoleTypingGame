@@ -96,6 +96,8 @@ public class Buildable : MonoBehaviour
         {
             session.DeactivateEditMove();
             editing = false;
+            GameManager.Instance.SaveTown();
+            GameManager.Instance.SaveBuildables();
         }
     }
 

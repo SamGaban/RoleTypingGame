@@ -6159,6 +6159,7 @@ MonoBehaviour:
   baseWordCount5: 6
   baseWordCount6: 1
   baseWordCount7: 4
+  baseWordCount8: 3
   feedBackCanvas: {fileID: 746108830}
   precisionText: {fileID: 474736796}
   wpmText: {fileID: 1989079316}
@@ -6169,6 +6170,7 @@ MonoBehaviour:
   isPacified: 0
   WordCount7: 4
   spikeZonePrefab: {fileID: 844595620416063614, guid: 58923a062743e3c4ab02097bc5cf41ed, type: 3}
+  WordCount8: 3
   difficultyLevel: 2
 --- !u!114 &851840647
 MonoBehaviour:
@@ -13055,6 +13057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuCanvas: {fileID: 1946064043}
   spellCasterScript: {fileID: 851840646}
+  loadingScreen: {fileID: 141178273}
 --- !u!224 &1946064045
 RectTransform:
   m_ObjectHideFlags: 0

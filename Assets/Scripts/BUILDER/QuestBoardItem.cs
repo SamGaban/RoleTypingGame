@@ -66,8 +66,9 @@ public class QuestBoardItem : MonoBehaviour
             GameManager.Instance.SetOmenAmount(_omenAmount);
             
             GameManager.Instance.WholeSave();
-
+            
             SceneManager.LoadScene(2);
+
         });
         
     }

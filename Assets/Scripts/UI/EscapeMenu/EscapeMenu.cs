@@ -16,6 +16,9 @@ public class EscapeMenu : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private Caster spellCasterScript;
 
+    [TabGroup("references", "References")] [SerializeField]
+    private Canvas loadingScreen;
+
     private GameSession session;
 
     private void Start()
@@ -47,20 +50,20 @@ public class EscapeMenu : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        #if UNITY_EDITOR
-
-            GameManager.Instance.WholeSave();
-            
-
-            EditorApplication.isPlaying = false;
-            
-        #else
-
-            GameManager.Instance.WholeSave();
-
-            Application.Quit();
+        if (session.inTown) GameManager.Instance.WholeSave();
         
-        #endif
+        loadingScreen.gameObject.SetActive(true);
+        
+        Invoke("QuitHelper", 2f);
+    }
+
+    private void QuitHelper()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
     public void BackToMainMenu()
