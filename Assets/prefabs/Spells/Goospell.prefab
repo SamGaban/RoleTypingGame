@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5073966480383808799}
   m_Layer: 12
   m_Name: durationHUD
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 5073966480387497758}
   m_Layer: 12
   m_Name: Handle
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5073966480738234588}
   m_Layer: 12
   m_Name: sprite
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,7 +238,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -34750877
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9d007b54c6132f4192ad5f625f248c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 5073966481089464146}
   m_Layer: 12
   m_Name: Sprites
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 5073966481270091730}
   m_Layer: 12
   m_Name: Background
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 5073966481475582231}
   m_Layer: 12
   m_Name: Handle Slide Area
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 5073966481757900630}
   m_Layer: 12
   m_Name: Fill Area
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 5073966481812311197}
   m_Layer: 12
   m_Name: Fill
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 5073966481866672363}
   m_Layer: 12
   m_Name: sprite (2)
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -582,7 +582,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -34750877
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9d007b54c6132f4192ad5f625f248c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 5073966481878530768}
   m_Layer: 12
   m_Name: sprite (1)
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -666,7 +666,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -34750877
-  m_SortingLayer: 3
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9d007b54c6132f4192ad5f625f248c4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 5073966481880424568}
   m_Layer: 12
   m_Name: HUD
-  m_TagString: Untagged
+  m_TagString: Spell
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -846,7 +846,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09796095, y: 0.040817022}
+  m_Offset: {x: 0.09796095, y: 0.44499183}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -857,5 +857,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.4246435, y: 0.91836596}
+  m_Size: {x: 9.4246435, y: 1.7267156}
   m_EdgeRadius: 0

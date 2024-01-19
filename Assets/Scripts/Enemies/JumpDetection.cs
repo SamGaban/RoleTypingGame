@@ -40,6 +40,12 @@ public class JumpDetection : MonoBehaviour
 
         if (_healthManager.isDead()) return;
 
+        
+        if (_rb.IsTouchingLayers(LayerMask.GetMask("Goo")))
+        {
+            lastJumpTime = Time.time;
+        }
+
         if (_rb.velocity.y > jumpHeight)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, jumpHeight);
@@ -50,6 +56,8 @@ public class JumpDetection : MonoBehaviour
             verticalDistance = _playerRb.position.y - _rb.position.y;
             horizontalDistance = Mathf.Abs(_playerRb.position.x - _rb.position.x);
         }
+
+        if (!JumpCoolDown()) return;
 
         if (!deactivatedJump && readyToJump && verticalDistance > 1f && horizontalDistance <= 2f && _rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
@@ -104,13 +112,14 @@ public class JumpDetection : MonoBehaviour
         if (_healthManager.isDead()) return;
 
         if (!JumpCoolDown()) return;
-
+        
         if (collision.gameObject.CompareTag("Player")
             || collision.gameObject.CompareTag("Forcefield")
             || collision.gameObject.CompareTag("Omen")
             || collision.gameObject.CompareTag("Spell")
             || collision.gameObject.CompareTag("Waypoint")
-            || collision.gameObject.CompareTag("JumpPad")) return;
+            || collision.gameObject.CompareTag("JumpPad")
+            || collision.gameObject.CompareTag("Enemy")) return;
 
         if (_healthManager.isDead()) return;
 
@@ -126,7 +135,7 @@ public class JumpDetection : MonoBehaviour
             }
         }
 
-        if (_playerRb != null && readyToJump)
+        if (_playerRb != null && readyToJump && JumpCoolDown())
         {
 
 

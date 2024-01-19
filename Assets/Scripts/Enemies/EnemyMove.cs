@@ -241,7 +241,7 @@ public class EnemyMove : MonoBehaviour
 
 
 
-        DebugPushCheck();
+        // DebugPushCheck(); // Was making the goo pretty useless, and not need since tm rework
 
 
 

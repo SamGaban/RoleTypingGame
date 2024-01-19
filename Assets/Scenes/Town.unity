@@ -7645,6 +7645,7 @@ MonoBehaviour:
   baseWordCount4: 5
   baseWordCount5: 6
   baseWordCount6: 1
+  baseWordCount7: 4
   feedBackCanvas: {fileID: 746108830}
   precisionText: {fileID: 474736796}
   wpmText: {fileID: 1989079316}
