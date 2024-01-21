@@ -318,7 +318,8 @@ public class GameManager : MonoBehaviour
         {5, 40}, // TIME BEND
         {6, 45}, // TELEPORT
         {7, 50}, // PACIFIER
-        {8, 30}
+        {8, 30}, // SPIKE ZONE
+        {9, 35} // SPEED UP
     };
 
     [ButtonGroup] // CHEATCODES
@@ -333,7 +334,8 @@ public class GameManager : MonoBehaviour
             {5, 0},
             {6, 0},
             {7, 0},
-            {8, 0}
+            {8, 0},
+            {9, 0}
         };
         
         SaveSpellBuyState();

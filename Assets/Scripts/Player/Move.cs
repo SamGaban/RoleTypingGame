@@ -18,6 +18,9 @@ public class Move : MonoBehaviour
     [SerializeField] Transform _transform;
     [Header("Settings")]
     [SerializeField] float moveSpeed = 5.0f;
+
+    private float originalMoveSpeed;
+    
     [SerializeField] float jumpHeight = 5.0f;
 
     private float speedModifier = 1f;
@@ -31,7 +34,29 @@ public class Move : MonoBehaviour
     private bool stoppedMoving = false;
     private bool jumping = false;
     
+    // ############################# SPEED SPELL RELATED #########################
 
+    public void SpeedUp(float modifier, float duration)
+    {
+        moveSpeed *= modifier;
+        Invoke("ResetSpeedModifier", duration);
+    }
+    
+    public void ResetSpeedModifier()
+    {
+        moveSpeed = originalMoveSpeed;
+    }
+    
+    
+    // ###########################################################################
+    // ###########################################################################
+    
+
+
+    private void Start()
+    {
+        originalMoveSpeed = moveSpeed;
+    }
 
     private void OnMove(InputValue value)
     {

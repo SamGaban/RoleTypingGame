@@ -73,7 +73,8 @@ public class Caster : MonoBehaviour
         { 5, "Time Bend" },
         {6, "Clock Teleport"},
         {7, "Pacifier"},
-        {8, "Earth Anger"}
+        {8, "Earth Anger"},
+        {9, "Thunder Feet"}
     };
     
 
@@ -98,6 +99,8 @@ public class Caster : MonoBehaviour
     private int baseWordCount7 = 4;
     [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
     private int baseWordCount8 = 3;
+    [Range(1, 14)] [SerializeField] [TabGroup("References", "Spell Word Count")]
+    private int baseWordCount9 = 4;
 
     // ################################
 
@@ -202,6 +205,35 @@ public class Caster : MonoBehaviour
         _actualSpikeZone = null;
     }
     
+    // ######################### ID 9 : Speed Up!  ##############################################
+    
+    [TabGroup("References", "Spells")] [SerializeField] [FoldoutGroup("Speed Up (id9)")]
+    private int WordCount9 = 4;
+
+    private bool spedUp = false;
+
+    /// <summary>
+    /// Calls the speed up method from player move
+    /// </summary>
+    /// <param name="modifier">speed modifier</param>
+    /// <param name="duration">duration of the speed boost</param>
+    private void speedUp(float modifier, float duration)
+    {
+        _moveScript.SpeedUp(modifier, duration);
+    }
+
+    private void turnSpeedUpOffHelper()
+    {
+        spedUp = false;
+    }
+    
+    
+    // ##########################################################################################
+    // ##########################################################################################
+    // ##########################################################################################
+    // ##########################################################################################
+
+    
     
     // ##########################################################################################
     // ##########################################################################################
@@ -235,6 +267,7 @@ public class Caster : MonoBehaviour
         WordCount6 = baseWordCount6;
         //Skipping Spell 7 Since it's the difficulty modifier spell
         WordCount8 = baseWordCount8;
+        WordCount9 = baseWordCount9;
         
         float multiplier = difficultyMultipliers[newDifficulty];
     
@@ -248,6 +281,7 @@ public class Caster : MonoBehaviour
 
         // Update any other related game settings or UI here
         WordCount8 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount8 * multiplier));
+        WordCount9 = Mathf.Max(1, Mathf.RoundToInt(baseWordCount9 * multiplier));
     }
 
     public DifficultyLevel difficultyLevel = DifficultyLevel.Normal;
@@ -286,6 +320,7 @@ public class Caster : MonoBehaviour
         WordCount6 = baseWordCount6;
         WordCount7 = baseWordCount7;
         WordCount8 = baseWordCount8;
+        WordCount9 = baseWordCount9;
         
         AdjustDifficulty(GameManager.Instance.difficultyLevel);
     }
@@ -488,7 +523,7 @@ public class Caster : MonoBehaviour
         Invoke("TurnFeedBackCanvasOff", 2f);
         _player.ToggleCasting();
 
-        if (_sentence.TypePrecision() == 100)
+        if (_sentence.TypePrecision() == 100) // PERFECT SOUND
         {
             SoundMaster.Instance.OneHundredPercent();
         }
@@ -523,6 +558,9 @@ public class Caster : MonoBehaviour
                 break;
             case 8:
                 SkillEight(_sentence.TypePrecision(), _sentence.WordsPerMinute());
+                break;
+            case 9:
+                SkillNine(_sentence.TypePrecision(), _sentence.WordsPerMinute());
                 break;
             default:
                 break;
@@ -627,6 +665,9 @@ public class Caster : MonoBehaviour
                 break;
             case 8:
                 SpellId8();
+                break;
+            case 9:
+                SpellId9();
                 break;
         }
     }
@@ -965,6 +1006,27 @@ public class Caster : MonoBehaviour
         script.Init(precision, wpm); // Initializes
     }
 
+    private void SkillNine(int precision, int wpm)
+    {
+        if (spedUp) return;
+
+        spedUp = true;
+
+        float speedMod = 1f + (precision / 100f) + (wpm <= 90 ? 0.5f : 1f);
+        
+        float easyMaxDuration = 15f;
+        
+        easyMaxDuration = (easyMaxDuration / 100f) * precision;
+
+        easyMaxDuration += (wpm > 80) ? 2f : -2f;
+        
+        _spellEffectsCanvas.CreateNewItem(easyMaxDuration, logoList[8]);
+        
+        _moveScript.SpeedUp(speedMod, easyMaxDuration);
+        
+        Invoke("turnSpeedUpOffHelper", easyMaxDuration);
+    }
+
 
     #endregion
     // SPELL HELPER REGION
@@ -1030,6 +1092,11 @@ public class Caster : MonoBehaviour
     private void SpellId8()
     {
         LaunchSkill(WordCount8, 8);
+    }
+
+    private void SpellId9()
+    {
+        LaunchSkill(WordCount9, 9);
     }
     
 
