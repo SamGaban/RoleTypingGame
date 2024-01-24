@@ -41,6 +41,7 @@ public class Buildable : MonoBehaviour
         Buildings,
         Utility,
         Furniture,
+        Vegetation,
         Fire
     }
 
@@ -115,6 +116,11 @@ public class Buildable : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
+        GameObject[] canvasOpened = GameObject.FindGameObjectsWithTag("ClosableUI");
+
+        if (canvasOpened.Length > 0) return;
+        
+        
         if (!editing)
         {
             if (session.inEditMode) return;

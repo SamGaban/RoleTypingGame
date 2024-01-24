@@ -15,6 +15,12 @@ public class TeleporterScript : MonoBehaviour
     [TabGroup("references", "References")] [SerializeField]
     private GameObject explosion;
 
+    [TabGroup("references", "References")] [SerializeField]
+    private GameObject forcefield;
+
+    private Forcefield _fieldScript;
+    
+
     /// <summary>
     /// Starts the method by finding and assigning the Player instance in the scene
     /// </summary>
@@ -42,8 +48,29 @@ public class TeleporterScript : MonoBehaviour
         {
             script.Initialize(1000, false);
         }
+
+        GameObject newField = Instantiate(forcefield);
+        newField.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, 1);
+
+        Forcefield fieldScript = newField.GetComponent<Forcefield>();
+
+        if (fieldScript is not null)
+        {
+            fieldScript.ActivateShield(20);
+            _fieldScript = fieldScript;
+            StartCoroutine(RepeatedCall());
+        }
         
         _player.transform.position = new Vector2(this.transform.position.x, this.transform.position.y + 1.5f);
 
+    }
+
+    IEnumerator RepeatedCall()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            _fieldScript.Grow();
+            yield return new WaitForSeconds(0.10f);
+        }
     }
 }

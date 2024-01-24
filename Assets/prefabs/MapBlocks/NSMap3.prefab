@@ -14790,6 +14790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 8098591270609030783, guid: 2529c09faac1d1f4ea35832a2539ed17, type: 3}
+  forcefield: {fileID: 3615866255215623054, guid: 8a50325902fc6414c9bdb7dce396172e, type: 3}
 --- !u!1 &8245399592339795117
 GameObject:
   m_ObjectHideFlags: 0

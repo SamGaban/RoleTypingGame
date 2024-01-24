@@ -15,6 +15,7 @@ TagManager:
   - InteractCanvas
   - Waypoint
   - JumpPad
+  - ClosableUI
   layers:
   - Default
   - TransparentFX

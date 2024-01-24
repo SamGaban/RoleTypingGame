@@ -425,6 +425,15 @@ public class GameSession : MonoBehaviour
         CloseBuildPanel();
         OnBuild();
     }
+    
+    public void ChangeBuildableCategory5()
+    {
+        SoundMaster.Instance.MenuClick();
+
+        currentBuildableCategory = Buildable.Category.Vegetation;
+        CloseBuildPanel();
+        OnBuild();
+    }
 
     /// <summary>
     /// Triggers the interaction event handler

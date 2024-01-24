@@ -6550,6 +6550,10 @@ PrefabInstance:
       propertyPath: explosion
       value: 
       objectReference: {fileID: 8098591270609030783, guid: 2529c09faac1d1f4ea35832a2539ed17, type: 3}
+    - target: {fileID: 3509186143128269356, guid: b8f4a7fb210b15e44af544d4862afebe, type: 3}
+      propertyPath: forcefield
+      value: 
+      objectReference: {fileID: 3615866255215623054, guid: 8a50325902fc6414c9bdb7dce396172e, type: 3}
     - target: {fileID: 3509186143128269358, guid: b8f4a7fb210b15e44af544d4862afebe, type: 3}
       propertyPath: m_Name
       value: Teleporter

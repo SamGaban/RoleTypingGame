@@ -131,4 +131,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildIndex: 10
   goldValue: 50
-  category: 0
+  category: 1
