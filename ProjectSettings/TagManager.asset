@@ -50,6 +50,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: FarBehind
+    uniqueID: 234123273
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
