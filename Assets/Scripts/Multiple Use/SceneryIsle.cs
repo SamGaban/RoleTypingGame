@@ -27,7 +27,23 @@ public class SceneryIsle : MonoBehaviour
 
     private void Start()
     {
-        refNumber = Random.Range(0, 5);
+        int randomNumber = Random.Range(0, 101); // 2 - 3 or 4
+
+        switch (randomNumber)
+        {
+            case < 65:
+                refNumber = 4;
+                break;
+            case < 90:
+                refNumber = 3;
+                break;
+            default:
+                refNumber = 2;
+                break;
+        }
+        
+        
+        
         _transform = this.transform;
         _spriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
         SizeSwitcher();

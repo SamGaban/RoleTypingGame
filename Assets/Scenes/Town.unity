@@ -1639,6 +1639,55 @@ RectTransform:
   m_AnchoredPosition: {x: -275, y: 0}
   m_SizeDelta: {x: 64.1482, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &184790754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 184790756}
+  - component: {fileID: 184790755}
+  m_Layer: 0
+  m_Name: CloudMaker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &184790755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184790754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d94b2ca50e84c429fa35772d79d54e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cloudList:
+  - {fileID: 619373702380765747, guid: 894aa6aa84357a244ae3081d91f85a7d, type: 3}
+  - {fileID: 3732174624196866001, guid: 08273f493682ae74faa2e4ace4374bbb, type: 3}
+  - {fileID: 91473252649794214, guid: e2a258a1e2eb8204aa79c8a1375afe25, type: 3}
+  - {fileID: 6613176796846663587, guid: fb162132e53b7364da4cc82e1bcd1116, type: 3}
+--- !u!4 &184790756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184790754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -367.76343, y: -134.21024, z: 0.53572255}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &195529899
 GameObject:
   m_ObjectHideFlags: 0
@@ -26634,7 +26683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -809.3572, y: 30.686218}
+  m_AnchoredPosition: {x: -809.3572, y: 30.68628}
   m_SizeDelta: {x: -1668.331, y: -315.6578}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2035460625
