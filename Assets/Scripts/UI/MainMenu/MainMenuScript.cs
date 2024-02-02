@@ -175,6 +175,9 @@ public class MainMenuScript : MonoBehaviour
         ES3.Save("slotDico", _slotToSpell);
         ES3.Save("slotDico", _slotToSpell);
         ES3.Save("SpellBuyState", spellBuyState);
+
+        GameManager.Instance.omenCleansed = 0;
+        GameManager.Instance.streakModifier = 0;
         
         ResetAllSaveables();
 

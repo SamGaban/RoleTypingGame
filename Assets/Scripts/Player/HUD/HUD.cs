@@ -87,6 +87,8 @@ public class HUD : MonoBehaviour
 
     public void UpdateGoldCount()
     {
+        if (gameSession.inTutorial) return;
+        
         goldText.text = GameManager.Instance.PlayerGold.ToString();
 
         float numberToConsider =

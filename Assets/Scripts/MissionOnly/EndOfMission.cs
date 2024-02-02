@@ -125,7 +125,7 @@ public class EndOfMission : MonoBehaviour
 
         goldText.text = $"{_goldCount} Gold Earned";
 
-        streakText.text = $"+{_streakReward} ({String.Format("{0:0000.00}", GameManager.Instance.streakModifier)}%)";
+        streakText.text = $"+{_streakReward} ({String.Format("{0:000.00}", GameManager.Instance.streakModifier)}%)";
         
         wpmText.text = wpmOfMission.Count > 0 ? $"{Convert.ToInt32(wpmOfMission.Average())} WPM" : "0 WPM";
 

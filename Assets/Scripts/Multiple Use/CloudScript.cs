@@ -22,6 +22,8 @@ public class CloudScript : MonoBehaviour
 
     private float _moveSpeed;
 
+    private float _speedModifier = 0.85f;
+
     private void Start()
     {
         int refNumber = Random.Range(1, 5); // 2 - 3 or 4
@@ -71,6 +73,6 @@ public class CloudScript : MonoBehaviour
     {
         if (_transform.position.x >= rightLimit) Destroy(this.gameObject);
         
-        _transform.Translate(new Vector3(_moveSpeed * Time.deltaTime, 0f, 0f));
+        _transform.Translate(new Vector3(_moveSpeed * Time.deltaTime * _speedModifier, 0f, 0f));
     }
 }

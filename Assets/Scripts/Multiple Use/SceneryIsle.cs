@@ -25,6 +25,8 @@ public class SceneryIsle : MonoBehaviour
 
     private float _moveSpeed;
 
+    private float _speedModifier = 0.85f;
+
     private void Start()
     {
         int randomNumber = Random.Range(0, 101); // 2 - 3 or 4
@@ -88,6 +90,6 @@ public class SceneryIsle : MonoBehaviour
     {
         if (_transform.position.x >= rightLimit) Destroy(this.gameObject);
         
-        _transform.Translate(new Vector3(_moveSpeed * Time.deltaTime, 0f, 0f));
+        _transform.Translate(new Vector3(_moveSpeed * Time.deltaTime * _speedModifier, 0f, 0f));
     }
 }
